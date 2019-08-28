@@ -1,106 +1,138 @@
 const gameStart = {
     key: 'gameStart',
+
     preload: function(){
         // 載入資源
         // this.load.image('court', './materials/img/court.png',{frameWidth: 432, frameHeight: 182});
         this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 40, frameHeight: 40});
-        this.load.spritesheet('kunio', './materials/img/character/Kunio/Kunio.png', {frameWidth:64, frameHeight: 60});
+        this.load.spritesheet('kunio', './materials/img/character/Kunio/Kunio.png', {frameWidth:64, frameHeight: 63});
 
-        this.load.image('tiles', '../materials/img/court2.png')
-        this.load.tilemapTiledJSON('court', './materials/img/court.json');
+        this.load.image('tiles', '../materials/img/court3.png')
+        this.load.tilemapTiledJSON('court', './materials/img/court2.json');
         
     },
+
+    
     create: function(){
         // 資源載入完成，加入遊戲物件及相關設定
 
         const court = this.make.tilemap({ key: "court" })
         // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
         // Phaser's cache (i.e. the name you used in preload);
-        const tileset = court.addTilesetImage('court2', 'tiles');
+        const tileset = court.addTilesetImage('court3', 'tiles');
         // Parameters: layer name (or index) from Tiled, tileset, x, y
         const background = court.createStaticLayer("background", tileset, 0, 0);
         const block = court.createStaticLayer("block", tileset, 0, 0);
         block.setCollisionByProperty({ collides: true });
+        background.setCollisionByProperty({ collides: true });
         
-
     
-  
 
-        // this.court = this.physics.add.sprite(320, 240, 'court');
-        // this.court.depth = -10;
-        // this.court.body.immovable = true;
-        // this.court.body.moves = false;
-        // this.court.setSize(500,10);
-        // this.court.setScale(1.5);
-        
-
-        // this.ball = this.add.sprite(320, 240, 'ball');
-        // this.ball.setScale(2);
-
-        this.kunio = this.physics.add.sprite(300, 200, 'kunio');
+        this.kunio = this.physics.add.sprite(300, 300, 'kunio');
         
         this.kunio.setSize(18,33);
         this.kunio.setOffset(29,15)
         this.kunio.setScale(1.8);
-        // // this.kunio.body.immovable = true;
-        // this.kunio.body.moves = true;
         this.physics.add.collider(this.kunio, block);
-
-
+        this.physics.add.collider(this.kunio, background);
         
        
+
+        const camera = this.cameras.main;
+        camera.startFollow(this.kunio);
+        camera.setBounds(0, 0, court.widthInPixels, court.heightInPixels);
+
+        
+       // anims
+       this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNumbers('kunio', { start: 1, end: 2 }),
+            frameRate: 10,
+            repeat: 0
+        })
         this.anims.create({
             key: 'run',
-            frames: this.anims.generateFrameNumbers('kunio', { start: 1, end: 3 }),
+            frames: this.anims.generateFrameNumbers('kunio', { start: 2, end: 3 }),
             frameRate: 10,
-            repeat: -1
+            repeat: 1
         })
 
         this.anims.create({
             key: 'turn',
             frames: this.anims.generateFrameNumbers('kunio', { start: 0, end: 0 }),
             frameRate: 5,
-            repeat: -1
+            repeat: 0
         })
        
+        this.anims.create({
+            key: 'throw',
+            frames: this.anims.generateFrameNumbers('kunio', { start: 30, end: 31 }),
+            frameRate: 20,
+            repeat: 0
+        })
+        this.anims.create({
+            key: 'pick',
+            frames: this.anims.generateFrameNumbers('kunio', { start: 53, end: 53 }),
+            frameRate: 20,
+            repeat: 0
+        })
         
-        // this.kunio.setBounce(0.2);
-        // this.kunio.setSize(60,110 ,0);
-        // this.physics.add.collider(this.kunio, this.court);
-        // this.kunio.anims.play('run', true);
+
+
+        //鍵盤控制
+        this.up = this.input.keyboard.addKey('UP');
+        this.down = this.input.keyboard.addKey('DOWN');
+        this.right = this.input.keyboard.addKey('RIGHT');
+        this.left = this.input.keyboard.addKey('LEFT');
+        this.z = this.input.keyboard.addKey('Z');
+        this.x = this.input.keyboard.addKey('X');
+        this.state = {
+            isWalk: false
+        }
+        this.kunio.on('animationcomplete',function(){this.kunio.anims.play('turn')},this);
     },
     update: function(){
         // 遊戲狀態更新
         this.kunio.body.setVelocity(0);
+        
           //鍵盤控制
-          let cursors = this.input.keyboard.createCursorKeys();
-          if (cursors.right.isDown)
-          {   
+        if(this.right.isDown){
+            this.kunio.setVelocityX(100);
+            this.kunio.anims.play('walk', true);
+            this.kunio.flipX = false;
+            this.state.isWalk = true;
+        }else if (this.left.isDown){
               
-              this.kunio.setVelocityX(160);
-              this.kunio.anims.play('run', true);
-              this.kunio.flipX = false;
-
-          }else if (cursors.left.isDown){
-              
-              this.kunio.setVelocityX(-160);
-              this.kunio.anims.play('run', true);
-              this.kunio.flipX = true;
-          }else if (cursors.up.isDown){
+            this.kunio.setVelocityX(-100);
+            this.kunio.anims.play('walk',true);
+            this.kunio.flipX = true;
+        }else if (this.up.isDown){
+          
+          this.kunio.setVelocityY(-100);
+          this.kunio.anims.play('walk',true);
+          this.kunio.flipX = false;
+        }else if (this.down.isDown){
+          this.kunio.setVelocityY(100);
+          this.kunio.anims.play('walk', true);
+          this.kunio.flipX = false;
+        }
+       
+        else if( this.z.isDown){
+           
+            this.kunio.anims.play('throw');
             
-            this.kunio.setVelocityY(-160);
-            this.kunio.anims.play('run', true);
-            this.kunio.flipX = false;
-          }else if (cursors.down.isDown){
-            this.kunio.setVelocityY(160);
-            this.kunio.anims.play('run', true);
-            this.kunio.flipX = false;
-          }
-          else
-          {
-              this.kunio.setVelocityX(0);
-              this.kunio.anims.play('turn');
-          }
+        }
+        else if( this.x.isDown){
+           
+            this.kunio.anims.play('pick');
+            
+        }
+        // else
+        // {
+        //     this.kunio.setVelocityX(0);
+        //     this.kunio.anims.play('turn');
+        // }
+        
     }
 }
 
