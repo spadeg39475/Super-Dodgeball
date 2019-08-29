@@ -3,11 +3,12 @@ const gamePlay = {
 
     preload: function(){
         // 載入資源
-        this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 40, frameHeight: 40});
+        this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('kunio', './materials/img/character/Kunio/Kunio.png', {frameWidth:64, frameHeight: 63});
 
         this.load.image('tiles', '../materials/img/court3.png')
         this.load.tilemapTiledJSON('court', './materials/img/court2.json');
+
         
     },
 
@@ -33,10 +34,21 @@ const gamePlay = {
         this.physics.add.collider(this.kunio, block);
         this.physics.add.collider(this.kunio, background);
 
-    
+
+        this.ball = this.physics.add.sprite(400,300,'ball');
+        this.ball.setSize(13,13)
+        this.ball.setOffset(18.5,18.5)
+        this.ball.setScale(2.2);
+        this.ball.setBounce(0.2);
+        this.ball.setFriction(100);
+        
+        this.physics.add.collider(this.ball, block);
+        this.physics.add.collider(this.ball, background);
+        
+        
 
         const camera = this.cameras.main;
-        camera.startFollow(this.kunio);
+        camera.startFollow(this.ball);
         camera.setBounds(0, 0, court.widthInPixels, court.heightInPixels);
 
         
@@ -64,7 +76,7 @@ const gamePlay = {
         this.anims.create({
             key: 'throw',
             frames: this.anims.generateFrameNumbers('kunio', { start: 30, end: 31 }),
-            frameRate: 20,
+            duration: 300,
             repeat: 0
         })
         this.anims.create({
@@ -76,22 +88,71 @@ const gamePlay = {
 
         this.anims.create({
             key: 'jump',
-            frames: this.anims.generateFrameNumbers('kunio', { start: 100, end: 102 }),
-            frameRate: 20,
+            frames: this.anims.generateFrameNumbers('kunio', { start: 6, end: 9 }),
+            // frameRate: 10,
+            duration:1000,
             repeat: 0
         })
         
         this.anims.create({
             key: 'hitted',
-            frames: this.anims.generateFrameNumbers('kunio', { start: 106, end: 108 }),
+            frames: this.anims.generateFrameNumbers('kunio', { start: 32, end: 37 }),
             // frameRate: 10,
-            duration: 500,
+            duration: 3000,
             repeat: 0
         })
+        // ball
+        this.anims.create({
+            key: 'magic-ball1',
+            frames: this.anims.generateFrameNumbers('ball', { start: 0, end: 1 }),
+            frameRate: 20,
+            repeat: -1
+        })
+        this.anims.create({
+            key: 'magic-ball2',
+            frames: this.anims.generateFrameNumbers('ball', { start: 2, end: 3 }),
+            frameRate: 20,
+            repeat: -1
+        })
+        this.anims.create({
+            key: 'magic-ball3',
+            frames: this.anims.generateFrameNumbers('ball', { start: 4, end: 5 }),
+            frameRate: 20,
+            repeat: -1
+        })
+        this.anims.create({
+            key: 'magic-ball4',
+            frames: this.anims.generateFrameNumbers('ball', { start: 6, end: 9 }),
+            frameRate: 16,
+            repeat: -1
+        })
+        // this.ball.anims.play('magic-ball4')
         
+        let test = ()=>{
+            this.ball.setVelocityX(160);
+                    let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 4)
+                    this.ball.anims.play(ballAnime) 
+        }
+
+
 
         this.throw = () =>{
-            this.kunio.anims.play('throw');
+            this.tweens.add({
+                targets: this.kunio,
+                ease: 'linear',
+                delay:0,
+                duration: 1000,
+                yoyo: true,
+                repeat: 0,
+                onStart:  ()=> {  this.kunio.anims.play('throw')  },
+                onComplete:  ()=>{
+                    this.ball.setVelocityX(160);
+                    let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 4)
+                    this.ball.anims.play(ballAnime) 
+                },
+                onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
+                onRepeat: function () { console.log('onRepeat'); console.log(arguments); },
+            })
         }
         this.pick = () =>{
             this.kunio.anims.play('pick');
@@ -102,12 +163,34 @@ const gamePlay = {
             this.kunio.flipX = false;
             console.log('run')
         }
+        this.jump = () =>{
+            
+            this.tweens.add({
+                targets: this.kunio,
+                y:this.kunio.y-50,
+                ease: 'Sinusoidal.InOut',
+                duration: 500,
+                yoyo: true,
+                repeat: 0,
+                onStart:  ()=> {
+                    this.state.onFloor = false;
+                     
+                 },
+                onComplete: ()=> {
+                    this.state.onFloor=true;
+                },
+                onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
+                onRepeat: function () { console.log('onRepeat'); console.log(arguments); },
+            })
+        }
+
 
         this.state = {
             isRun: false,
+            onFloor: true,
             active: this.kunio
         }
-
+        
         
 
         //鍵盤控制
@@ -122,7 +205,7 @@ const gamePlay = {
 
         
        
-        this.input.keyboard.on('keydown-' + 'Z', this.throw );
+        // this.input.keyboard.on('keydown-' + 'Z', this.throw );
         
         
         
@@ -182,15 +265,17 @@ const gamePlay = {
           this.kunio.anims.play('walk', true);
           this.kunio.flipX = false;
         }
-        else if( this.x.isDown && this.z.isDown){
-           
+        else if( this.x.isDown && this.z.isDown && this.state.onFloor){
             this.kunio.anims.play('jump');
+            this.jump();
         
         }
+        else if ( this.z.isDown){
+            this.throw();
+        }
         else if( this.x.isDown){
-           
-            this.kunio.anims.play('pick');
             
+            this.kunio.anims.play('pick');
         }
     },
 }
@@ -211,7 +296,7 @@ const config = {
                 y: 0
             },
             debug:true
-        },
+        }
     },
     scene: [
         gamePlay,
