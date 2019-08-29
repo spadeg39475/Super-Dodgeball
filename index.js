@@ -82,7 +82,7 @@ const gamePlay = {
         this.anims.create({
             key: 'pick',
             frames: this.anims.generateFrameNumbers('kunio', { start: 53, end: 53 }),
-            frameRate: 20,
+            duration: 250,
             repeat: 0
         })
 
@@ -127,12 +127,6 @@ const gamePlay = {
             repeat: -1
         })
         // this.ball.anims.play('magic-ball4')
-        
-        let test = ()=>{
-            this.ball.setVelocityX(160);
-                    let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 4)
-                    this.ball.anims.play(ballAnime) 
-        }
 
 
 
@@ -155,14 +149,30 @@ const gamePlay = {
             })
         }
         this.pick = () =>{
-            this.kunio.anims.play('pick');
+            this.tweens.add({
+                targets: this.kunio,
+                ease: 'Sinusoidal.InOut',
+                duration: 500,
+                yoyo: true,
+                repeat: 0,
+                onStart:  ()=> {
+                    this.kunio.anims.play('pick');
+                     
+                 },
+                onComplete: ()=> {
+                    
+                },
+                onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
+                onRepeat: function () { console.log('onRepeat'); console.log(arguments); },
+            })
+            
         }
-        this.run =() =>{
-            this.kunio.setVelocityX(160);
-            this.kunio.anims.play('run', true);
-            this.kunio.flipX = false;
-            console.log('run')
-        }
+        // this.run =() =>{
+        //     this.kunio.setVelocityX(160);
+        //     this.kunio.anims.play('run', true);
+        //     this.kunio.flipX = false;
+        //     console.log('run')
+        // }
         this.jump = () =>{
             
             this.tweens.add({
@@ -205,7 +215,8 @@ const gamePlay = {
 
         
        
-        // this.input.keyboard.on('keydown-' + 'Z', this.throw );
+        this.input.keyboard.on('keydown-' + 'Z', this.throw );
+        this.input.keyboard.on('keydown-' + 'X', this.pick );
         
         
         
@@ -270,13 +281,13 @@ const gamePlay = {
             this.jump();
         
         }
-        else if ( this.z.isDown){
-            this.throw();
-        }
-        else if( this.x.isDown){
+        // else if ( this.z.isDown){
+        //     this.throw();
+        // }
+        // else if( this.x.isDown){
             
-            this.kunio.anims.play('pick');
-        }
+        //     this.kunio.anims.play('pick');
+        // }
     },
 }
 
