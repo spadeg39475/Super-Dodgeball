@@ -4,7 +4,7 @@ const gamePlay = {
     preload: function(){
         // 載入資源
         this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 50, frameHeight: 50});
-        this.load.spritesheet('kunio', './materials/img/character/Kunio/Kunio.png', {frameWidth:64, frameHeight: 63});
+        this.load.spritesheet('kunio', './materials/img/character/Kunio/Kunio.png', {frameWidth:64, frameHeight: 64});
 
         this.load.image('tiles', '../materials/img/court3.png')
         this.load.tilemapTiledJSON('court', './materials/img/court2.json');
@@ -98,7 +98,21 @@ const gamePlay = {
             key: 'hitted',
             frames: this.anims.generateFrameNumbers('kunio', { start: 32, end: 37 }),
             // frameRate: 10,
-            duration: 3000,
+            duration: 1000,
+            repeat: 0
+        })
+        this.anims.create({
+            key: 'hitted-back',
+            frames: this.anims.generateFrameNumbers('kunio', { start: 147, end: 148 }),
+            // frameRate: 10,
+            duration: 1000,
+            repeat: 0
+        })
+        this.anims.create({
+            key: 'hit-down',
+            frames: this.anims.generateFrameNumbers('kunio', { start: 148, end: 152 }),
+            // frameRate: 10,
+            duration: 500,
             repeat: 0
         })
         // ball
@@ -110,24 +124,25 @@ const gamePlay = {
         })
         this.anims.create({
             key: 'magic-ball2',
-            frames: this.anims.generateFrameNumbers('ball', { start: 2, end: 3 }),
+            frames: this.anims.generateFrameNumbers('ball', { start: 2, end: 5 }),
             frameRate: 20,
-            repeat: -1
+            repeat: -1,
         })
+        // this.anims.create({
+        //     key: 'magic-ball3',
+        //     frames: this.anims.generateFrameNumbers('ball', { start: 4, end: 5 }),
+        //     frameRate: 20,
+        //     repeat: -1
+        // })
         this.anims.create({
             key: 'magic-ball3',
-            frames: this.anims.generateFrameNumbers('ball', { start: 4, end: 5 }),
-            frameRate: 20,
-            repeat: -1
-        })
-        this.anims.create({
-            key: 'magic-ball4',
             frames: this.anims.generateFrameNumbers('ball', { start: 6, end: 9 }),
             frameRate: 16,
             repeat: -1
         })
-        // this.ball.anims.play('magic-ball4')
-
+        
+        this.kunio.anims.play('hitted-back')
+       
 
 
         this.throw = () =>{
@@ -136,12 +151,13 @@ const gamePlay = {
                 ease: 'linear',
                 delay:0,
                 duration: 1000,
-                yoyo: true,
+                // yoyo: true,
                 repeat: 0,
                 onStart:  ()=> {  this.kunio.anims.play('throw')  },
                 onComplete:  ()=>{
+                    // this.kunio.on('animationcomplete',this.test,this);
                     this.ball.setVelocityX(160);
-                    let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 4)
+                    let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 3)
                     this.ball.anims.play(ballAnime) 
                 },
                 onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
@@ -219,6 +235,9 @@ const gamePlay = {
         this.input.keyboard.on('keydown-' + 'X', this.pick );
         
         
+        // game.physics.arcade.collide(this.kunio,this.ball,null,()=>{
+        //     this.kunio.anims.play('hitted');
+        // })
         
         this.kunio.on('animationcomplete',function(){this.kunio.anims.play('turn')},this);
         console.log(this)
