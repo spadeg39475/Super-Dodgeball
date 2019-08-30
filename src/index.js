@@ -143,7 +143,7 @@ const gamePlay = {
             repeat: -1
         })
         
-        // this.kunio.anims.play('hitted-back')
+        this.kunio.anims.play('hitted-back')
        
 
 
