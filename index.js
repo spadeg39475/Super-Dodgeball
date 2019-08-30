@@ -31,6 +31,8 @@ const gamePlay = {
         this.kunio.setSize(18,33);
         this.kunio.setOffset(29,15);
         this.kunio.setScale(1.8);
+        this.kunio.setDamping(true);
+        this.kunio.body.setDrag(0.94,0.94);
         this.physics.add.collider(this.kunio, block);
         this.physics.add.collider(this.kunio, background);
 
@@ -141,7 +143,7 @@ const gamePlay = {
             repeat: -1
         })
         
-        this.kunio.anims.play('hitted-back')
+        // this.kunio.anims.play('hitted-back')
        
 
 
@@ -215,25 +217,36 @@ const gamePlay = {
             isRun: false,
             onFloor: true,
             flipX: false,
-            active: this.kunio
+            active: this.kunio,
+        }
+        this.jumpInfo = {
+            x: this.kunio.x,
+            y: this.kunio.x,
+            dx: 0,
+            dy: 0,
+            onFloor: false,
+            jumpPower: -5,
+            moveSpeed: 2
         }
         
         
 
         //鍵盤控制
-        this.up = this.input.keyboard.addKey('UP');
-        this.down = this.input.keyboard.addKey('DOWN');
-        this.right = this.input.keyboard.addKey('RIGHT');
-        this.left = this.input.keyboard.addKey('LEFT');
-        this.z = this.input.keyboard.addKey('Z');
-        this.x = this.input.keyboard.addKey('X');
+        // this.gamePlaykeys.UP = this.input.keyboard.addKey('UP');
+        // this.gamePlaykeys.DOWN = this.input.keyboard.addKey('DOWN');
+        // this.gamePlaykeys.RIGHT = this.input.keyboard.addKey('RIGHT');
+        // this.gamePlaykeys.LEFT = this.input.keyboard.addKey('LEFT');
+        // this.gamePlaykeys.Z = this.input.keyboard.addKey('Z');
+        // this.gamePlaykeys.X = this.input.keyboard.addKey('X');
+
+        this.gamePlaykeys = this.input.keyboard.addKeys('RIGHT, LEFT, UP , DOWN, Z, X');
 
 
 
         
        
-        this.input.keyboard.on('keydown-' + 'Z', this.throw );
-        this.input.keyboard.on('keydown-' + 'X', this.pick );
+        // this.input.keyboard.on('keydown-' + 'Z', this.throw );
+        // this.input.keyboard.on('keydown-' + 'X', this.pick );
         
         
         // game.physics.arcade.collide(this.kunio,this.ball,null,()=>{
@@ -245,82 +258,91 @@ const gamePlay = {
 
 
         this.checkRun = () => {
-            if ((this.right.duration > 0 && this.right.duration < 100) || (this.left.duration > 0 && this.left.duration < 100)  ){
+            if ((this.gamePlaykeys.RIGHT.duration > 0 && this.gamePlaykeys.RIGHT.duration < 100) || (this.gamePlaykeys.LEFT.duration > 0 && this.gamePlaykeys.LEFT.duration < 100)  ){
                 this.state.isRun = true
             }
-            else if (this.right.isUp && this.left.isUp){
+            else if (this.gamePlaykeys.RIGHT.isUp && this.gamePlaykeys.LEFT.isUp){
                 this.state.isRun = false
             }
         }
+       
     },
 
     update: function(time, delta){
         // 遊戲狀態更新
-        this.kunio.body.setVelocity(0);
+        // this.kunio.body.setVelocity(0);
         
         this.checkRun();
         
 
           //鍵盤控制
-        if(this.right.isDown && this.state.isRun === true ){
+        if(this.gamePlaykeys.RIGHT.isDown && this.state.isRun === true ){
             this.state.flipX = false;
             this.kunio.setVelocityX(160);
             this.kunio.anims.play('run', true);
             this.kunio.flipX = this.state.flipX;
         }
-        else if(this.right.isDown){
+        else if(this.gamePlaykeys.RIGHT.isDown){
             this.state.flipX = false;
             this.kunio.setVelocityX(100);
             this.kunio.anims.play('walk', true);
             this.kunio.flipX = this.state.flipX;
         }
-        if (this.left.isDown && this.state.isRun === true){
+        if (this.gamePlaykeys.LEFT.isDown && this.state.isRun === true){
             this.state.flipX = true
             this.kunio.setVelocityX(-160);
             this.kunio.anims.play('run',true);
             this.kunio.flipX = this.state.flipX;
         }
-        else if (this.left.isDown){
+        else if (this.gamePlaykeys.LEFT.isDown){
             this.state.flipX = true;
             this.kunio.setVelocityX(-100);
             this.kunio.anims.play('walk',true);
             this.kunio.flipX = this.state.flipX;;
         }
-        if (this.up.isDown && this.state.isRun === true){
+        if (this.gamePlaykeys.UP.isDown && this.state.isRun === true){
             this.kunio.setVelocityY(-100);
             this.kunio.anims.play('run',true);
             this.kunio.flipX = this.state.flipX;
         }
-        else if (this.up.isDown){
+        else if (this.gamePlaykeys.UP.isDown){
           
           this.kunio.setVelocityY(-100);
           this.kunio.anims.play('walk',true);
           this.kunio.flipX = this.state.flipX;
         }
-        if (this.down.isDown && this.state.isRun === true){
+        if (this.gamePlaykeys.DOWN.isDown && this.state.isRun === true){
             this.kunio.setVelocityY(100);
           this.kunio.anims.play('run',true);
           this.kunio.flipX = this.state.flipX;
         }
-        else if (this.down.isDown){
+        else if (this.gamePlaykeys.DOWN.isDown){
           this.kunio.setVelocityY(100);
           this.kunio.anims.play('walk', true);
           this.kunio.flipX = this.state.flipX;
         }
-        if( this.x.isDown && this.z.isDown && this.state.onFloor){
-            this.kunio.anims.play('jump');
-            this.jump();
-            this.kunio.flipX = this.state.flipX;
+        if( this.gamePlaykeys.X.isDown && this.gamePlaykeys.Z.isDown && this.state.onFloor){
+            // this.kunio.anims.play('jump');
+            // this.jump();
+            // this.kunio.flipX = this.state.flipX;
         
-        }
-        // else if ( this.z.isDown){
-        //     this.throw();
-        // }
-        // else if( this.x.isDown){
+
+            // this.jumpInfo.dy = this.jumpInfo.jumpPower
             
-        //     this.kunio.anims.play('pick');
-        // }
+        }
+        else if (Phaser.Input.Keyboard.JustDown(this.gamePlaykeys.Z)){
+            this.throw();
+        }
+        else if( Phaser.Input.Keyboard.JustDown(this.gamePlaykeys.X)){
+            
+            this.kunio.anims.play('pick');
+        }
+
+       
+ 
+       
     },
+    
 }
 
 
