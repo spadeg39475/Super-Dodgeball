@@ -214,6 +214,7 @@ const gamePlay = {
         this.state = {
             isRun: false,
             onFloor: true,
+            flipX: false,
             active: this.kunio
         }
         
@@ -262,42 +263,54 @@ const gamePlay = {
 
           //鍵盤控制
         if(this.right.isDown && this.state.isRun === true ){
-            
+            this.state.flipX = false;
             this.kunio.setVelocityX(160);
             this.kunio.anims.play('run', true);
-            this.kunio.flipX = false;
+            this.kunio.flipX = this.state.flipX;
         }
         else if(this.right.isDown){
-            
+            this.state.flipX = false;
             this.kunio.setVelocityX(100);
             this.kunio.anims.play('walk', true);
-            this.kunio.flipX = false;
+            this.kunio.flipX = this.state.flipX;
         }
-        else if (this.left.isDown && this.state.isRun === true){
-            
+        if (this.left.isDown && this.state.isRun === true){
+            this.state.flipX = true
             this.kunio.setVelocityX(-160);
             this.kunio.anims.play('run',true);
-            this.kunio.flipX = true;
+            this.kunio.flipX = this.state.flipX;
         }
         else if (this.left.isDown){
-            
+            this.state.flipX = true;
             this.kunio.setVelocityX(-100);
             this.kunio.anims.play('walk',true);
-            this.kunio.flipX = true;
+            this.kunio.flipX = this.state.flipX;;
+        }
+        if (this.up.isDown && this.state.isRun === true){
+            this.kunio.setVelocityY(-100);
+            this.kunio.anims.play('run',true);
+            this.kunio.flipX = this.state.flipX;
         }
         else if (this.up.isDown){
           
           this.kunio.setVelocityY(-100);
           this.kunio.anims.play('walk',true);
-          this.kunio.flipX = false;
-        }else if (this.down.isDown){
+          this.kunio.flipX = this.state.flipX;
+        }
+        if (this.down.isDown && this.state.isRun === true){
+            this.kunio.setVelocityY(100);
+          this.kunio.anims.play('run',true);
+          this.kunio.flipX = this.state.flipX;
+        }
+        else if (this.down.isDown){
           this.kunio.setVelocityY(100);
           this.kunio.anims.play('walk', true);
-          this.kunio.flipX = false;
+          this.kunio.flipX = this.state.flipX;
         }
-        else if( this.x.isDown && this.z.isDown && this.state.onFloor){
+        if( this.x.isDown && this.z.isDown && this.state.onFloor){
             this.kunio.anims.play('jump');
             this.jump();
+            this.kunio.flipX = this.state.flipX;
         
         }
         // else if ( this.z.isDown){
