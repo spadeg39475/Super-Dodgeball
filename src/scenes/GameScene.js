@@ -135,7 +135,13 @@ class GameScene extends Phaser.Scene{
         this.anims.create({
             key: 'hit-down',
             frames: this.anims.generateFrameNumbers('kunio', { start: 148, end: 152 }),
-            // frameRate: 10,
+            repeatDelay: 1000,
+            duration: 1000,
+            repeat: 0
+        })
+        this.anims.create({
+            key: 'hit-down2',
+            frames: this.anims.generateFrameNumbers('kunio', { start: 152, end: 152 }),
             duration: 1000,
             repeat: 0
         })
@@ -186,7 +192,7 @@ class GameScene extends Phaser.Scene{
         })
         this.anims.create({
             key: 'enemy-walk',
-            frames: this.anims.generateFrameNumbers('enemy', { start: 1, end: 2 }),
+            frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 1 }),
             frameRate: 5,
             repeat: -1
         })
@@ -216,19 +222,22 @@ class GameScene extends Phaser.Scene{
 
 
 
-        this.enemy.anims.play('enemy-hitted')
+        // this.kunio.anims.play('hit-down2')
         this.enemy.flipX = true
 
 
 
-        this.throw =() => {
+        this.throw =(direct) => {
             this.both.clear();
             this.ball.setFrictionX(0)
             this.ball.setDamping(false);
             this.ball.setAcceleration(0,0);
-            this.ball.setBounce(1, 0);
-            this.state.active = this.kunio;
-           
+            this.ball.setBounce(0, 0);
+            this.state.current = this.kunio;
+            let speedX;
+            if(direct==='right'){
+                speedX =160;
+            }else{speedX=-160}
             this.tweens.add({
                 targets: this.kunio,
                 ease: 'linear',
@@ -239,39 +248,46 @@ class GameScene extends Phaser.Scene{
                 onStart:  ()=> {this.kunio.anims.play('throw')},
                 completeDelay: 100,
                 onComplete:  ()=>{
-                    this.ball.setVelocityX(160).setCollideWorldBounds(true);
-                    if(this.kunio.x <390 && this.kunio.x>350 ){
+                    this.ball.setVelocityX(speedX).setCollideWorldBounds(true);
+                    if(this.kunio.x <390 && this.kunio.x>340 && this.state.isRun){
                         let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 3)
                         this.ball.anims.play(ballAnime)
                     }else{this.ball.anims.play('normal-ball')}
                     this.state.isThrow = false;
                     this.state.haveBall = false;
 
-                    setTimeout(()=>{this.state.turn='enemy'}, 1000)
+                    // setTimeout(()=>{this.state.turn='enemy'}, 1000)
                 },
             })
            
         }
+
         this.test = this.physics.add.overlap(this.kunio, this.ball, null,()=>{
             if(this.state.turn === 'enemy' && this.ball.x < this.kunio.x + 24){
                 this.kunio.setVelocityX(-800);
-                this.kunio.anims.play('hit-down');
+
+                this.kunio.anims.play('hit-down', true);
+                this.kunio.anims.chain('hit-down2');
                 // this.ball.setVelocity(200, -200);
                 // this.ball.setAcceleration(-600, 600);
                 this.test.active = false;
+                this.state.isActive = false;
+                this.state.turn='us'
             }
         });
         
 
         this.state = {
             turn: 'us',
+            isActive: true,
             haveBall: false,
             isRun: false,
             isThrow: false,
             onFloor: true,
             isJump: false,
             flipX: false,
-            active: this.kunio,
+            current: this.kunio,
+            isMoving: false,
             x: 0,
             y: 0,
             dx: 0,
@@ -283,15 +299,15 @@ class GameScene extends Phaser.Scene{
         
 
         //鍵盤控制
-        this.gamePlaykeys = this.input.keyboard.addKeys('RIGHT, LEFT, UP , DOWN, Z, X');
-        // this.keys = {
-        //     z: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
-        //     x: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),
-        //     up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
-        //     left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
-        //     right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
-        //     down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
-        // }
+        // this.gamePlaykeys = this.input.keyboard.addKeys('RIGHT, LEFT, UP , DOWN, Z, X');
+        this.keys = {
+            z: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
+            x: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),
+            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
+            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+        }
       
 
         
@@ -306,15 +322,17 @@ class GameScene extends Phaser.Scene{
 
         
         this.kunio.on('animationcomplete',function(){this.kunio.anims.play('turn')},this);
+        this.kunio.on('animationcomplete-hit-down2',function(){this.state.isActive=true},this);
         this.enemy.on('animationcomplete',function(){this.enemy.anims.play('enemy-turn')},this);
+        
         console.log(this)
 
 
         this.checkRun = () => {
-            if ((this.gamePlaykeys.RIGHT.duration > 0 && this.gamePlaykeys.RIGHT.duration < 100) || (this.gamePlaykeys.LEFT.duration > 0 && this.gamePlaykeys.LEFT.duration < 100)  ){
+            if ((this.keys.right.duration > 0 && this.keys.right.duration < 100) || (this.keys.left.duration > 0 && this.keys.left.duration < 100)  ){
                 this.state.isRun = true
             }
-            else if (this.gamePlaykeys.RIGHT.isUp && this.gamePlaykeys.LEFT.isUp){
+            else if (this.keys.right.isUp && this.keys.left.isUp){
                 this.state.isRun = false
             }
         }
@@ -327,156 +345,151 @@ class GameScene extends Phaser.Scene{
         this.checkRun();
 
           //鍵盤控制
-        // let input = {
-        //     left: this.keys.left.isDown,
-        //     right:this.keys.right.isDown,
-        //     up: this.keys.up.isDown,
-        //     down: this.keys.down.isDown,
-        //     z: this.keys.z.isDown,
-        //     x: this.keys.x.isDown
-        // }
+        let input = {
+            left: this.keys.left.isDown,
+            right:this.keys.right.isDown,
+            up: this.keys.up.isDown,
+            down: this.keys.down.isDown,
+            z: this.keys.z.isDown,
+            x: this.keys.x.isDown
+        }
         // ---------------------------------------------------------------
 
-        // if(this.state.haveBall){
-        //     if(this.gamePlaykeys.RIGHT.isDown){
-        //         this.both.setVelocityX(100)
-        //     }
-        // }
+        
 
         this.state.flipX ? this.kunio.setOffset(16,15)  : this.kunio.setOffset(29,15) ;
         
-
-        if(this.gamePlaykeys.RIGHT.isDown && this.state.isRun === true ){
+        if(this.state.isActive){
+            if(input.right && this.state.isRun === true ){
             
             this.state.haveBall ? this.ball.x = this.kunio.x + 24 : this.ball.x
 
             this.state.flipX = false;
-            this.state.active.setVelocityX(160);
+            this.state.current.setVelocityX(160);
             this.kunio.anims.play('run', true);
             this.kunio.flipX = this.state.flipX;
-        }
-        else if(this.gamePlaykeys.RIGHT.isDown){
-
-            this.state.haveBall ? this.ball.x = this.kunio.x + 24 : this.ball.x
-
-            this.state.flipX = false;
-            this.state.active.setVelocityX(100);
-            this.kunio.anims.play('walk', true);
-            this.kunio.flipX = this.state.flipX;
-        }
-        if (this.gamePlaykeys.LEFT.isDown && this.state.isRun === true){
-
-            this.state.haveBall ? this.ball.x = this.kunio.x - 24 : this.ball.x
-
-
-            this.state.flipX = true
-            this.state.active.setVelocityX(-160);
-            this.kunio.anims.play('run',true);
-            this.kunio.flipX = this.state.flipX;
-        }
-        else if (this.gamePlaykeys.LEFT.isDown){
-
-            this.state.haveBall ? this.ball.x = this.kunio.x - 24 : this.ball.x
-
-            this.state.flipX = true;
-            this.state.active.setVelocityX(-100);
-            this.kunio.anims.play('walk',true);
-            
-            this.kunio.flipX = this.state.flipX;;
-        }
-        if (this.gamePlaykeys.UP.isDown && this.state.isRun === true && this.state.onFloor){
-
-            
-            this.state.active.setVelocityY(-100);
-            this.kunio.anims.play('run',true);
-            this.kunio.flipX = this.state.flipX;
-
-            this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
-        }
-        else if (this.gamePlaykeys.UP.isDown && this.state.onFloor){
-
-            // this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
-
-            this.state.active.setVelocityY(-100);
-            this.kunio.anims.play('walk',true);
-            this.kunio.flipX = this.state.flipX;
-
-            this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
-        }
-
-
-        if (this.gamePlaykeys.DOWN.isDown && this.state.isRun === true && this.state.onFloor){
-
-            
-
-            this.state.active.setVelocityY(100);
-            this.kunio.anims.play('run',true);
-            this.kunio.flipX = this.state.flipX;
-
-            this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
-
-        }
-        else if (this.gamePlaykeys.DOWN.isDown && this.state.onFloor){
-
-            
-
-            this.state.active.setVelocityY(100);
-            this.kunio.anims.play('walk', true);
-            this.kunio.flipX = this.state.flipX;
-
-            this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
-        }
-
-
-        if (this.gamePlaykeys.X.isDown && this.gamePlaykeys.Z.isDown && this.state.onFloor){
-            
-            this.state.y = this.kunio.y;
-
-            // console.log(this.state.active.getChildren())
-            // this.state.active.setAccelerationY(500)
-            if(this.state.active.children){
-                let arr = this.state.active.getChildren();
-                arr.forEach(el=>{el.setAccelerationY(500)})
             }
-            else{this.state.active.setAccelerationY(500);} 
-            
-            this.state.active.setVelocityY(-300);
-            this.kunio.anims.play('jump');
-            this.state.onFloor = false;
-            this.state.isJump = true;
-            this.kunio.flipX = this.state.flipX;
-                     
-        }
-        else if(this.state.isJump && this.kunio.y > this.state.y ){
-            
-            this.state.active.setVelocityY(0);
+            else if(input.right){
 
-            if(this.state.active.children){
-                let arr = this.state.active.getChildren();
-                arr.forEach(el=>{el.setAccelerationY(0)})
+                this.state.haveBall ? this.ball.x = this.kunio.x + 24 : this.ball.x
+
+                this.state.flipX = false;
+                this.state.current.setVelocityX(100);
+                this.kunio.anims.play('walk', true);
+                this.kunio.flipX = this.state.flipX;
             }
-            else{this.state.active.setAccelerationY(0);} 
+            if (input.left && this.state.isRun === true){
 
-            this.state.onFloor = true;
-            this.state.isJump = false;
-        }
-        else if (this.state.haveBall && Phaser.Input.Keyboard.JustDown(this.gamePlaykeys.Z)){
-            this.kunio.anims.play('throw')
-            this.throw();
-            this.state.isThrow = true;
-        }
-        else if (Phaser.Input.Keyboard.JustDown(this.gamePlaykeys.Z)){
-            this.catchBall()
-        }
-        else if(!this.state.isJump && Phaser.Input.Keyboard.JustDown(this.gamePlaykeys.X)){
-            
-            this.kunio.anims.play('pick');
-            if(this.kunio.body.touching.up){
-                this.pickBall()
+                this.state.haveBall ? this.ball.x = this.kunio.x - 24 : this.ball.x
+
+
+                this.state.flipX = true
+                this.state.current.setVelocityX(-160);
+                this.kunio.anims.play('run',true);
+                this.kunio.flipX = this.state.flipX;
             }
-            
+            else if (input.left){
+
+                this.state.haveBall ? this.ball.x = this.kunio.x - 24 : this.ball.x
+
+                this.state.flipX = true;
+                this.state.current.setVelocityX(-100);
+                this.kunio.anims.play('walk',true);
+                
+                this.kunio.flipX = this.state.flipX;;
+            }
+            if (input.up && this.state.isRun === true && this.state.onFloor){
+
+                
+                this.state.current.setVelocityY(-100);
+                this.kunio.anims.play('run',true);
+                this.kunio.flipX = this.state.flipX;
+
+                this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
+            }
+            else if (input.up && this.state.onFloor){
+
+                // this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
+
+                this.state.current.setVelocityY(-100);
+                this.kunio.anims.play('walk',true);
+                this.kunio.flipX = this.state.flipX;
+
+                this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
+            }
+
+
+            if (input.down && this.state.isRun === true && this.state.onFloor){
+
+                
+
+                this.state.current.setVelocityY(100);
+                this.kunio.anims.play('run',true);
+                this.kunio.flipX = this.state.flipX;
+
+                this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
+
+            }
+            else if (input.down && this.state.onFloor){
+
+                this.state.current.setVelocityY(100);
+                this.kunio.anims.play('walk', true);
+                this.kunio.flipX = this.state.flipX;
+
+                this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
+            }
+
+
+            if (input.x && input.z && this.state.onFloor){
+                this.state.onFloor = false;
+                this.state.y = this.kunio.y;
+
+                // console.log(this.state.active.getChildren())
+                // this.state.active.setAccelerationY(500)
+                if(this.state.current.children){
+                    let arr = this.state.current.getChildren();
+                    arr.forEach((el)=>{el.setAccelerationY(500)})
+                }
+                else{this.state.current.setAccelerationY(500);} 
+                
+                this.state.current.setVelocityY(-300);
+                this.kunio.anims.play('jump');
+                this.state.haveBall ? this.ball.y = this.kunio.y : this.ball.y
+                this.kunio.flipX = this.state.flipX;
+                this.state.isJump = true;
+                        
+            }
+            else if(this.state.isJump && this.kunio.y > this.state.y ){
+                
+                this.state.current.setVelocityY(0);
+
+                if(this.state.current.children){
+                    let arr = this.state.current.getChildren();
+                    arr.forEach(el=>{el.setAccelerationY(0)})
+                }
+                else{this.state.current.setAccelerationY(0);} 
+
+                this.state.onFloor = true;
+                this.state.isJump = false;
+            }
+            else if (this.state.haveBall && Phaser.Input.Keyboard.JustDown(this.keys.z) && this.state.onFloor){
+                this.kunio.anims.play('throw')
+                this.throw('right');
+                this.state.isThrow = true;
+            }
+            else if (Phaser.Input.Keyboard.JustDown(this.keys.z)){
+                this.catchBall()
+            }
+            else if(!this.state.isJump && Phaser.Input.Keyboard.JustDown(this.keys.x) && !this.state.haveBall ){
+                
+                this.kunio.anims.play('pick');
+                if(this.kunio.body.touching.up){
+                    this.pickBall()
+                }
+            }
         }
 
+    
 
 
         if(this.state.isJump){
@@ -488,17 +501,46 @@ class GameScene extends Phaser.Scene{
         
         if(this.ball.body.velocity.x === 0){
             this.ball.setAccelerationX(0)
+            this.ball.anims.play('normal-ball')
         }
-        if(this.ball.y > this.kunio.y + 20){
-            this.ball.setAccelerationY(0)
-            this.ball.body.stop()
+        // if(this.ball.y > this.kunio.y + 20){
+        //     this.ball.setAccelerationY(0)
+        //     this.ball.body.stop()
+        // }
+
+
+        if(this.ball.body.velocity.x === 0 && this.ball.body.x > 600){
+            
+            this.tweens.add({
+                targets: this.enemy,
+                x: this.ball.x,
+                y: this.ball.y -30,
+                ease: 'linear',
+                delay:200,
+                duration: 1000,
+                repeat: 0,
+                onStart: ()=>{
+                    this.enemy.flipX = false;
+                    this.enemy.anims.play('enemy-walk', true)
+                },
+                onComplete: ()=>{
+                    this.enemy.flipX = true;
+                    this.enemy.anims.play('enemy-turn', true)
+                    this.state.turn = 'enemy'
+                    this.throw('left')
+                    this.test.active= true;
+                }
+            })
         }
+        
+        
+        
         
     }
 
     pickBall(){
         this.state.haveBall = true;
-        this.state.active = this.both
+        this.state.current = this.both
         this.both.add(this.kunio)
         this.both.add(this.ball)
         this.tweens.add({
@@ -526,7 +568,7 @@ class GameScene extends Phaser.Scene{
 
             if(this.ball.x < this.kunio.x + 40 && this.ball.x > this.kunio.x + 30){
                 this.state.haveBall = true;
-                this.state.active = this.both
+                this.state.current = this.both
                 this.both.add(this.kunio)
                 this.both.add(this.ball)
                 this.tweens.add({
