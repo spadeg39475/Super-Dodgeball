@@ -96,6 +96,12 @@ export default function makeAnimations(scene) {
         frameRate: 5,
         repeat: -1
     })
+    scene.anims.create({
+        key: 'player1-dodge',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 6, end: 6 }),
+        frameRate: 5,
+        repeat: -1
+    })
 
 
 
@@ -190,6 +196,12 @@ export default function makeAnimations(scene) {
         frameRate: 5,
         repeat: -1
     })
+    scene.anims.create({
+        key: 'player2-dodge',
+        frames: scene.anims.generateFrameNumbers('player2', { start: 6, end: 6 }),
+        frameRate: 5,
+        repeat: -1
+    })
 
     //-- player3
     scene.anims.create({
@@ -279,6 +291,12 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player3-throw2',
         frames: scene.anims.generateFrameNumbers('player3', { start: 126, end: 129 }),
+        frameRate: 5,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'player3-dodge',
+        frames: scene.anims.generateFrameNumbers('player3', { start: 6, end: 6 }),
         frameRate: 5,
         repeat: -1
     })
@@ -413,7 +431,12 @@ export default function makeAnimations(scene) {
         frameRate: 5,
         repeat: 0
     })
-
+    scene.anims.create({
+        key: 'enemy1-dodge',
+        frames: scene.anims.generateFrameNumbers('enemy1', { start: 6, end: 6 }),
+        frameRate: 5,
+        repeat: 0
+    })
 
     //enemy2
     scene.anims.create({
@@ -506,8 +529,110 @@ export default function makeAnimations(scene) {
         frameRate: 5,
         repeat: 0
     })
+    scene.anims.create({
+        key: 'enemy2-dodge',
+        frames: scene.anims.generateFrameNumbers('enemy2', { start: 6, end: 6 }),
+        frameRate: 5,
+        repeat: 0
+    })
 
-
+    //enemy3
+    scene.anims.create({
+        key: 'enemy3-turn',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'enemy3-walk',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-run',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'enemy3-jump',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-pick',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-hitted',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-hitted2',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-hitted-back',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-hit-down',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 35, end: 37 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-hit-down2',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 45, end: 46 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-tired',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 52, end: 53 }),
+        frameRate: 5,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'enemy3-catch',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 48, end: 48 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-throw',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 154, end: 158 }),
+        frameRate: 10,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-throw2',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 155, end: 156 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy3-dodge',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 6, end: 6 }),
+        frameRate: 5,
+        repeat: 0
+    })
     
 
 }

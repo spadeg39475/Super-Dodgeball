@@ -71,6 +71,7 @@ class GameScene extends Phaser.Scene{
 
 
         this.player1 = this.physics.add.sprite(this.playerPos[0].x, this.playerPos[0].y, 'player1');
+        this.player1.name = 'player1';
         this.teamA.add(this.player1);
         this.player1.setSize(18,33);
         this.player1.setOffset(29,15);
@@ -79,44 +80,56 @@ class GameScene extends Phaser.Scene{
         this.player1.body.setDrag(0.9,0.9);
 
         this.player2 = this.physics.add.sprite(this.playerPos[1].x, this.playerPos[1].y, 'player2');
+        this.player2.name = 'player2';
         this.playerInit(this.player2, this.teamA, false) // name group flipX
 
         this.player3 = this.physics.add.sprite(this.playerPos[2].x, this.playerPos[2].y, 'player3');
+        this.player3.name = 'player3';
         this.playerInit(this.player3, this.teamA, false)
         
         this.player4 = this.physics.add.sprite(this.playerPos[3].x, this.playerPos[3].y, 'player4');
+        this.player4.name = 'player4';
         this.playerInit(this.player4, this.teamA, true)
 
         this.player5 = this.physics.add.sprite(this.playerPos[4].x, this.playerPos[4].y, 'player5');
+        this.player5.name = 'player5';
         this.playerInit(this.player5, this.teamA, true)
 
         this.player6 = this.physics.add.sprite(this.playerPos[5].x, this.playerPos[5].y, 'player6');
+        this.player6.name = 'player6';
         this.playerInit(this.player6, this.teamA, true)
         
 
         
 
         this.enemy1 = this.physics.add.sprite(this.enemyPos[0].x, this.enemyPos[0].y, 'enemy1');
+        this.enemy1.name = 'enemy1';
         this.playerInit(this.enemy1, this.teamB, true)
 
 
         this.enemy2 = this.physics.add.sprite(this.enemyPos[1].x, this.enemyPos[1].y, 'enemy2');
+        this.enemy2.name = 'enemy2';
         this.playerInit(this.enemy2, this.teamB, true)
 
         this.enemy3 = this.physics.add.sprite(this.enemyPos[2].x, this.enemyPos[2].y, 'enemy3');
+        this.enemy3.name = 'enemy3';
         this.playerInit(this.enemy3, this.teamB, true)
 
         this.enemy4 = this.physics.add.sprite(this.enemyPos[3].x, this.enemyPos[3].y, 'enemy4');
+        this.enemy4.name = 'enemy4';
         this.playerInit(this.enemy4, this.teamB, false)
 
         this.enemy5 = this.physics.add.sprite(this.enemyPos[4].x, this.enemyPos[4].y, 'enemy5');
+        this.enemy5.name = 'enemy5';
         this.playerInit(this.enemy5, this.teamB, false)
 
         this.enemy6 = this.physics.add.sprite(this.enemyPos[5].x, this.enemyPos[5].y, 'enemy6');
+        this.enemy6.name = 'enemy6';
         this.playerInit(this.enemy6, this.teamB, false)
         
 
-        this.ball = this.physics.add.sprite(400,300,'ball');
+        this.ball = this.physics.add.sprite(450,300,'ball');
+        this.ball.name = 'ball'
         this.ball.setCircle(6.5)
         this.ball.setOffset(18.5,18.5)
         this.ball.setScale(2.2);
@@ -144,10 +157,10 @@ class GameScene extends Phaser.Scene{
        
 
 
-        // this.player1.anims.play('player1-tired');
+        // this.player1.anims.play('player1-dodge');
         this.player2.anims.play('player2-tired');
         this.player3.anims.play('player3-tired');
-        this.enemy2.anims.play('enemy2-walk');
+        // this.enemy3.anims.play('enemy3-dodge');
 
 
         this.throw =(direct) => {
@@ -237,6 +250,8 @@ class GameScene extends Phaser.Scene{
         // this.input.keyboard.on('keydown-' + 'Z', this.throw );
         // this.input.keyboard.on('keydown-' + 'X', this.pick );
         
+        console.log(this.player1)
+        console.log(this.player2)
       
         
 
@@ -285,6 +300,7 @@ class GameScene extends Phaser.Scene{
             if(input.right && this.state.isRun === true ){
             
             this.state.haveBall ? this.ball.x = this.player1.x + 24 : this.ball.x
+           
 
             this.state.flipX = false;
             this.state.current.setVelocityX(160);
