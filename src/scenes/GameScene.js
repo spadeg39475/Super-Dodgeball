@@ -1,3 +1,5 @@
+import makeAnimations from './animations';
+
 class GameScene extends Phaser.Scene{
 
     constructor(test){
@@ -24,16 +26,20 @@ class GameScene extends Phaser.Scene{
         this.load.spritesheet('enemy5', './materials/img/character/Wataru/Wataru2.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('enemy6', './materials/img/character/Yamada/Yamada.png', {frameWidth:64, frameHeight: 64});
         
-
-
         
         this.load.image('tiles', '../materials/img/court3.png')
         this.load.tilemapTiledJSON('court', './materials/img/court2.json');
+
+        this.load.on('complete', () => {
+            // prepare all animations, defined in a separate file
+            makeAnimations(this);
+            // progress.destroy();
+            // this.scene.start('TitleScene');
+        });
     }
     
     create(){
         // 資源載入完成，加入遊戲物件及相關設定
-
         const court = this.make.tilemap({ key: "court" })
         // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
         // Phaser's cache (i.e. the name you used in preload);
@@ -135,160 +141,13 @@ class GameScene extends Phaser.Scene{
         camera.setBounds(0, 0, court.widthInPixels, court.heightInPixels);
 
         
-       // anims
-       this.anims.create({
-            key: 'player1-walk',
-            frames: this.anims.generateFrameNumbers('player1', { start: 1, end: 2 }),
-            frameRate: 10,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'player1-run',
-            frames: this.anims.generateFrameNumbers('player1', { start: 2, end: 3 }),
-            frameRate: 10,
-            repeat: 0
-        })
-
-        this.anims.create({
-            key: 'player1-turn',
-            frames: this.anims.generateFrameNumbers('player1', { start: 0, end: 0 }),
-            frameRate: 5,
-            repeat: 0
-        })
        
-        this.anims.create({
-            key: 'player1-throw',
-            frames: this.anims.generateFrameNumbers('player1', { start: 30, end: 31 }),
-            duration: 200,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'player1-pick',
-            frames: this.anims.generateFrameNumbers('player1', { start: 53, end: 53 }),
-            duration: 250,
-            repeat: 0
-        })
-
-        this.anims.create({
-            key: 'player1-jump',
-            frames: this.anims.generateFrameNumbers('player1', { start: 8, end: 9 }),
-            repeat: 0
-        })
-        
-        this.anims.create({
-            key: 'player1-hitted',
-            frames: this.anims.generateFrameNumbers('player1', { start: 32, end: 37 }),
-            // frameRate: 10,
-            duration: 1000,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'player1-hitted-back',
-            frames: this.anims.generateFrameNumbers('player1', { start: 147, end: 148 }),
-            // frameRate: 10,
-            duration: 1000,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'player1-hit-down',
-            frames: this.anims.generateFrameNumbers('player1', { start: 148, end: 152 }),
-            repeatDelay: 1000,
-            duration: 1000,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'player1-hit-down2',
-            frames: this.anims.generateFrameNumbers('player1', { start: 152, end: 152 }),
-            duration: 1000,
-            repeat: 0
-        })
-        // ball
-        this.anims.create({
-            key: 'normal-ball',
-            frames: this.anims.generateFrameNumbers('ball', { start: 0, end: 0 }),
-            frameRate: 20,
-            repeat: -1
-        })
-        this.anims.create({
-            key: 'magic-ball1',
-            frames: this.anims.generateFrameNumbers('ball', { start: 0, end: 1 }),
-            frameRate: 20,
-            repeat: -1
-        })
-        this.anims.create({
-            key: 'magic-ball2',
-            frames: this.anims.generateFrameNumbers('ball', { start: 2, end: 5 }),
-            frameRate: 20,
-            repeat: -1,
-        })
-        // this.anims.create({
-        //     key: 'magic-ball3',
-        //     frames: this.anims.generateFrameNumbers('ball', { start: 4, end: 5 }),
-        //     frameRate: 20,
-        //     repeat: -1
-        // })
-        this.anims.create({
-            key: 'magic-ball3',
-            frames: this.anims.generateFrameNumbers('ball', { start: 6, end: 9 }),
-            frameRate: 16,
-            repeat: -1
-        })
-        this.anims.create({
-            key: 'player1-catch',
-            frames: this.anims.generateFrameNumbers('player1', { start: 76, end: 76 }),
-            frameRate: 10,
-            repeat: 0
-        })
-
-        // enemy1 anims
-        this.anims.create({
-            key: 'enemy1-turn',
-            frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 0 }),
-            frameRate: 5,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'enemy1-walk',
-            frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 1 }),
-            frameRate: 5,
-            repeat: -1
-        })
-        this.anims.create({
-            key: 'enemy1-run',
-            frames: this.anims.generateFrameNumbers('enemy1', { start: 2, end: 3 }),
-            frameRate: 10,
-            repeat: -1
-        })       
-        this.anims.create({
-            key: 'enemy1-hitted',
-            frames: this.anims.generateFrameNumbers('enemy1', { start: 28, end: 30 }),
-            duration: 200,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'enemy1-pick',
-            frames: this.anims.generateFrameNumbers('enemy1', { start: 14, end: 14 }),
-            duration: 250,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'enemy1-jump',
-            frames: this.anims.generateFrameNumbers('enemy1', { start: 8, end: 9 }),
-            repeat: 0
-        })
-
-        //player2
-        this.anims.create({
-            key: 'player2-walk',
-            frames: this.anims.generateFrameNumbers('player2', { start: 0, end: 30 }),
-            repeat: 0,
-            frameRate:5
-        })
 
 
-
-        // this.player2.anims.play('player2-walk')
-
+        // this.player1.anims.play('player1-tired');
+        this.player2.anims.play('player2-tired');
+        this.player3.anims.play('player3-tired');
+        this.enemy2.anims.play('enemy2-walk');
 
 
         this.throw =(direct) => {
@@ -329,7 +188,7 @@ class GameScene extends Phaser.Scene{
                 this.player1.setVelocityX(-800);
 
                 this.player1.anims.play('player1-hit-down', true);
-                this.player1.anims.chain('player1-hit-down2');
+                this.player1.anims.chain('player1-hit-down-2');
                 // this.ball.setVelocity(200, -200);
                 // this.ball.setAcceleration(-600, 600);
                 this.test.active = false;
@@ -385,7 +244,7 @@ class GameScene extends Phaser.Scene{
 
         
         this.player1.on('animationcomplete',function(){this.player1.anims.play('player1-turn')},this);
-        this.player1.on('animationcomplete-player1-hit-down2',function(){this.state.isActive=true},this);
+        this.player1.on('animationcomplete-player1-hit-down-2',function(){this.state.isActive=true},this);
         this.enemy1.on('animationcomplete',function(){this.enemy1.anims.play('enemy1-turn')},this);
         
         console.log(this)
