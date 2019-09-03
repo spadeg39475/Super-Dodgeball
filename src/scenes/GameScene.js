@@ -27,8 +27,8 @@ class GameScene extends Phaser.Scene{
         this.load.spritesheet('enemy6', './materials/img/character/Yamada/Yamada.png', {frameWidth:64, frameHeight: 64});
         
         
-        this.load.image('tiles', '../materials/img/court3.png')
-        this.load.tilemapTiledJSON('court', './materials/img/court2.json');
+        this.load.image('tiles', '../materials/img/court4.png')
+        this.load.tilemapTiledJSON('court', './materials/img/court3.json');
 
         this.load.on('complete', () => {
             // prepare all animations, defined in a separate file
@@ -43,13 +43,13 @@ class GameScene extends Phaser.Scene{
         const court = this.make.tilemap({ key: "court" })
         // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
         // Phaser's cache (i.e. the name you used in preload);
-        const tileset = court.addTilesetImage('court3', 'tiles');
+        const tileset = court.addTilesetImage('court4', 'tiles');
         // Parameters: layer name (or index) from Tiled, tileset, x, y
         const background = court.createStaticLayer("background", tileset, 0, 0);
         const block = court.createStaticLayer("block", tileset, 0, 0);
         block.setCollisionByProperty({ collides: true });
         background.setCollisionByProperty({ collides: true });
-        this.physics.world.bounds.setTo(0,200, 800,300);
+        this.physics.world.bounds.setTo(0,200, 1040,300);
         this.physics.world.setBoundsCollision();
         
        
@@ -75,7 +75,7 @@ class GameScene extends Phaser.Scene{
         this.teamA.add(this.player1);
         this.player1.setSize(18,33);
         this.player1.setOffset(29,15);
-        this.player1.setScale(1.8);
+        this.player1.setScale(2.0);
         this.player1.setDamping(true);
         this.player1.body.setDrag(0.9,0.9);
 
@@ -128,11 +128,11 @@ class GameScene extends Phaser.Scene{
         this.playerInit(this.enemy6, this.teamB, false)
         
 
-        this.ball = this.physics.add.sprite(450,300,'ball');
+        this.ball = this.physics.add.sprite(400,300,'ball');
         this.ball.name = 'ball'
         this.ball.setCircle(6.5)
         this.ball.setOffset(18.5,18.5)
-        this.ball.setScale(2.2);
+        this.ball.setScale(2.5);
         this.ball.setBounce(0.2);
         this.ball.setFriction(100);
 
@@ -160,7 +160,8 @@ class GameScene extends Phaser.Scene{
         // this.player1.anims.play('player1-dodge');
         this.player2.anims.play('player2-tired');
         this.player3.anims.play('player3-tired');
-        // this.enemy3.anims.play('enemy3-dodge');
+        // this.player4.anims.play('player4-hit-down2');
+        // this.enemy6.anims.play('enemy6-throw');
 
 
         this.throw =(direct) => {
@@ -250,8 +251,6 @@ class GameScene extends Phaser.Scene{
         // this.input.keyboard.on('keydown-' + 'Z', this.throw );
         // this.input.keyboard.on('keydown-' + 'X', this.pick );
         
-        console.log(this.player1)
-        console.log(this.player2)
       
         
 
@@ -314,6 +313,8 @@ class GameScene extends Phaser.Scene{
                 this.state.current.setVelocityX(100);
                 this.player1.anims.play('player1-walk', true);
                 this.player1.flipX = this.state.flipX;
+
+                
             }
             if (input.left && this.state.isRun === true){
 
@@ -481,7 +482,7 @@ class GameScene extends Phaser.Scene{
         team.add(player);
         player.setSize(18,33);
         player.setOffset(23,22);
-        player.setScale(1.8);
+        player.setScale(2);
         player.setDamping(true);
         player.body.setDrag(0.9,0.9);
         player.flipX = flipX;

@@ -301,7 +301,263 @@ export default function makeAnimations(scene) {
         repeat: -1
     })
 
+    //player4
+    scene.anims.create({
+        key: 'player4-turn',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'player4-walk',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-run',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'player4-jump',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-pick',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-hitted',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-hitted2',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-hitted-back',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-hit-down',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 35, end: 38 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-hit-down2',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-catch',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 157, end: 157 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-throw',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 127, end: 128 }),
+        frameRate: 8,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-throw2',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 126, end: 129 }),
+        frameRate: 5,
+        repeat: -1
+    })
+    
+    //player5
+    scene.anims.create({
+        key: 'player5-turn',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'player5-walk',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-run',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'player5-jump',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-pick',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-hitted',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-hitted2',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-hitted-back',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-hit-down',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 35, end: 38 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-hit-down2',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-catch',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 157, end: 157 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-throw',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 127, end: 128 }),
+        frameRate: 8,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player5-throw2',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 126, end: 129 }),
+        frameRate: 5,
+        repeat: -1
+    })
 
+    //player6
+    scene.anims.create({
+        key: 'player6-turn',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'player6-walk',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-run',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'player6-jump',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-pick',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-hitted',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-hitted2',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-hitted-back',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-hit-down',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 35, end: 37 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-hit-down2',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 49, end: 51 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-catch',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 170, end: 170 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-throw',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 147, end: 150 }),
+        frameRate: 8,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-throw2',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 148, end: 149 }),
+        frameRate: 5,
+        repeat: 0
+    })
 
 
 
@@ -634,5 +890,262 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     
+    //enemy4
+    scene.anims.create({
+        key: 'enemy4-turn',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'enemy4-walk',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-run',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'enemy4-jump',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-pick',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-hitted',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-hitted2',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-hitted-back',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-hit-down',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 35, end: 38 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-hit-down2',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-catch',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 190, end: 190 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-throw',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 159, end: 163 }),
+        frameRate: 8,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy4-throw2',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 160, end: 162 }),
+        frameRate: 5,
+        repeat: 0
+    })
+
+    //enemy5
+    scene.anims.create({
+        key: 'enemy5-turn',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'enemy5-walk',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-run',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'enemy5-jump',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-pick',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-hitted',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-hitted2',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-hitted-back',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-hit-down',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 35, end: 38 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-hit-down2',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-catch',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 122, end: 122 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-throw',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 100, end: 103 }),
+        frameRate: 8,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-throw2',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 101, end: 102 }),
+        frameRate: 5,
+        repeat: 0
+    })
+
+    //enemy6
+    scene.anims.create({
+        key: 'enemy6-turn',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 0, end: 0 }),
+        repeat: 0,
+        frameRate:5
+    })
+    scene.anims.create({
+        key: 'enemy6-walk',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-run',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+    scene.anims.create({
+        key: 'enemy6-jump',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 8, end: 9 }),
+        frameRate:5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-pick',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 15, end: 15 }),
+        duration: 250,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-hitted',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 27, end: 29 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-hitted2',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 30, end: 32 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-hitted-back',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 33, end: 34 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-hit-down',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 35, end: 38 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-hit-down2',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-catch',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 193, end: 193 }),
+        frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-throw',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 171, end: 174 }),
+        frameRate: 8,
+        // duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-throw2',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 172, end: 173 }),
+        frameRate: 5,
+        repeat: 0
+    })
 
 }
