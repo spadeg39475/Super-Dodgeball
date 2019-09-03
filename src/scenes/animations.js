@@ -100,7 +100,7 @@ export default function makeAnimations(scene) {
         key: 'player1-dodge',
         frames: scene.anims.generateFrameNumbers('player1', { start: 6, end: 6 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 0
     })
 
 
@@ -200,7 +200,7 @@ export default function makeAnimations(scene) {
         key: 'player2-dodge',
         frames: scene.anims.generateFrameNumbers('player2', { start: 6, end: 6 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 0
     })
 
     //-- player3
@@ -298,7 +298,7 @@ export default function makeAnimations(scene) {
         key: 'player3-dodge',
         frames: scene.anims.generateFrameNumbers('player3', { start: 6, end: 6 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 0
     })
 
     //player4

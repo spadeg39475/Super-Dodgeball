@@ -49,7 +49,7 @@ class GameScene extends Phaser.Scene{
         const block = court.createStaticLayer("block", tileset, 0, 0);
         block.setCollisionByProperty({ collides: true });
         background.setCollisionByProperty({ collides: true });
-        this.physics.world.bounds.setTo(0,200, 1040,300);
+        this.physics.world.bounds.setTo(100,200, 800,300);
         this.physics.world.setBoundsCollision();
         
        
@@ -77,7 +77,7 @@ class GameScene extends Phaser.Scene{
         this.player1.setOffset(29,15);
         this.player1.setScale(2.0);
         this.player1.setDamping(true);
-        this.player1.body.setDrag(0.9,0.9);
+        this.player1.body.setDrag(0.9,0.5);
 
         this.player2 = this.physics.add.sprite(this.playerPos[1].x, this.playerPos[1].y, 'player2');
         this.player2.name = 'player2';
@@ -133,7 +133,7 @@ class GameScene extends Phaser.Scene{
         this.ball.setCircle(6.5)
         this.ball.setOffset(18.5,18.5)
         this.ball.setScale(2.5);
-        this.ball.setBounce(0.2);
+        this.ball.setBounce(0);
         this.ball.setFriction(100);
 
 
@@ -165,51 +165,45 @@ class GameScene extends Phaser.Scene{
 
 
         this.throw =(direct) => {
-            
-                this.both.clear();
-                this.ball.setFrictionX(0)
-                this.ball.setDamping(false);
-                this.ball.setAcceleration(0,0);
-                this.ball.setBounce(0, 0);
-                this.state.current = this.player1;
+                this.ball.body.stop();
                 let speedX;
-                if(direct==='right'){
-                    speedX =160;
-                }else{speedX=-160}
+                if(direct){this.state.ballTo=direct}
+                else{this.state.current.flipX? this.state.ballTo = 'left' : this.state.ballTo = 'right';}
+                this.state.ballTo==='right'? speedX = 160 : speedX = -160;
+                this.ball.setFriction(0);
+                this.ball.setDamping(false);
+
                 this.tweens.add({
-                    targets: this.player1,
+                    targets: this.state.current,
                     ease: 'linear',
                     delay:0,
                     duration: 1000,
                     yoyo: true,
                     repeat: 0,
-                    onStart:  ()=> {this.player1.anims.play('player1-throw')},
-                    completeDelay: 100,
+                    onStart:  ()=> {this.state.current.anims.play(`${this.state.current.name}-throw`)},
+                    // completeDelay: -,
                     onComplete:  ()=>{
                         this.ball.setVelocityX(speedX).setCollideWorldBounds(true);
-                        if(this.player1.x <390 && this.player1.x>340 && this.ball.body.velocity.x > 159.5){
+                        if(this.state.current.x <390 && this.state.current.x>340 && this.ball.body.velocity.x > 159.5){
                             let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 3)
                             this.ball.anims.play(ballAnime)
                         }else{this.ball.anims.play('normal-ball')}
                         this.state.isThrow = false;
                         this.state.haveBall = false;
-                    },
+                    }
                 })
+                
+
+                
         }
-
-        this.test = this.physics.add.overlap(this.player1, this.ball, null,()=>{
-            if(this.state.turn === 'enemy' && this.ball.x < this.player1.x + 24){
-                this.player1.setVelocityX(-800);
-
-                this.player1.anims.play('player1-hit-down', true);
-                this.player1.anims.chain('player1-hit-down-2');
-                // this.ball.setVelocity(200, -200);
-                // this.ball.setAcceleration(-600, 600);
-                this.test.active = false;
-                this.state.isActive = false;
-                this.state.turn='us'
-            }
-        });
+        //create collides
+        this.teamA.getChildren().forEach(el=>{
+            this.createCollideToTeamA(el, `hit_${el.name}`)
+        })
+        this.teamB.getChildren().forEach(el=>{
+            this.createCollideToTeamB(el,  `hit_${el.name}`)
+        })
+        
         
 
         this.state = {
@@ -223,7 +217,7 @@ class GameScene extends Phaser.Scene{
             isJump: false,
             flipX: false,
             current: this.player1,
-            isMoving: false,
+            ballTo: 'right',
             x: 0,
             y: 0,
             dx: 0,
@@ -257,8 +251,8 @@ class GameScene extends Phaser.Scene{
 
 
         
-        this.player1.on('animationcomplete',function(){this.player1.anims.play('player1-turn')},this);
-        this.player1.on('animationcomplete-player1-hit-down-2',function(){this.state.isActive=true},this);
+        this.state.current.on('animationcomplete',function(){this.state.current.anims.play(`${this.state.current.name}-turn`)},this);
+        this.state.current.on(`animationcomplete`,function(){this.state.isActive=true},this);
         this.enemy1.on('animationcomplete',function(){this.enemy1.anims.play('enemy1-turn')},this);
         
         console.log(this)
@@ -279,6 +273,8 @@ class GameScene extends Phaser.Scene{
         // this.player1.body.setVelocity(0);
         
         this.checkRun();
+        this.checkFace();
+        // this.changeCurrent(time);
 
           //鍵盤控制
         let input = {
@@ -293,139 +289,121 @@ class GameScene extends Phaser.Scene{
 
         
 
-        this.state.flipX ? this.player1.setOffset(16,15)  : this.player1.setOffset(29,15) ;
+        this.state.flipX ? this.state.current.setOffset(16,15)  : this.state.current.setOffset(29,15) ;
         
         if(this.state.isActive){
             if(input.right && this.state.isRun === true ){
-            
-            this.state.haveBall ? this.ball.x = this.player1.x + 24 : this.ball.x
-           
-
-            this.state.flipX = false;
-            this.state.current.setVelocityX(160);
-            this.player1.anims.play('player1-run', true);
-            this.player1.flipX = this.state.flipX;
+                if(this.state.haveBall){
+                    this.ball.x = this.state.current.x +30;
+                    this.ball.setVelocityX(160)
+                }
+                this.state.flipX = false;
+                this.state.current.setVelocityX(160);
+                this.state.current.anims.play(`${this.state.current.name}-run`, true);
+                this.state.current.flipX = this.state.flipX;
             }
             else if(input.right){
-                this.state.haveBall ? this.ball.x = this.player1.x + 24 : this.ball.x
-
+                if(this.state.haveBall){
+                    this.ball.x = this.state.current.x +30;
+                    this.ball.setVelocityX(100)
+                }
                 this.state.flipX = false;
                 this.state.current.setVelocityX(100);
-                this.player1.anims.play('player1-walk', true);
-                this.player1.flipX = this.state.flipX;
+                this.state.current.anims.play(`${this.state.current.name}-walk`, true);
+                this.state.current.flipX = this.state.flipX;
 
-                
+                // this.ball.x = this.state.current.x
             }
             if (input.left && this.state.isRun === true){
-
-                this.state.haveBall ? this.ball.x = this.player1.x - 24 : this.ball.x
-
-
+                if(this.state.haveBall){
+                    this.ball.x = this.state.current.x - 30;
+                    this.ball.setVelocityX(-160)
+                }
                 this.state.flipX = true
                 this.state.current.setVelocityX(-160);
-                this.player1.anims.play('player1-run',true);
-                this.player1.flipX = this.state.flipX;
+                this.state.current.anims.play(`${this.state.current.name}-run`,true);
+                this.state.current.flipX = this.state.flipX;
             }
             else if (input.left){
-
-                this.state.haveBall ? this.ball.x = this.player1.x - 24 : this.ball.x
-
+                if(this.state.haveBall){
+                    this.ball.x = this.state.current.x - 30;
+                    this.ball.setVelocityX(-100)
+                }
                 this.state.flipX = true;
                 this.state.current.setVelocityX(-100);
-                this.player1.anims.play('player1-walk',true);
-                
-                this.player1.flipX = this.state.flipX;;
+                this.state.current.anims.play(`${this.state.current.name}-walk`,true);
+                this.state.current.flipX = this.state.flipX;
             }
-            if (input.up && this.state.isRun === true && this.state.onFloor){
+            if (input.up && this.state.onFloor){
 
-                
+                if(this.state.haveBall){
+                    this.ball.setVelocityY(-100);
+                    this.ball.y = this.state.current.y;
+                }
                 this.state.current.setVelocityY(-100);
-                this.player1.anims.play('player1-run',true);
+                this.state.isRun 
+                    ? this.state.current.anims.play(`${this.state.current.name}-run`,true) 
+                    : this.state.current.anims.play(`${this.state.current.name}-walk`,true);
                 this.player1.flipX = this.state.flipX;
-
-                this.state.haveBall ? this.ball.y = this.player1.y : this.ball.y
             }
-            else if (input.up && this.state.onFloor){
-
-                // this.state.haveBall ? this.ball.y = this.player1.y : this.ball.y
-
-                this.state.current.setVelocityY(-100);
-                this.player1.anims.play('player1-walk',true);
-                this.player1.flipX = this.state.flipX;
-
-                this.state.haveBall ? this.ball.y = this.player1.y : this.ball.y
-            }
-
-
-            if (input.down && this.state.isRun === true && this.state.onFloor){
-
-                
-
+            if (input.down && this.state.onFloor){
+                if(this.state.haveBall){
+                    this.ball.setVelocityY(100);
+                    this.ball.y = this.state.current.y;
+                }
                 this.state.current.setVelocityY(100);
-                this.player1.anims.play('player1-run',true);
+                this.state.isRun 
+                    ? this.state.current.anims.play(`${this.state.current.name}-run`,true) 
+                    : this.state.current.anims.play(`${this.state.current.name}-walk`,true);
                 this.player1.flipX = this.state.flipX;
-
-                this.state.haveBall ? this.ball.y = this.player1.y : this.ball.y
-
             }
-            else if (input.down && this.state.onFloor){
-
-                this.state.current.setVelocityY(100);
-                this.player1.anims.play('player1-walk', true);
-                this.player1.flipX = this.state.flipX;
-
-                this.state.haveBall ? this.ball.y = this.player1.y : this.ball.y
-
-            }
-
 
             if (input.x && input.z && this.state.onFloor){
                 this.state.onFloor = false;
                 this.state.canThrow = false;
-                this.state.y = this.player1.y;
+                this.state.y = this.state.current.y;
 
-                // console.log(this.state.active.getChildren())
-                // this.state.active.setAccelerationY(500)
-                if(this.state.current.children){
-                    let arr = this.state.current.getChildren();
-                    arr.forEach((el)=>{el.setAccelerationY(500)})
+                if(this.state.haveBall){
+                    this.ball.setAccelerationY(500);
+                    this.ball.setVelocityY(-300);
                 }
-                else{this.state.current.setAccelerationY(500);} 
-                
+                this.state.current.setAccelerationY(500);
                 this.state.current.setVelocityY(-300);
-                this.player1.anims.play('player1-jump');
-                this.state.haveBall ? this.ball.y = this.player1.y : this.ball.y
-                this.player1.flipX = this.state.flipX;
+                this.state.current.anims.play(`${this.state.current.name}-jump`);
+                this.state.haveBall ? this.ball.y = this.state.current.y : this.ball.y
+                this.state.current.flipX = this.state.flipX;
                 this.state.isJump = true;
-                        
             }
-            else if(this.state.isJump && this.player1.y > this.state.y ){
-                
-                this.state.current.setVelocityY(0);
-
-                if(this.state.current.children){
-                    let arr = this.state.current.getChildren();
-                    arr.forEach(el=>{el.setAccelerationY(0)})
-                }
-                else{this.state.current.setAccelerationY(0);} 
-
-                this.state.onFloor = true;
+            else if(this.state.isJump && this.state.current.y > this.state.y ){
                 this.state.isJump = false;
+                this.state.onFloor = true;
+                if(this.state.haveBall){
+                    this.ball.setVelocityY(0)
+                    this.ball.setAccelerationY(0);
+                }
+                this.state.current.setAccelerationY(0);
+                this.state.current.setVelocityY(0);
             }
             else if (this.state.haveBall && Phaser.Input.Keyboard.JustDown(this.keys.z) && this.state.canThrow){
-                this.player1.anims.play('player1-throw')
-                this.throw('right');
+                this.state.current.anims.play(`${this.state.current.name}-throw`)
+                this.throw();
                 this.state.isThrow = true;
             }
             else if (Phaser.Input.Keyboard.JustDown(this.keys.z)){
                 this.catchBall()
             }
             else if(!this.state.isJump && Phaser.Input.Keyboard.JustDown(this.keys.x) && !this.state.haveBall ){
-                
-                this.player1.anims.play('player1-pick');
-                if(this.player1.body.touching.up){
+                this.state.current.anims.play(`${this.state.current.name}-pick`);
+                if(this.state.current.body.touching.up){
                     this.pickBall()
                 }
+            }
+
+            if(this.state.turn === 'enemy' && input.x){
+                this.state.current.anims.play(`${this.state.current.name}-dodge`);
+                this[`hit_${this.state.current.name}`].active = false;
+            }else if (this.state.turn === 'enemy' && Phaser.Input.Keyboard.JustUp(this.keys.x)){
+                this[`hit_${this.state.current.name}`].active = true;
             }
         }
 
@@ -433,10 +411,10 @@ class GameScene extends Phaser.Scene{
 
 
         if(this.state.isJump){
-            if(this.player1.body.velocity.y < 20 && this.player1.body.velocity.y > -10){
+            if( Math.abs(this.state.current.body.velocity.y)  < 10 ){
                 this.state.canThrow = true;
             }
-            this.player1.anims.play('player1-jump')
+            this.state.current.anims.play(`${this.state.current.name}-jump`)
             
         }
         if(this.state.isThrow){
@@ -472,9 +450,15 @@ class GameScene extends Phaser.Scene{
                     this.enemy1.anims.play('enemy1-turn', true)
                     this.state.turn = 'enemy'
                     this.throw('left')
-                    this.test.active= true;
+                    this[`hit_${this.state.current.name}`].active= true;
                 }
             })
+        }
+
+
+        //for testing
+        if(input.x){
+            // console.log(this.state.isActive)
         }
     }
 
@@ -484,76 +468,181 @@ class GameScene extends Phaser.Scene{
         player.setOffset(23,22);
         player.setScale(2);
         player.setDamping(true);
-        player.body.setDrag(0.9,0.9);
+        player.body.setDrag(0.9,0.5);
         player.flipX = flipX;
     }
 
-    changeCurrent(){
-        let dist = this.teamA.getChildren().map(el=>{
-            return Math.abs(this.ball.x + this.ball.y - el.x -el.y);
+    changeCurrent(time){
+        if(time%1000 < 1){
+            let dist = this.teamA.getChildren().map(el=>{
+                return Math.abs(this.ball.x + this.ball.y - el.x -el.y);
+            })
+            let curIndex = dist.indexOf(Math.min(...dist))
+            this.state.current = this.teamA.getChildren()[curIndex]
+            console.log(time)
+        }
+        
+    }
+
+    checkFace(){
+        this.teamA.getChildren().forEach(el=>{
+            if(el !== this.state.current){
+                el.x < this.ball.x ? el.flipX=false : el.flipX =true;
+            }
+           
         })
-        let curIndex = dist.indexOf(Math.min(...dist))
-        this.state.current = this.teamA.getChildren()[curIndex]
+        this.teamB.getChildren().forEach(el=>{
+            if(el !== this.state.current){
+                el.x < this.ball.x ? el.flipX=false : el.flipX =true;
+            }
+            
+        })
     }
 
     pickBall(){
         this.state.haveBall = true;
-        this.state.current = this.both
-        this.both.add(this.player1)
-        this.both.add(this.ball)
         this.tweens.add({
             targets: this.ball,
-            x: this.player1.x + 24,
-            y: this.player1.y ,
+            x: this.state.flipX?   this.state.current.x - 30 : this.state.current.x + 30,
+            y: this.state.current.y ,
             ease: 'linear',
             delay:200,
             duration: 0,
             repeat: 0
         })
-        
-        this.player1.setDamping(true);
-        this.player1.body.setDrag(0.90,0.90);
-        this.player1.setFrictionX(1);
+        // this.player1.setDamping(true);
+        // this.player1.body.setDrag(0.90,0.90);
+        // this.player1.setFrictionX(1);
         this.ball.setDamping(true);
-        this.ball.body.setDrag(0.90,0.90);
+        this.ball.body.setDrag(0.9,0.5);
         this.ball.setFriction(1,100)
-        
     }
 
     catchBall(){
         if(this.state.turn === 'enemy'){
-            this.player1.anims.play('player1-catch')
+            this.state.current.anims.play(`${this.state.current.name}-catch`)
+            //從右邊來的球
+            if(this.state.ballTo==='left'){
+                if(this.ball.x > this.state.current.x + 30 && this.ball.x < this.state.current.x + 60){
+                    this.state.haveBall = true;
+                    this.tweens.add({
+                        targets: this.ball,
+                        x: this.state.current.x +30,
+                        y: this.state.current.y -5,
+                        ease: 'linear',
+                        delay:0,
+                        duration: 0,
+                        repeat: 0
+                    })
+                    this.ball.anims.play('normal-ball');
+                    this.ball.body.stop();
+                    this.state.turn = 'us'
+                }
 
-            if(this.ball.x < this.player1.x + 40 && this.ball.x > this.player1.x + 30){
-                this.state.haveBall = true;
-                this.state.current = this.both
-                this.both.add(this.player1)
-                this.both.add(this.ball)
-                this.tweens.add({
-                    targets: this.ball,
-                    x: this.player1.x +24,
-                    y: this.player1.y -5,
-                    ease: 'linear',
-                    delay:0,
-                    duration: 0,
-                    repeat: 0
-                })
-                this.ball.anims.play('normal-ball')
-                this.player1.setDamping(true);
-                this.player1.body.setDrag(0.90,0.90);
-                this.player1.setFrictionX(1);
-                this.ball.setDamping(true);
-                this.ball.body.setDrag(0.90,0.90);
-                this.ball.setFrictionX(1);
-                this.state.turn = 'us'
-                this.test.active = true;
+            //從左邊來的球
+            }else{
+                if(this.ball.x > this.state.current.x - 50 && this.ball.x < this.state.current.x - 30){
+                    this.state.haveBall = true;
+                    this.tweens.add({
+                        targets: this.ball,
+                        x: this.state.current.x -30,
+                        y: this.state.current.y -5,
+                        ease: 'linear',
+                        delay:0,
+                        duration: 0,
+                        repeat: 0
+                    })
+                    this.ball.anims.play('normal-ball');
+                    this.ball.body.stop();
+                    this.state.turn = 'us'
+
+                }
             }
             
         }
         
     }
 
-    
+    dodge(){
+        this.state.current.anims.play(`${this.state.current.name}-dodge`)
+    }
+
+    createCollideToTeamA(obj,cName){
+        this[cName] = this.physics.add.overlap(obj, this.ball, null,(e)=>{
+            if(this.state.turn === 'enemy' ){
+                if(this.state.ballTo==='left'){
+                    if(this.ball.x < e.x +24 && !e.flipX ){
+                        e.setVelocityX(-800);
+                        e.anims.play(`${e.name}-hit-down`, true); 
+                        e.anims.chain(`${e.name}-hit-down-2`);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'us';      
+                    }else if(this.ball.x < obj.x +24 && e.flipX){
+                        e.setVelocityX(-800);
+                        e.anims.play(`${e.name}-hit-down2`, true); 
+                        // obj.anims.chain(`${obj.name}-hit-down-2`);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'us';    
+                    }
+                }else {
+                    if(this.ball.x > e.x -24 && e.flipX){
+                        e.setVelocityX(800);
+                        e.anims.play(`${e.name}-hit-down`, true);
+                        // obj.anims.chain(`${obj.name}-hit-down-2`);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'us';   
+                    }else if (this.ball.x > e.x -24 && !e.flipX){
+                        e.setVelocityX(800);
+                        e.anims.play(`${e.name}-hit-down2`, true);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'us';   
+                    }
+                }
+                // this[`hit_${e.name}`].active = false;
+                this.state.isActive = false;
+               
+            }
+           
+        });
+    }
+
+    createCollideToTeamB(obj,cName){
+        this[cName] = this.physics.add.overlap(obj, this.ball, null,(e)=>{
+            if(this.state.turn === 'us'){
+                if(this.state.ballTo==='left'){
+                    if(this.ball.x < e.x +24 && !e.flipX ){
+                        e.setVelocityX(-800);
+                        e.anims.play(`${e.name}-hit-down`, true); 
+                        e.anims.chain(`${e.name}-hit-down-2`);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'enemy';     
+                    }else if(this.ball.x < obj.x +24 && e.flipX){
+                        e.setVelocityX(-800);
+                        e.anims.play(`${e.name}-hit-down2`, true); 
+                        // obj.anims.chain(`${obj.name}-hit-down-2`);
+                        this[`hit_${e.name}`].active = false; 
+                        this.state.turn = 'enemy';  
+                    }
+                }else {
+                    if(this.ball.x > e.x -24 && e.flipX){
+                        e.setVelocityX(800);
+                        e.anims.play(`${e.name}-hit-down`, true);
+                        // obj.anims.chain(`${obj.name}-hit-down-2`);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'enemy';  
+                    }else if (this.ball.x > e.x -24 && !e.flipX){
+                        e.setVelocityX(800);
+                        e.anims.play(`${e.name}-hit-down2`, true);
+                        this[`hit_${e.name}`].active = false;
+                        this.state.turn = 'enemy';  
+                    }
+                }
+                // this[`hit_${e.name}`].active = false;
+                 
+            }
+           
+        });
+    }
 
 }
 
