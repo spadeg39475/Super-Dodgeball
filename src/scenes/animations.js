@@ -35,7 +35,7 @@ export default function makeAnimations(scene) {
 
     scene.anims.create({
         key: 'player1-jump',
-        frames: scene.anims.generateFrameNumbers('player1', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('player1', { start: 8, end: 8 }),
         repeat: 0
     })
     
@@ -123,11 +123,11 @@ export default function makeAnimations(scene) {
         key: 'player2-run',
         frames: scene.anims.generateFrameNumbers('player2', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'player2-jump',
-        frames: scene.anims.generateFrameNumbers('player2', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('player2', { start: 8, end: 8 }),
         repeat: 0
     })
     scene.anims.create({
@@ -220,11 +220,11 @@ export default function makeAnimations(scene) {
         key: 'player3-run',
         frames: scene.anims.generateFrameNumbers('player3', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'player3-jump',
-        frames: scene.anims.generateFrameNumbers('player3', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('player3', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -318,11 +318,11 @@ export default function makeAnimations(scene) {
         key: 'player4-run',
         frames: scene.anims.generateFrameNumbers('player4', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'player4-jump',
-        frames: scene.anims.generateFrameNumbers('player4', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('player4', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -404,11 +404,11 @@ export default function makeAnimations(scene) {
         key: 'player5-run',
         frames: scene.anims.generateFrameNumbers('player5', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'player5-jump',
-        frames: scene.anims.generateFrameNumbers('player5', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('player5', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -490,11 +490,11 @@ export default function makeAnimations(scene) {
         key: 'player6-run',
         frames: scene.anims.generateFrameNumbers('player6', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'player6-jump',
-        frames: scene.anims.generateFrameNumbers('player6', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('player6', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -613,11 +613,11 @@ export default function makeAnimations(scene) {
         key: 'enemy1-run',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'enemy1-jump',
-        frames: scene.anims.generateFrameNumbers('enemy1', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('enemy1', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -711,11 +711,11 @@ export default function makeAnimations(scene) {
         key: 'enemy2-run',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'enemy2-jump',
-        frames: scene.anims.generateFrameNumbers('enemy2', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('enemy2', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -809,11 +809,11 @@ export default function makeAnimations(scene) {
         key: 'enemy3-run',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'enemy3-jump',
-        frames: scene.anims.generateFrameNumbers('enemy3', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -907,11 +907,11 @@ export default function makeAnimations(scene) {
         key: 'enemy4-run',
         frames: scene.anims.generateFrameNumbers('enemy4', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'enemy4-jump',
-        frames: scene.anims.generateFrameNumbers('enemy4', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -993,11 +993,11 @@ export default function makeAnimations(scene) {
         key: 'enemy5-run',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'enemy5-jump',
-        frames: scene.anims.generateFrameNumbers('enemy5', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
@@ -1079,11 +1079,11 @@ export default function makeAnimations(scene) {
         key: 'enemy6-run',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 2, end: 3 }),
         frameRate: 10,
-        repeat: -1
+        repeat: 0
     })
     scene.anims.create({
         key: 'enemy6-jump',
-        frames: scene.anims.generateFrameNumbers('enemy6', { start: 8, end: 9 }),
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 8, end: 8 }),
         frameRate:5,
         repeat: 0
     })
