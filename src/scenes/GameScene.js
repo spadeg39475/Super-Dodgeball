@@ -1,5 +1,4 @@
 import makeAnimations from './animations';
-import Player1 from '../sprites/player1';
 class GameScene extends Phaser.Scene{
 
     constructor(test){
@@ -68,13 +67,6 @@ class GameScene extends Phaser.Scene{
 
         this.teamA = this.physics.add.group();
         this.teamB = this.physics.add.group();
-
-        // this.test = new Player1({
-        //     scene: this,
-        //     key: 'player1',
-        //     x: 300,
-        //     y: 450
-        // })
 
 
 
@@ -261,10 +253,10 @@ class GameScene extends Phaser.Scene{
       
         
 
-
-
-        
-        this.state.current.on('animationcomplete',function(){this.state.current.anims.play(`${this.state.current.name}-turn`)},this);
+        this.teamA.getChildren().forEach(el=>{
+            el.on('animationcomplete', ()=>{el.anims.play(`${el.name}-turn`)},this);
+        })
+        // this.state.current.on('animationcomplete',function(){this.state.current.anims.play(`${this.state.current.name}-turn`)},this);
         this.state.current.on(`animationcomplete`,function(){this.state.isActive=true},this);
         this.enemy1.on('animationcomplete',function(){this.enemy1.anims.play('enemy1-turn')},this);
         
@@ -281,7 +273,7 @@ class GameScene extends Phaser.Scene{
         }
 
         
-        // this. timedEvent = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
+        // this. timedEvent = this.time.addEvent({delay: 2000, callback: this.changeCurrent, callbackScope:this, loop: true});
 
 
     }
@@ -318,7 +310,7 @@ class GameScene extends Phaser.Scene{
             if(input.right){
                 if(this.state.isRun){
                     if(this.state.haveBall){
-                        this.ball.x = this.state.current.x +30;
+                        this.state.current===this.player1? this.ball.x = this.state.current.x +30 : this.ball.x = this.state.current.x+24;
                         this.ball.setVelocityX(160)
                     }
                     this.state.current.setVelocityX(160);
@@ -327,7 +319,7 @@ class GameScene extends Phaser.Scene{
     
                 }else{
                     if(this.state.haveBall){
-                        this.ball.x = this.state.current.x +30;
+                        this.state.current===this.player1? this.ball.x = this.state.current.x +30 : this.ball.x = this.state.current.x+24;
                         this.ball.setVelocityX(100)
                     }
                     this.state.current.setVelocityX(100);
@@ -339,7 +331,7 @@ class GameScene extends Phaser.Scene{
             if (input.left){
                 if(this.state.isRun){
                     if(this.state.haveBall){
-                        this.ball.x = this.state.current.x - 30;
+                        this.state.current===this.player1? this.ball.x = this.state.current.x -30 : this.ball.x = this.state.current.x-24;
                         this.ball.setVelocityX(-160)
                     }
                     this.state.current.setVelocityX(-160);
@@ -347,7 +339,7 @@ class GameScene extends Phaser.Scene{
                     this.state.current.flipX = true;
                 }else{
                     if(this.state.haveBall){
-                        this.ball.x = this.state.current.x - 30;
+                        this.state.current===this.player1? this.ball.x = this.state.current.x -30 : this.ball.x = this.state.current.x-24;
                         this.ball.setVelocityX(-100)
                     }
                     this.state.current.setVelocityX(-100);
@@ -356,21 +348,27 @@ class GameScene extends Phaser.Scene{
                 }
             }
             if (input.up && this.state.onFloor){
-                if(this.state.haveBall){
-                    this.ball.setVelocityY(-100);
-                    this.ball.y = this.state.current.y;
+                if(this.state.current.y > 268  && this.state.current.y < 450){
+                    if(this.state.haveBall){
+                        this.ball.setVelocityY(-100);
+                        this.state.current===this.player1? this.ball.y = this.state.current.y : this.ball.y = this.state.current.y + 16;
+                    }
+                    
+                    this.state.current.setVelocityY(-100);
                 }
-                this.state.current.setVelocityY(-100);
+                
                 this.state.isRun 
                     ? this.state.current.anims.play(`${this.state.current.name}-run`,true) 
                     : this.state.current.anims.play(`${this.state.current.name}-walk`,true);
             }
             if (input.down && this.state.onFloor){
-                if(this.state.haveBall){
-                    this.ball.setVelocityY(100);
-                    this.ball.y = this.state.current.y;
+                if(this.state.current.y < 437 && this.state.current.y > 265){
+                    if(this.state.haveBall){
+                        this.ball.setVelocityY(100);
+                        this.state.current===this.player1? this.ball.y = this.state.current.y : this.ball.y = this.state.current.y + 16;
+                    }
+                    this.state.current.setVelocityY(100);
                 }
-                this.state.current.setVelocityY(100);
                 this.state.isRun 
                     ? this.state.current.anims.play(`${this.state.current.name}-run`,true) 
                     : this.state.current.anims.play(`${this.state.current.name}-walk`,true);
@@ -380,6 +378,7 @@ class GameScene extends Phaser.Scene{
 
             // zx control
             if (input.x && input.z){
+                this.state.canThrow = false;
                 this.jump();
             }
             else if (this.state.haveBall && Phaser.Input.Keyboard.JustDown(this.keys.z) && this.state.canThrow){
@@ -387,24 +386,24 @@ class GameScene extends Phaser.Scene{
                 this.throw();
                 this.state.isThrow = true;
             }
-            else if (Phaser.Input.Keyboard.JustDown(this.keys.z)){
-                if(this.state.haveBall && this.state.canThrow){
+            else if (this.input.keyboard.checkDown(this.keys.z, 500)){
+                if(this.state.haveBall && this.state.canThrow && Phaser.Input.Keyboard.JustDown(this.keys.z)){
                     this.state.current.anims.play(`${this.state.current.name}-throw`)
                     this.throw();
                     this.state.isThrow = true;
                 }else if(!this.state.haveBall && this.state.turn ==='enemy'){
                     this.catchBall()
-                }else if(!this.state.haveBall && this.state.turn === 'us' && this.state.onFloor){
+                }else if(!this.state.haveBall && this.state.turn === 'us' && this.state.onFloor && Phaser.Input.Keyboard.JustDown(this.keys.z)){
                     this.state.current.anims.play(`${this.state.current.name}-pick`);
                     if(this.state.current.body.touching.up){
                         this.pickBall()
                     }
-                }else{return}
+                }
             }
-            else if(Phaser.Input.Keyboard.JustDown(this.keys.x)){
-                if(this.state.haveBall && this.state.canThrow){
+            else if (this.input.keyboard.checkDown(this.keys.x, 500)){
+                if(this.state.haveBall && this.state.canThrow && Phaser.Input.Keyboard.JustDown(this.keys.x)){
                     this.pass();
-                }else if(!this.state.haveBall && this.state.turn === 'us' && this.state.onFloor){
+                }else if(!this.state.haveBall && this.state.turn === 'us' && this.state.onFloor && Phaser.Input.Keyboard.JustDown(this.keys.x)){
                     this.state.current.anims.play(`${this.state.current.name}-pick`);
                     if(this.state.current.body.touching.up){
                         this.pickBall()
@@ -420,17 +419,18 @@ class GameScene extends Phaser.Scene{
         }
 
     
-        if(this.state.isJump && this.state.current.y > this.state.y){
+        if(this.state.isJump && this.state.current.y > this.state.y ){
             if(this.state.haveBall){
                 this.ball.body.stop();
             }
             this.state.current.body.stop();
             this.state.onFloor = true;
             this.state.isJump = false;
+
         }
 
         if(this.state.isJump){
-            if( Math.abs(this.state.current.body.velocity.y)  < 10 ){
+            if( Math.abs(this.state.current.body.velocity.y)  < 20 ){
                 this.state.canThrow = true;
             }
             this.state.current.anims.play(`${this.state.current.name}-jump`);
@@ -475,8 +475,8 @@ class GameScene extends Phaser.Scene{
 
 
         //for testing
-        if(input.x && this.state.haveBall){
-            // this.pass()
+        if(input.x ){
+            console.log(this.state.current.y)
         }
     }
 
@@ -493,12 +493,8 @@ class GameScene extends Phaser.Scene{
 
 
     changeCurrent(){
-        if(this.state.ture === 'us'){
-            let dist = this.teamA.getChildren().map(el=>{
-                return Math.abs(this.ball.x + this.ball.y - el.x -el.y);
-            })
-            let curIndex = dist.indexOf(Math.min(...dist))
-            this.state.current = this.teamA.getChildren()[curIndex]
+        if(this.state.turn === 'us' && !this.state.haveball){
+            this.state.current = this.checkNearObj(this.teamA, 6)
         }else{
             
         }
@@ -610,38 +606,94 @@ class GameScene extends Phaser.Scene{
     }
 
     pass(){
-        
-            let passObj
+            let passObj;
             if(this.state.current.x < 520){
-                if(this.state.current.y < 350){
-                    passObj = this.player4
-                }else if(this.state.current.y > 410){
-                    passObj = this.player6
+                if(!this.state.current.flipX){
+                    if(this.state.current.y < 350){
+                        passObj = this.player4
+                    }else if(this.state.current.y > 410){
+                        passObj = this.player6
+                    }else{
+                        passObj = this.player5;
+                    }
                 }else{
-                    passObj = this.player5;
+                    passObj = this.checkNearObj(this.teamA, 3)
                 }
+                
             }else{
-                passObj = this.player1;
+                
+                if((this.state.current.y < 340 || this.state.current.y > 420) && this.state.current!== this.player5 && !this.state.current.flipX){
+                    passObj = this.player5;
+                }else if (this.state.current.y < 340 && this.state.current!==this.player4){passObj = this.player4}
+                 else if (this.state.current.y > 410 && this.state.current!==this.player6){passObj = this.player6}
+                 else{ passObj = this.checkNearObj(this.teamA, 3)}
             }
             this.ball.body.stop();
-            this.ball.setFriction(0);
-            this.ball.setDamping(false);
+            // this.ball.setFriction(0);
+            // this.ball.setDamping(false);
+            let offsetX, offsetY;
+            if(passObj===this.player1){
+                if(passObj.flipX){
+                    offsetX = -30;
+                    offsetY = 0 ;
+                }else{
+                    offsetX = 30;
+                    offsetY = 0 ;
+                }
+            }else{
+                if(passObj.flipX){
+                    offsetX = -20;
+                    offsetY = 16 ;
+                }else{
+                    offsetX = 20;
+                    offsetY = 16 ;
+                }
+            }
+            let count = 0
             this.tweens.add({
                 targets: this.ball,
-                x: passObj.x,
-                y: passObj.y,
-                ease: 'linear',
+                x: {value: passObj.x + offsetX, duration:1000, ease: 'linear.none'},
+                // y: {value: passObj.y + offsetY, duration:1000, ease: 'linear.none'},
                 delay:0,
                 duration: 1500,
-                completeDelay:1000,
+                completeDelay:0,
                 repeat: 0,
-                onComplete: ()=>{this.state.current=passObj}
+                onStart: ()=>{
+                    this.ball.setDrag(0);
+                    this.ball.setVelocityY(-200);
+                    this.ball.setAccelerationY((400-(this.state.current.y - (passObj.y-offsetY))*2));
+                   
+                },
+                onComplete: ()=>{
+                    this.ball.body.stop();
+                    this.ball.setDrag(0.9,0.5);
+                    this.state.haveBall = true;
+                    this.state.current = passObj;
+                }
             })
             this.state.isThrow = false;
             this.state.haveBall = false;
         
     }
-
+    //求距離
+    distance(a,b){
+        let dx, dy ;
+        dx = Math.abs(a.x - b.x);
+        dy = Math.abs(a.y - b.y);
+        return (Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2)));
+    }
+    //求最近的隊友
+    checkNearObj(team, to){
+        let dis= new Array(to);
+        for(let i=0; i<to; i++){
+            let obj = team.getChildren()[i];
+            if(this.state.current !== obj){ 
+                dis[i] = this.distance(obj, this.state.current);
+            }else{dis[i]=Infinity}
+        }
+        let i = dis.indexOf(Math.min(...dis));
+        return team.getChildren()[i];
+    }
 
 
     dodge(){
