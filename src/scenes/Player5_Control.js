@@ -1,156 +1,160 @@
 export default function Player5_Control(scene,input){
     if(scene.state.current === scene.player5){
-        if(scene.state.isActive){
+        if(scene.player5.state.isActive){
             //direction control
             if(input.right){
-                if(scene.state.isRun){
-                    // if(scene.state.current.x < 480){
+                if(scene.player5.state.isRun){
+                    // if(scene.player5.x < 480){
                     //     if(scene.state.haveBall){
-                    //         scene.state.current===scene.player1? scene.ball.x = scene.state.current.x +30 : scene.ball.x = scene.state.current.x+24;
+                    //         scene.state.current===scene.player1? scene.ball.x = scene.player5.x +30 : scene.ball.x = scene.player5.x+24;
                     //         scene.ball.setVelocityX(160)
                     //     }
-                    //     scene.state.current.setVelocityX(160);
+                    //     scene.player5.setVelocityX(160);
                     // }
-                    scene.state.current.anims.play(`${scene.state.current.name}-run`, true);
-                    scene.state.current.flipX = false;
+                    scene.player5.anims.play(`${scene.player5.name}-run`, true);
+                    // scene.player5.flipX = false;
                 }else{
-                    // if(scene.state.current.x < 480){
+                    // if(scene.player5.x < 480){
                     //     if(scene.state.haveBall){
-                    //         scene.state.current===scene.player1? scene.ball.x = scene.state.current.x +30 : scene.ball.x = scene.state.current.x+24;
+                    //         scene.state.current===scene.player1? scene.ball.x = scene.player5.x +30 : scene.ball.x = scene.player5.x+24;
                     //         scene.ball.setVelocityX(100)
                     //     }
-                    //     scene.state.current.setVelocityX(100);
+                    //     scene.player5.setVelocityX(100);
                     // }
-                    scene.state.current.anims.play(`${scene.state.current.name}-walk`, true);
-                    scene.state.current.flipX = false;
+                    scene.player5.anims.play(`${scene.player5.name}-walk`, true);
+                    // scene.player5.flipX = false;
                 }
             }
     
             if (input.left){
-                if(scene.state.isRun){
-                    // if(scene.state.current.x > 90 && scene.state.current.x >(740-scene.state.current.y)/3.2){
-                    //     if(scene.state.haveBall){
-                    //         scene.state.current===scene.player1? scene.ball.x = scene.state.current.x -30 : scene.ball.x = scene.state.current.x-24;
-                    //         scene.ball.setVelocityX(-160)
-                    //     }
-                    //     scene.state.current.setVelocityX(-160);
+                if(scene.player5.state.isRun){
+                    // if(scene.player5.x > 90 && scene.player5.x >(740-scene.player5.y)/3.2){
+                        // if(scene.state.haveBall){
+                        //     scene.state.current===scene.player1? scene.ball.x = scene.player5.x -30 : scene.ball.x = scene.player5.x-24;
+                        //     scene.ball.setVelocityX(-160)
+                        // }
+                    //     scene.player5.setVelocityX(-160);
                     // }
                    
-                    scene.state.current.anims.play(`${scene.state.current.name}-run`,true);
-                    scene.state.current.flipX = true;
+                    scene.player5.anims.play(`${scene.player5.name}-run`,true);
+                    scene.player5.flipX = true;
                 }else{
-                    // if(scene.state.current.x > 90 && scene.state.current.x > (740-scene.state.current.y)/3.2){
-                    //     if(scene.state.haveBall){
-                    //         scene.state.current===scene.player1? scene.ball.x = scene.state.current.x -30 : scene.ball.x = scene.state.current.x-24;
-                    //         scene.ball.setVelocityX(-100)
-                    //     }
-                    //     scene.state.current.setVelocityX(-100);
+                    // if(scene.player5.x > 90 && scene.player5.x > (740-scene.player5.y)/3.2){
+                        if(scene.player5.state.haveBall){
+                            scene.state.current===scene.player1? scene.ball.x = scene.player5.x -30 : scene.ball.x = scene.player5.x-24;
+                            // scene.ball.setVelocityX(-100)
+                        }
+                    //     scene.player5.setVelocityX(-100);
                     // }
                     
-                    scene.state.current.anims.play(`${scene.state.current.name}-walk`,true);
-                    scene.state.current.flipX = true;
+                    scene.player5.anims.play(`${scene.player5.name}-walk`,true);
+                    scene.player5.flipX = true;
                 }
             }
-            if (input.up && scene.state.onFloor){
-                if(scene.state.current.y > 268  && scene.state.current.y < 450){
-                    if(scene.state.haveBall){
+            if (input.up && scene.player5.state.onFloor){
+                if(scene.player5.y > 268  && scene.player5.y < 450){
+                    if(scene.player5.state.haveBall){
                         scene.ball.setVelocityY(-100);
                         scene.ball.setVelocityX(-20);
-                        scene.state.current===scene.player1? scene.ball.y = scene.state.current.y : scene.ball.y = scene.state.current.y + 16;
+                        scene.state.current===scene.player1? scene.ball.y = scene.player5.y : scene.ball.y = scene.player5.y + 16;
                     }
                     
-                    scene.state.current.setVelocityY(-100);
-                    scene.state.current.setVelocityX(-20);
+                    scene.player5.setVelocityY(-100);
+                    scene.player5.setVelocityX(-20);
                 }
                 
-                scene.state.isRun 
-                    ? scene.state.current.anims.play(`${scene.state.current.name}-run`,true) 
-                    : scene.state.current.anims.play(`${scene.state.current.name}-walk`,true);
+                scene.player5.state.isRun 
+                    ? scene.player5.anims.play(`${scene.player5.name}-run`,true) 
+                    : scene.player5.anims.play(`${scene.player5.name}-walk`,true);
             }
-            if (input.down && scene.state.onFloor){
-                if(scene.state.current.y < 437 && scene.state.current.y > 265){
-                    if(scene.state.haveBall){
+            if (input.down && scene.player5.state.onFloor){
+                if(scene.player5.y < 437 && scene.player5.y > 265){
+                    if(scene.player5.state.haveBall){
                         scene.ball.setVelocityY(100);
                         scene.ball.setVelocityX(20);
-                        scene.state.current===scene.player1? scene.ball.y = scene.state.current.y : scene.ball.y = scene.state.current.y + 16;
+                        scene.state.current===scene.player1? scene.ball.y = scene.player5.y : scene.ball.y = scene.player5.y + 16;
                     }
-                    scene.state.current.setVelocityY(100);
-                    scene.state.current.setVelocityX(20)
+                    scene.player5.setVelocityY(100);
+                    scene.player5.setVelocityX(20)
                 }
-                scene.state.isRun 
-                    ? scene.state.current.anims.play(`${scene.state.current.name}-run`,true) 
-                    : scene.state.current.anims.play(`${scene.state.current.name}-walk`,true);
+                scene.player5.state.isRun 
+                    ? scene.player5.anims.play(`${scene.player5.name}-run`,true) 
+                    : scene.player5.anims.play(`${scene.player5.name}-walk`,true);
             }
 
 
 
             // zx control
             if (input.x && input.z){
-                scene.state.canThrow = false;
+                scene.player5.state.canThrow = false;
                 scene.jump();
             }
-            else if (scene.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.state.canThrow){
-                scene.state.current.anims.play(`${scene.state.current.name}-throw`)
+            else if (scene.player5.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player5.state.canThrow){
+                scene.player5.anims.play(`${scene.player5.name}-throw`)
                 scene.throw();
-                scene.state.isThrow = true;
+                scene.player5.state.isThrow = true;
             }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
-                if(scene.state.haveBall && scene.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.state.current.anims.play(`${scene.state.current.name}-throw`)
+                if(scene.player5.state.haveBall && scene.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
+                    scene.player5.anims.play(`${scene.player5.name}-throw`)
                     scene.throw();
-                    scene.state.isThrow = true;
-                }else if(!scene.state.haveBall && scene.state.turn ==='enemy'){
+                    scene.player5.state.isThrow = true;
+                }else if(!scene.player5.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
-                }else if(!scene.state.haveBall && scene.state.turn === 'us' && scene.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.state.current.anims.play(`${scene.state.current.name}-pick`);
-                    if(scene.state.current.body.touching.up){
+                }else if(!scene.player5.state.haveBall && scene.state.turn === 'us' && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
+                    scene.player5.anims.play(`${scene.player5.name}-pick`);
+                    if(scene.player5.body.touching.up){
                         scene.pickBall()
                     }
                 }
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
-                if(scene.state.haveBall && scene.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                if(scene.player5.state.haveBall && scene.player5.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.pass();
-                }else if(!scene.state.haveBall && scene.state.turn === 'us' && scene.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.state.current.anims.play(`${scene.state.current.name}-pick`);
-                    if(scene.state.current.body.touching.up){
+                }else if(!scene.player5.state.haveBall && scene.state.turn === 'us' && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    scene.player5.anims.play(`${scene.player5.name}-pick`);
+                    if(scene.player5.body.touching.up){
                         scene.pickBall()
                     }
                 }
             }
             else if(scene.state.turn === 'enemy' && input.x){
-                scene.state.current.anims.play(`${scene.state.current.name}-dodge`);
-                scene[`hit_${scene.state.current.name}`].active = false;
+                scene.player5.anims.play(`${scene.player5.name}-dodge`);
+                scene[`hit_${scene.player5.name}`].active = false;
             }else if (scene.state.turn === 'enemy' && Phaser.Input.Keyboard.JustUp(scene.keys.x)){
-                scene[`hit_${scene.state.current.name}`].active = true;
+                scene[`hit_${scene.player5.name}`].active = true;
             }
         }
 
     
-        if(scene.state.isJump && scene.state.current.y > scene.state.y ){
-            if(scene.state.haveBall){
-                scene.ball.body.stop();
-            }
-            scene.state.current.body.stop();
-            scene.state.current.y = scene.state.y -5;
-            scene.state.onFloor = true;
-            scene.state.isJump = false;
-            scene.state.canChange =true;
-
-        }
-
-        if(scene.state.isJump){
-            if( Math.abs(scene.state.current.body.velocity.y)  < 20 ){
-                scene.state.canThrow = true;
-            }
-            scene.state.current.anims.play(`${scene.state.current.name}-jump`);
-        }
-        if(scene.state.isThrow){
-            scene.state.current.anims.play(`${scene.state.current.name}-throw`);
-        }
         
-        if(scene.ball.body.velocity.x === 0){
-            scene.ball.setAccelerationX(0)
+    }
+
+
+    if(scene.player5.state.isJump && scene.player5.y > scene.player5.state.y ){
+        if(scene.player5.state.haveBall){
+            scene.ball.setAccelerationY(0);
+            scene.ball.body.stop();
         }
+        scene.player5.body.stop();
+        scene.player5.y = scene.player5.state.y -5;
+        scene.player5.state.onFloor = true;
+        scene.player5.state.isJump = false;
+        scene.player5.state.canChange =true;
+
+    }
+
+    if(scene.player5.state.isJump){
+        if( Math.abs(scene.player5.body.velocity.y)  < 20 ){
+            scene.player5.state.canThrow = true;
+        }
+        scene.player5.anims.play(`${scene.player5.name}-jump`);
+    }
+    if(scene.player5.state.isThrow){
+        scene.player5.anims.play(`${scene.player5.name}-throw`);
+    }
+    
+    if(scene.ball.body.velocity.x === 0){
+        scene.ball.setAccelerationX(0)
     }
 }

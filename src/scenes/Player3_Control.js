@@ -1,151 +1,156 @@
 export default function Player3_Control(scene,input){
     if(scene.state.current === scene.player3){
-        if(scene.state.isActive){
+        if(scene.player3.state.isActive){
             //direction control
             if(input.right){
-                if(scene.state.isRun){
-                    if(scene.state.current.x < 480){
-                        if(scene.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.state.current.x +30 : scene.ball.x = scene.state.current.x+24;
+                if(scene.player3.state.isRun){
+                    if(scene.player3.x < 480){
+                        if(scene.player3.state.haveBall){
+                            scene.state.current===scene.player1? scene.ball.x = scene.player3.x +30 : scene.ball.x = scene.player3.x+24;
                             scene.ball.setVelocityX(160)
                         }
-                        scene.state.current.setVelocityX(160);
+                        scene.player3.setVelocityX(160);
                     }
-                    scene.state.current.anims.play(`${scene.state.current.name}-run`, true);
-                    scene.state.current.flipX = false;
+                    scene.player3.anims.play(`${scene.player3.name}-run`, true);
+                    scene.player3.flipX = false;
                 }else{
-                    if(scene.state.current.x < 480){
-                        if(scene.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.state.current.x +30 : scene.ball.x = scene.state.current.x+24;
+                    if(scene.player3.x < 480){
+                        if(scene.player3.state.haveBall){
+                            scene.state.current===scene.player1? scene.ball.x = scene.player3.x +30 : scene.ball.x = scene.player3.x+24;
                             scene.ball.setVelocityX(100)
                         }
-                        scene.state.current.setVelocityX(100);
+                        scene.player3.setVelocityX(100);
                     }
-                    scene.state.current.anims.play(`${scene.state.current.name}-walk`, true);
-                    scene.state.current.flipX = false;
+                    scene.player3.anims.play(`${scene.player3.name}-walk`, true);
+                    scene.player3.flipX = false;
                 }
             }
     
             if (input.left){
-                if(scene.state.isRun){
-                    if(scene.state.current.x > 90 && scene.state.current.x >(740-scene.state.current.y)/3.2){
-                        if(scene.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.state.current.x -30 : scene.ball.x = scene.state.current.x-24;
+                if(scene.player3.state.isRun){
+                    if(scene.player3.x > 90 && scene.player3.x >(740-scene.player3.y)/3.2){
+                        if(scene.player3.state.haveBall){
+                            scene.state.current===scene.player1? scene.ball.x = scene.player3.x -30 : scene.ball.x = scene.player3.x-24;
                             scene.ball.setVelocityX(-160)
                         }
-                        scene.state.current.setVelocityX(-160);
+                        scene.player3.setVelocityX(-160);
                     }
                    
-                    scene.state.current.anims.play(`${scene.state.current.name}-run`,true);
-                    scene.state.current.flipX = true;
+                    scene.player3.anims.play(`${scene.player3.name}-run`,true);
+                    scene.player3.flipX = true;
                 }else{
-                    if(scene.state.current.x > 90 && scene.state.current.x > (740-scene.state.current.y)/3.2){
-                        if(scene.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.state.current.x -30 : scene.ball.x = scene.state.current.x-24;
+                    if(scene.player3.x > 90 && scene.player3.x > (740-scene.player3.y)/3.2){
+                        if(scene.player3.state.haveBall){
+                            scene.state.current===scene.player1? scene.ball.x = scene.player3.x -30 : scene.ball.x = scene.player3.x-24;
                             scene.ball.setVelocityX(-100)
                         }
-                        scene.state.current.setVelocityX(-100);
+                        scene.player3.setVelocityX(-100);
                     }
                     
-                    scene.state.current.anims.play(`${scene.state.current.name}-walk`,true);
-                    scene.state.current.flipX = true;
+                    scene.player3.anims.play(`${scene.player3.name}-walk`,true);
+                    scene.player3.flipX = true;
                 }
             }
-            if (input.up && scene.state.onFloor){
-                if(scene.state.current.y > 268  && scene.state.current.y < 450){
-                    if(scene.state.haveBall){
+            if (input.up && scene.player3.state.onFloor){
+                if(scene.player3.y > 268  && scene.player3.y < 450){
+                    if(scene.player3.state.haveBall){
                         scene.ball.setVelocityY(-100);
-                        scene.state.current===scene.player1? scene.ball.y = scene.state.current.y : scene.ball.y = scene.state.current.y + 16;
+                        scene.state.current===scene.player1? scene.ball.y = scene.player3.y : scene.ball.y = scene.player3.y + 16;
                     }
                     
-                    scene.state.current.setVelocityY(-100);
+                    scene.player3.setVelocityY(-100);
                 }
                 
-                scene.state.isRun 
-                    ? scene.state.current.anims.play(`${scene.state.current.name}-run`,true) 
-                    : scene.state.current.anims.play(`${scene.state.current.name}-walk`,true);
+                scene.player3.state.isRun 
+                    ? scene.player3.anims.play(`${scene.player3.name}-run`,true) 
+                    : scene.player3.anims.play(`${scene.player3.name}-walk`,true);
             }
-            if (input.down && scene.state.onFloor){
-                if(scene.state.current.y < 437 && scene.state.current.y > 265){
-                    if(scene.state.haveBall){
+            if (input.down && scene.player3.state.onFloor){
+                if(scene.player3.y < 437 && scene.player3.y > 265){
+                    if(scene.player3.state.haveBall){
                         scene.ball.setVelocityY(100);
-                        scene.state.current===scene.player1? scene.ball.y = scene.state.current.y : scene.ball.y = scene.state.current.y + 16;
+                        scene.state.current===scene.player1? scene.ball.y = scene.player3.y : scene.ball.y = scene.player3.y + 16;
                     }
-                    scene.state.current.setVelocityY(100);
+                    scene.player3.setVelocityY(100);
                 }
-                scene.state.isRun 
-                    ? scene.state.current.anims.play(`${scene.state.current.name}-run`,true) 
-                    : scene.state.current.anims.play(`${scene.state.current.name}-walk`,true);
+                scene.player3.state.isRun 
+                    ? scene.player3.anims.play(`${scene.player3.name}-run`,true) 
+                    : scene.player3.anims.play(`${scene.player3.name}-walk`,true);
             }
 
 
 
             // zx control
             if (input.x && input.z){
-                scene.state.canThrow = false;
+                scene.player3.state.canThrow = false;
                 scene.jump();
             }
-            else if (scene.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.state.canThrow){
-                scene.state.current.anims.play(`${scene.state.current.name}-throw`)
+            else if (scene.player3.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player3.state.canThrow){
+                scene.player3.anims.play(`${scene.player3.name}-throw`)
                 scene.throw();
-                scene.state.isThrow = true;
+                scene.player3.state.isThrow = true;
             }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
-                if(scene.state.haveBall && scene.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.state.current.anims.play(`${scene.state.current.name}-throw`)
+                if(scene.player3.state.haveBall && scene.player3.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
+                    scene.player3.anims.play(`${scene.player3.name}-throw`)
                     scene.throw();
-                    scene.state.isThrow = true;
+                    scene.player3.state.isThrow = true;
                 }else if(!scene.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
-                }else if(!scene.state.haveBall && scene.state.turn === 'us' && scene.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.state.current.anims.play(`${scene.state.current.name}-pick`);
-                    if(scene.state.current.body.touching.up){
+                }else if(!scene.player3.state.haveBall && scene.state.turn === 'us' && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
+                    scene.player3.anims.play(`${scene.player3.name}-pick`);
+                    if(scene.player3.body.touching.up){
                         scene.pickBall()
                     }
                 }
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
-                if(scene.state.haveBall && scene.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                if(scene.player3.state.haveBall && scene.player3.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.pass();
-                }else if(!scene.state.haveBall && scene.state.turn === 'us' && scene.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.state.current.anims.play(`${scene.state.current.name}-pick`);
-                    if(scene.state.current.body.touching.up){
+                }else if(!scene.player3.state.haveBall && scene.state.turn === 'us' && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    scene.player3.anims.play(`${scene.player3.name}-pick`);
+                    if(scene.player3.body.touching.up){
                         scene.pickBall()
                     }
                 }
             }
             else if(scene.state.turn === 'enemy' && input.x){
-                scene.state.current.anims.play(`${scene.state.current.name}-dodge`);
-                scene[`hit_${scene.state.current.name}`].active = false;
+                scene.player3.anims.play(`${scene.player3.name}-dodge`);
+                scene[`hit_${scene.player3.name}`].active = false;
             }else if (scene.state.turn === 'enemy' && Phaser.Input.Keyboard.JustUp(scene.keys.x)){
-                scene[`hit_${scene.state.current.name}`].active = true;
+                scene[`hit_${scene.player3.name}`].active = true;
             }
         }
 
     
-        if(scene.state.isJump && scene.state.current.y > scene.state.y ){
-            if(scene.state.haveBall){
-                scene.ball.body.stop();
-            }
-            scene.state.current.body.stop();
-            scene.state.current.y = scene.state.y -5;
-            scene.state.onFloor = true;
-            scene.state.isJump = false;
-            scene.state.canChange =true;
-        }
-
-        if(scene.state.isJump){
-            if( Math.abs(scene.state.current.body.velocity.y)  < 20 ){
-                scene.state.canThrow = true;
-            }
-            scene.state.current.anims.play(`${scene.state.current.name}-jump`);
-        }
-        if(scene.state.isThrow){
-            scene.state.current.anims.play(`${scene.state.current.name}-throw`);
-        }
         
-        if(scene.ball.body.velocity.x === 0){
-            scene.ball.setAccelerationX(0)
+    }
+
+
+
+    if(scene.player3.state.isJump && scene.player3.y > scene.player3.state.y ){
+        if(scene.player3.state.haveBall){
+            scene.ball.setAccelerationY(0);
+            scene.ball.body.stop();
         }
+        scene.player3.body.stop();
+        scene.player3.y = scene.player3.state.y -5;
+        scene.player3.state.onFloor = true;
+        scene.player3.state.isJump = false;
+        scene.player3.state.canChange =true;
+    }
+
+    if(scene.player3.state.isJump){
+        if( Math.abs(scene.player3.body.velocity.y)  < 20 ){
+            scene.player3.state.canThrow = true;
+        }
+        scene.player3.anims.play(`${scene.player3.name}-jump`);
+    }
+    if(scene.player3.state.isThrow){
+        scene.player3.anims.play(`${scene.player3.name}-throw`);
+    }
+    
+    if(scene.ball.body.velocity.x === 0){
+        scene.ball.setAccelerationX(0)
     }
 }
