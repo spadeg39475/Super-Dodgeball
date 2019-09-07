@@ -212,6 +212,7 @@ class GameScene extends Phaser.Scene{
                 el.anims.play(`${el.name}-turn`)},this);
             el.on('animationcomplete-' + `${el.name}-hit-down-2`, ()=>{
                 this.state.current.state.isActive=true},this);
+                
         })
         // this.state.current.on('animationcomplete',function(){this.state.current.anims.play(`${this.state.current.name}-turn`)},this);
         // this.state.current.on(`animationcomplete`,function(){this.state.current.state.isActive=true},this);
@@ -351,6 +352,9 @@ class GameScene extends Phaser.Scene{
             }else if(this.ball.x > 920 && this.ball.x > (this.ball.y + 2930)/3.5){
                 this.state.current = this.player5;
             }
+        }
+        if(this.state.current.haveBall){
+            this.state.current.state.isActive = true
         }
     }
     checkFace(){
@@ -754,7 +758,26 @@ class GameScene extends Phaser.Scene{
                         e.anims.play(`${e.name}-hit-down2`, true); 
                         // obj.anims.chain(`${obj.name}-hit-down-2`);
                         this[`hit_${e.name}`].active = false;
-                        
+                        this.tweens.add({
+                            targets: this.ball,
+                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
+                            y: { value: this.ball.y + 30, duration:1000, ease: 'Bounce.easeOut'},
+                            duration: 2000,
+                            ease: 'Bounce.Out',
+                            delay: 500,
+                            onStart: ()=>{
+                                
+                            },
+                            onComplete: ()=>{
+                                this.ball.setDamping(true);
+                                this.ball.setAccelerationY(0);
+                                this.ball.state.ballFrom = '';
+                                this.state.turn='us';
+                            }
+                        });
+                        this.ball.setVelocityX(60);
+                        this.ball.setVelocityY(-100);
+                        this.ball.setAccelerationY(200);
                         
                     }
                 }else {
@@ -827,7 +850,7 @@ class GameScene extends Phaser.Scene{
                         this.tweens.add({
                             targets: this.ball,
                             // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 30, duration:1000, ease: 'Bounce.easeOut'},
+                            y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
                             duration: 2000,
                             ease: 'Bounce.Out',
                             delay: 500,
