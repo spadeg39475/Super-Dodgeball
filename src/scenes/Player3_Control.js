@@ -97,9 +97,9 @@ export default function Player3_Control(scene,input){
                     scene.player3.state.isThrow = true;
                 }else if(!scene.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
-                }else if(!scene.player3.state.haveBall && scene.state.turn === 'us' && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
+                }else if(!scene.player3.state.haveBall  && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player3.anims.play(`${scene.player3.name}-pick`);
-                    if(scene.player3.body.touching.up){
+                    if(!scene.player3.body.touching.none){
                         scene.pickBall()
                     }
                 }
@@ -107,9 +107,9 @@ export default function Player3_Control(scene,input){
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player3.state.haveBall && scene.player3.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.pass();
-                }else if(!scene.player3.state.haveBall && scene.state.turn === 'us' && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                }else if(!scene.player3.state.haveBall  && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player3.anims.play(`${scene.player3.name}-pick`);
-                    if(scene.player3.body.touching.up){
+                    if(!scene.player3.body.touching.none){
                         scene.pickBall()
                     }
                 }
@@ -117,7 +117,7 @@ export default function Player3_Control(scene,input){
             else if(scene.state.turn === 'enemy' && input.x){
                 scene.player3.anims.play(`${scene.player3.name}-dodge`);
                 scene[`hit_${scene.player3.name}`].active = false;
-            }else if (scene.state.turn === 'enemy' && Phaser.Input.Keyboard.JustUp(scene.keys.x)){
+            }else if (scene.ball.state.ballFrom === 'enemy' && Phaser.Input.Keyboard.JustUp(scene.keys.x)){
                 scene[`hit_${scene.player3.name}`].active = true;
             }
         }
@@ -138,6 +138,7 @@ export default function Player3_Control(scene,input){
         scene.player3.state.onFloor = true;
         scene.player3.state.isJump = false;
         scene.player3.state.canChange =true;
+        scene.player3.anims.play('player3-turn');
     }
 
     if(scene.player3.state.isJump){
