@@ -11,7 +11,7 @@ export default function setState(scene){
         type: 'normal',
         ballFrom: 'us',
         ballTo: 'right',
-        damage: '10',
+        damage: 10,
         hit: 'true',
         isPass: false
     }
@@ -27,6 +27,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
+        hp: 90,
         x: 0,
         y: 0,
     }
@@ -40,6 +41,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
+        hp: 70,
         x: 0,
         y: 0,
     }
@@ -53,6 +55,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
+        hp: 70,
         x: 0,
         y: 0,
     }
@@ -106,6 +109,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
+        hp: 100,
         x: 0,
         y: 0,
     }
@@ -119,6 +123,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
+        hp: 80,
         x: 0,
         y: 0,
     }
@@ -132,6 +137,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
+        hp: 100,
         x: 0,
         y: 0,
     }

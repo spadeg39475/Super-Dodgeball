@@ -85,11 +85,6 @@ export default function Player6_Control(scene,input){
                 scene.player6.state.canThrow = false;
                 scene.jump();
             }
-            else if (scene.player6.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player6.state.canThrow){
-                scene.player6.anims.play(`${scene.player6.name}-throw`)
-                scene.throw();
-                scene.player6.state.isThrow = true;
-            }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
                 if(scene.player6.state.haveBall && scene.player6.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player6.anims.play(`${scene.player6.name}-throw`)

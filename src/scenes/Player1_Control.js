@@ -85,17 +85,17 @@ export default function Player1_Control(scene,input){
                 scene.player1.state.canThrow = false;
                 scene.jump();
             }
-            else if (scene.player1.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player1.state.canThrow){
-                scene.player1.anims.play(`${scene.player1.name}-throw`)
-                scene.throw();
-                scene.player1.state.isThrow = true;
-            }
+            // else if (scene.player1.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player1.state.canThrow){
+            //     scene.player1.anims.play(`${scene.player1.name}-throw`)
+            //     scene.throw();
+            //     scene.player1.state.isThrow = true;
+            // }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 250)){
                 if(scene.player1.state.haveBall && scene.player1.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player1.anims.play(`${scene.player1.name}-throw`)
                     scene.throw();
                     scene.player1.state.isThrow = true;
-                }else if(!scene.player1.state.haveBall && scene.state.turn ==='enemy'){
+                }else if(!scene.player1.state.haveBall && scene.ball.state.ballFrom ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player1.state.haveBall  && scene.player1.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player1.anims.play(`${scene.player1.name}-pick`);

@@ -85,11 +85,6 @@ export default function Player4_Control(scene,input){
                 scene.player4.state.canThrow = false;
                 scene.jump();
             }
-            else if (scene.player4.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player4.state.canThrow){
-                scene.player4.anims.play(`${scene.player4.name}-throw`)
-                scene.throw();
-                scene.player4.state.isThrow = true;
-            }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
                 if(scene.player4.state.haveBall && scene.player4.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player4.anims.play(`${scene.player4.name}-throw`)
@@ -123,10 +118,11 @@ export default function Player4_Control(scene,input){
         }
 
     }
-    if(scene.player4.state.isJump && scene.player4.y > scene.player4.state.y ){
-        if(scene.state.haveBall){
+    if(scene.player4.state.isJump && scene.player4.y >scene.player4.state.y ){
+        if(scene.player4.state.haveBall){
             scene.ball.setAccelerationY(0);
             scene.ball.body.stop();
+            
         }
         scene.player4.body.stop();
         scene.player4.y = scene.player4.state.y -5;

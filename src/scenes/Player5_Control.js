@@ -89,16 +89,12 @@ export default function Player5_Control(scene,input){
                 scene.player5.state.canThrow = false;
                 scene.jump();
             }
-            else if (scene.player5.state.haveBall && Phaser.Input.Keyboard.JustDown(scene.keys.z) && scene.player5.state.canThrow){
-                scene.player5.anims.play(`${scene.player5.name}-throw`)
-                scene.throw();
-                scene.player5.state.isThrow = true;
-            }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
-                if(scene.player5.state.haveBall && scene.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
+                if(scene.player5.state.haveBall && scene.player5.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player5.anims.play(`${scene.player5.name}-throw`)
                     scene.throw();
                     scene.player5.state.isThrow = true;
+                   
                 }else if(!scene.player5.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
@@ -106,7 +102,7 @@ export default function Player5_Control(scene,input){
                     if(!scene.player1.body.touching.none){
                         scene.pickBall()
                     }
-                }
+                } 
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player5.state.haveBall && scene.player5.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
