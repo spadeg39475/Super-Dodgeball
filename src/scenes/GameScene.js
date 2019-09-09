@@ -35,7 +35,16 @@ class GameScene extends Phaser.Scene{
         this.load.spritesheet('enemy6', './materials/img/character/Yamada/Yamada.png', {frameWidth:64, frameHeight: 64});
 
 
+        this.load.audio('matchStart',[
+            './materials/audio/06 - Match Start.ogg',
+            './materials/audio/06 - Match Start.mp3'
+        ]);
+        this.load.audio('gamePlay', [
+            './materials/audio/Track9.ogg',
+            './materials/audio/Track9.mp3'
+        ]);
 
+    
         this.load.image('tiles', '../materials/img/court4.png')
         this.load.tilemapTiledJSON('court', './materials/img/court3.json');
 
@@ -62,7 +71,14 @@ class GameScene extends Phaser.Scene{
         this.physics.world.bounds.setTo(0,100, 1000,400);
         this.physics.world.setBoundsCollision(true);
         
-       
+
+
+
+        
+        let music = this.sound.add('gamePlay');
+        // music.play();
+        // music.setLoop(true);
+
         this.playerPos = []
         this.enemyPos = []
         for(let i=1; i<7; i++){
@@ -503,7 +519,7 @@ class GameScene extends Phaser.Scene{
         // this.player1.body.setDrag(0.90,0.90);
         // this.player1.setFrictionX(1);
         this.ball.setDamping(true);
-        this.ball.body.setDrag(0.8,0.5);
+        this.ball.body.setDrag(0.9,0.5);
         this.ball.setFriction(1,100);
         this.state.turn = 'us';
     }
@@ -518,7 +534,7 @@ class GameScene extends Phaser.Scene{
             x: this.state.enemy.flipX?   this.state.enemy.x - offsetX : this.state.enemy.x + offsetX,
             y: this.state.enemy.y + offsetY,
             ease: 'linear',
-            delay:500,
+            delay:250,
             duration: 0,
             repeat: 0,
             onComplete: ()=>{
@@ -530,9 +546,6 @@ class GameScene extends Phaser.Scene{
                 }
             }
         })
-        // this.player1.setDamping(true);
-        // this.player1.body.setDrag(0.90,0.90);
-        // this.player1.setFrictionX(1);
         this.ball.setDamping(true);
         this.ball.body.setDrag(0.8,0.5);
         this.ball.setFriction(1,100)
@@ -548,14 +561,14 @@ class GameScene extends Phaser.Scene{
         if(direct){this.ball.state.ballTo=direct}
         else{this.state.current.flipX? this.ball.state.ballTo = 'left' : this.ball.state.ballTo = 'right';}
         this.ball.state.ballTo==='right'? speedX = 200 : speedX = -200;
-        this.ball.setFriction(0);
+        // this.ball.setFriction(0);
         this.ball.setDamping(false);
         
         this.tweens.add({
             targets: this.state.current,
             ease: 'linear',
             delay:0,
-            duration: 1000,
+            duration: 500,
             yoyo: true,
             repeat: 0,
             onStart:  ()=> {
@@ -584,23 +597,19 @@ class GameScene extends Phaser.Scene{
         if(direct){this.ball.state.ballTo=direct}
         else{this.state.enemy.flipX? this.ball.state.ballTo = 'left' : this.ball.state.ballTo = 'right';}
         this.ball.state.ballTo==='right'? speedX = 200 : speedX = -200;
-        this.ball.setFriction(0);
         this.ball.setDamping(false);
         
         this.tweens.add({
             targets: this.state.enmey,
             x: this.state.enemy.x ,
             ease: 'linear',
-            delay:0,
-            duration: 100,
-            yoyo: true,
-            repeat: 0,
-            completeDelay: 100,
-            onStart:  ()=> {},
-            // completeDelay: -,
+            // delay:0,
+            // duration: 100,
+            // completeDelay: 100,
+            onStart:  ()=> {this.state.enemy.anims.play(`${this.state.enemy.name}-throw`)},
             onComplete:  ()=>{
                 this.ball.state.ballFrom = 'enemy' 
-                this.state.enemy.anims.play(`${this.state.enemy.name}-throw`)
+                
                 this.ball.setVelocityX(speedX)
                 // .setCollideWorldBounds(true);
                 if(this.state.enemy.x <480 && this.state.enemy.x>430 && this.ball.body.velocity.x > 159.5){
@@ -647,7 +656,7 @@ class GameScene extends Phaser.Scene{
                     this.ball.state.ballFrom = '';
                     this.ball.setDamping(true);
                     this.ball.body.setDrag(0.8,0.5);
-                    this.ball.setFriction(1,100)
+                    this.ball.setFriction(1,100);
                 }
 
             //從左邊來的球
@@ -670,7 +679,7 @@ class GameScene extends Phaser.Scene{
                     this.ball.state.ballFrom = '';
                     this.ball.setDamping(true);
                     this.ball.body.setDrag(0.8,0.5);
-                    this.ball.setFriction(1,100)
+                    this.ball.setFriction(1,100);
                 }
             }
             
@@ -749,22 +758,22 @@ class GameScene extends Phaser.Scene{
                     offsetX = 20;
                     offsetY = 16 ;
                 }
-            }   
+            }
+            // this.state.current.anims.play(`${this.state.current.name}-pass`);   
             this.passTween = this.tweens.timeline();
             this.passTween.add({
                 targets: this.ball,
                 x: passObj.x + offsetX,
                 duration:1500,
                 ease: 'linear',
-                onStart: ()=>{this.ball.setDrag(0);},
+                onStart: ()=>{this.ball.setDamping(false);},
                 onComplete: ()=>{
                     this.ball.body.stop();
-                    this.ball.setDrag(0.9,0.5);
+                    this.ball.setDamping(true);
                     this.state.current = passObj;
                     this.state.current.state.haveBall = true;
                     this.state.current===this.player1? this.ball.y = this.state.current.y : this.ball.y = this.state.current.y + offsetY;
                     this.ball.state.isPass=false;
-                    this.passTween.pause();
                 }
             })
             if(passObj === this.player5){
@@ -778,7 +787,7 @@ class GameScene extends Phaser.Scene{
             }else if (this.state.current === this.player4){
                 this.passTween.add({
                     targets: this.ball,
-                    y: passObj.y -200,
+                    y: this.player4.y - 50,
                     duration: 750,
                     ease: 'Sine.easeOut',
                     offset: 0
@@ -801,33 +810,8 @@ class GameScene extends Phaser.Scene{
                 ease: 'Sine.easeIn',
                 onComplete: ()=>{this.passTween.destroy()}
             })
-            console.log(passObj)
-            this.passTween.play();
             
-            // this.tweens.add({
-            //     targets: this.ball,
-            //     x: {value: passObj.x + offsetX, duration:1000, ease: 'linear.none'},
-            //     y: {value: passObj.y + offsetY, duration:1000, ease: 'linear.none'},
-            //     delay:0,
-            //     duration: 1500,
-            //     completeDelay:0,
-            //     repeat: 0,
-            //     onStart: ()=>{
-            //         this.ball.setDrag(0);
-            //         // this.ball.setVelocityY(-200);
-            //         // this.ball.setAccelerationY((400-(this.state.current.y - (passObj.y-offsetY))*2));
-                   
-            //     },
-                // onComplete: ()=>{
-                //     this.ball.body.stop();
-                //     this.ball.setDrag(0.9,0.5);
-                //     this.state.current = passObj;
-                //     this.state.current.state.haveBall = true;
-                //     this.state.current===this.player1? this.ball.y = this.state.current.y : this.ball.y = this.state.current.y + offsetY;
-                //     this.ball.state.isPass=false;
-                //     console.log(passObj.name)
-                // }
-            // })
+            this.passTween.play();
             this.state.current.state.isThrow = false;
     }
 
@@ -837,29 +821,41 @@ class GameScene extends Phaser.Scene{
         let passObj = this.checkNearObj(this.teamB, 3)
         let offsetX = 24;
         let offsetY = 16 ;
-        this.tweens.add({
+
+        this.enemyPassTween = this.tweens.timeline();
+        this.enemyPassTween.add({
             targets: this.ball,
-            x: {value: passObj.x + offsetX, duration:1000, ease: 'linear.none'},
-            y: {value: passObj.y + offsetY, duration:1000, ease: 'linear.none'},
-            delay:0,
+            x: passObj.x - offsetX,
+            ease: 'linear',
             duration: 1500,
-            completeDelay:0,
-            repeat: 0,
-            onStart: ()=>{
-                this.ball.setDrag(0);
-                // this.ball.setVelocityY(-200);
-                // this.ball.setAccelerationY((400-(this.state.current.y - (passObj.y-offsetY))*2));
-               
-            },
+            onStart: ()=>{this.ball.setDamping(false);},
             onComplete: ()=>{
                 this.ball.body.stop();
-                this.ball.setDrag(0.9,0.5);
+                this.ball.setDamping(true);
                 this.state.enemy = passObj;
                 this.state.enemy.state.haveBall = true;
                 this.ball.y = this.state.enemy.y + offsetY;
                 this.ball.state.isPass=false;
+                // this.state.turn = 'enemy'
             }
         })
+        this.enemyPassTween.add({
+            targets: this.ball,
+            y: passObj.y -200,
+            duration: 750,
+            ease: 'Sine.easeOut',
+            offset: 0
+        })
+        this.enemyPassTween.add({
+            targets: this.ball,
+            y: passObj.y + offsetY,
+            duration: 750,
+            ease: 'Sine.easeIn',
+            onComplete: ()=>{this.enemyPassTween.destroy()}
+        })
+
+        this.enemyPassTween.play();
+        
     }
 
     //求距離
@@ -918,7 +914,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='us';
+                                this.state.turn='';
                             }
                         });
                         this.ball.setVelocityX(60);
@@ -945,7 +941,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='us';
+                                this.state.turn='';
                             }
                         });
                         this.ball.setVelocityX(60);
@@ -972,7 +968,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='us';
+                                this.state.turn='';
                             }
                         });
                         this.ball.setVelocityX(60);
@@ -1001,7 +997,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='us';
+                                this.state.turn='';
                             }
                         });
                         this.ball.setVelocityX(60);
@@ -1043,7 +1039,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='enemy';
+                                this.state.turn='';
                             }
                         });
                         // this.ball.setBounce(2);
@@ -1070,7 +1066,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='enemy';
+                                this.state.turn='';
                             }
                         });
                         this.ball.setVelocityX(60);
@@ -1098,7 +1094,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='enemy';
+                                this.state.turn='';
                             }
                         });
                         // this.ball.setBounce(2);
@@ -1126,7 +1122,7 @@ class GameScene extends Phaser.Scene{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
                                 this.ball.state.ballFrom = '';
-                                this.state.turn='enemy';
+                                this.state.turn='';
                             }
                         });
                         // this.ball.setBounce(2);

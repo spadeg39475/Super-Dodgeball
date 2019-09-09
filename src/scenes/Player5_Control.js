@@ -99,7 +99,7 @@ export default function Player5_Control(scene,input){
                     scene.catchBall()
                 }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player5.anims.play(`${scene.player5.name}-pick`);
-                    if(!scene.player1.body.touching.none){
+                    if(!scene.player5.body.touching.none){
                         scene.pickBall()
                     }
                 } 
@@ -109,7 +109,7 @@ export default function Player5_Control(scene,input){
                     scene.pass();
                 }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player5.anims.play(`${scene.player5.name}-pick`);
-                    if(!scene.player1.body.touching.none){
+                    if(!scene.player5.body.touching.none){
                         scene.pickBall()
                     }
                 }

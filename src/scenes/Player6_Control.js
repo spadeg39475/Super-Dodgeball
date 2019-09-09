@@ -94,7 +94,7 @@ export default function Player6_Control(scene,input){
                     scene.catchBall()
                 }else if(!scene.player6.state.haveBall  && scene.player6.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
                     scene.player6.anims.play(`${scene.player6.name}-pick`);
-                    if(!scene.player1.body.touching.none){
+                    if(!scene.player6.body.touching.none){
                         scene.pickBall()
                     }
                 }
@@ -104,7 +104,7 @@ export default function Player6_Control(scene,input){
                     scene.pass();
                 }else if(!scene.player6.state.haveBall  && scene.player6.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player6.anims.play(`${scene.player6.name}-pick`);
-                    if(!scene.player1.body.touching.none){
+                    if(!scene.player6.body.touching.none){
                         scene.pickBall()
                     }
                 }

@@ -27,6 +27,12 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'player1-pass',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 28, end: 28 }),
+        duration: 200,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'player1-pick',
         frames: scene.anims.generateFrameNumbers('player1', { start: 53, end: 53 }),
         duration: 250,
