@@ -642,8 +642,8 @@ class GameScene extends Phaser.Scene{
                     this.state.current.state.haveBall = true;
                     this.tweens.add({
                         targets: this.ball,
-                        x: this.state.current.x +30,
-                        y: this.state.current.y -5,
+                        x: this.state.current.x +26,
+                        y: this.state.current.y ,
                         ease: 'linear',
                         delay:0,
                         duration: 0,
@@ -655,7 +655,7 @@ class GameScene extends Phaser.Scene{
                     this[`hit_${this.state.current.name}`].active = false;
                     this.ball.state.ballFrom = '';
                     this.ball.setDamping(true);
-                    this.ball.body.setDrag(0.8,0.5);
+                    this.ball.body.setDrag(0.9,0.5);
                     this.ball.setFriction(1,100);
                 }
 
@@ -666,7 +666,7 @@ class GameScene extends Phaser.Scene{
                     this.tweens.add({
                         targets: this.ball,
                         x: this.state.current.x -30,
-                        y: this.state.current.y -5,
+                        y: this.state.current.y,
                         ease: 'linear',
                         delay:0,
                         duration: 0,
@@ -678,7 +678,7 @@ class GameScene extends Phaser.Scene{
                     this[`hit_${this.state.current.name}`].active = false;
                     this.ball.state.ballFrom = '';
                     this.ball.setDamping(true);
-                    this.ball.body.setDrag(0.8,0.5);
+                    this.ball.body.setDrag(0.9,0.5);
                     this.ball.setFriction(1,100);
                 }
             }
