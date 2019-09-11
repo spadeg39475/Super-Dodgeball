@@ -304,7 +304,7 @@ class GameScene extends Phaser.Scene{
             el.on('animationcomplete-' + `${el.name}-hit-down2-2`, ()=>{
                 el.state.isActive=true; },this);
             el.on('animationcomplete-' + `${el.name}-die`, ()=>{
-                el.state.alive = false;
+                
                 this.destroyPlayer(el);
             },this);
             el.on('animationcomplete-' + `${el.name}-die2`, ()=>{
@@ -360,7 +360,7 @@ class GameScene extends Phaser.Scene{
 
     update(time, delta){
         // 遊戲狀態更新
-        this.state.current.setDepth(1);
+        
 
          //鍵盤控制
         let input = {
@@ -432,7 +432,9 @@ class GameScene extends Phaser.Scene{
                 el.anims.play(`${el.name}-win`,true);
             })
         }
-        
+        this.state.current.setDepth(1);
+
+
         //for testing
         if(input.x ){
 
@@ -475,7 +477,7 @@ class GameScene extends Phaser.Scene{
             }
             else if(this.state.current.state.haveBall){
                 this.state.current.state.isActive = true;
-                this.state.canChange = false;
+                // this.state.current.canChange = false;
             }
             else if(!this.state.current.state.haveBall && this.state.current.state.canChange){
                 if(this.ball.x < 520){
@@ -487,8 +489,7 @@ class GameScene extends Phaser.Scene{
                         }
                     }
                     let i = dis.indexOf(Math.min(...dis));
-                    
-                        this.state.current = this.teamA.getChildren()[i];
+                    this.state.current = this.teamA.getChildren()[i];
                 }else if(this.ball.x < 910 && this.ball.y<290){
                     this.state.current =this.player4;
                 }else if(this.ball.x < 970 && this.ball.y > 475){
@@ -497,12 +498,12 @@ class GameScene extends Phaser.Scene{
                     this.state.current = this.player5;
                 }
             }
-            if(!this.state.current.state.haveBall){
-                this.state.canChange = true;
-            }
-            
+            // if(!this.state.current.state.haveBall){
+            //     this.state.current.canChange = true;
+            // }
         }
     }
+
     checkFace(){
         this.teamA.getChildren().forEach(el=>{
             if(el !== this.state.current){
@@ -728,7 +729,7 @@ class GameScene extends Phaser.Scene{
             offsetY = 16 ;
         }
         if(this.state.current.state.onFloor){
-            this.state.current.state.canChange = false;
+            // this.state.current.state.canChange = false;
             this.state.current.state.onFloor = false;
             this.state.current.state.canThrow = false;
             this.state.current.state.y = this.state.current.y;
@@ -926,7 +927,7 @@ class GameScene extends Phaser.Scene{
             if(this.ball.state.ballFrom=== 'enemy' ){
 
                 this.state.current.state.isActive = false;
-                this.state.current = this.teamA.getChildren().filter(el=>el!==obj)[0]
+                this.state.current = this.teamA.getChildren().filter(el=>el!==this.state.current)[0]
 
                 if(this.ball.state.ballTo==='left'){
                     if(this.ball.x < e.x +30 ){
@@ -934,11 +935,17 @@ class GameScene extends Phaser.Scene{
                         
                         if(e.flipX){
                             e.anims.play(`${e.name}-hit-down2`, true);
-                            e.state.hp <= 0? e.anims.chain(`${e.name}-die2`) : e.anims.chain(`${e.name}-hit-down2-2`) 
+                            if(e.state.hp <=0){
+                                e.state.alive = false;
+                                e.anims.chain(`${e.name}-die2`)
+                            }else{e.anims.chain(`${e.name}-hit-down2-2`)}
                         }
                         else{
                             e.anims.play(`${e.name}-hit-down`, true);
-                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down-2`)
+                            if(e.state.hp <=0){
+                                e.state.alive = false;
+                                e.anims.chain(`${e.name}-die`);
+                            }else{e.anims.chain(`${e.name}-hit-down-2`)} 
                         }
                         e.setVelocityX(-800);
                         this[`hit_${e.name}`].active = false;
@@ -952,10 +959,17 @@ class GameScene extends Phaser.Scene{
                         e.state.hp -= this.ball.state.damage;
                         if(e.flipX){
                             e.anims.play(`${e.name}-hit-down`, true);
-                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down-2`)
+                            if(e.state.hp <= 0){
+                                e.state.alive = false;
+                                e.anims.chain(`${e.name}-die`)
+                            }else{e.anims.chain(`${e.name}-hit-down-2`)}
                         }else{
                             e.anims.play(`${e.name}-hit-down2`, true);
-                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down2-2`)
+                            if(e.state.hp <= 0){
+                                e.state.alive = false;
+                                e.anims.chain(`${e.name}-die`);
+                            }else{ e.anims.chain(`${e.name}-hit-down2-2`)}
+                            
                         }
                         e.setVelocityX(800);
                         // obj.anims.chain(`${obj.name}-hit-down-2`);
@@ -995,7 +1009,7 @@ class GameScene extends Phaser.Scene{
             if(this.ball.state.ballFrom === 'us'){
 
                 this.state.enemy.state.isActive = false;
-                this.state.enemy = this.teamB.getChildren().filter(el=>el!==obj)[0]
+                this.state.enemy = this.teamB.getChildren().filter(el=>el!==this.state.enemy)[0]
 
                 if(this.ball.state.ballTo==='left'){
                     if(this.ball.x < e.x +24  ){
