@@ -301,22 +301,32 @@ class GameScene extends Phaser.Scene{
                 el.anims.play(`${el.name}-turn`)},this);
             el.on('animationcomplete-' + `${el.name}-hit-down-2`, ()=>{
                 el.state.isActive=true; },this);
-            el.on('animationcomplete-' + `${el.name}-hit-down2`, ()=>{
+            el.on('animationcomplete-' + `${el.name}-hit-down2-2`, ()=>{
                 el.state.isActive=true; },this);
             el.on('animationcomplete-' + `${el.name}-die`, ()=>{
+                el.state.alive = false;
                 this.destroyPlayer(el);
             },this);
-                
+            el.on('animationcomplete-' + `${el.name}-die2`, ()=>{
+                el.state.alive = false;
+                this.destroyPlayer(el);
+            },this);
         })
+
         this.teamB.getChildren().forEach(el=>{
             el.on('animationcomplete', ()=>{
                 el.anims.play(`${el.name}-turn`)
             },this);
             el.on('animationcomplete-' + `${el.name}-hit-down-2`, ()=>{
                 el.state.isActive=true;},this);
-            el.on('animationcomplete-' + `${el.name}-hit-down2`, ()=>{
+            el.on('animationcomplete-' + `${el.name}-hit-down2-2`, ()=>{
                 el.state.isActive=true},this);
             el.on('animationcomplete-' + `${el.name}-die`, ()=>{
+                el.state.alive = false;
+                this.destroyPlayer(el);
+            },this);
+            el.on('animationcomplete-' + `${el.name}-die2`, ()=>{
+                el.state.alive = false;
                 this.destroyPlayer(el);
             },this);
         })
@@ -333,30 +343,26 @@ class GameScene extends Phaser.Scene{
                 this.state.current.state.isRun = false
             }
         }
-
-        // this.state.current.x=135;
-        // this.state.current.y=288;
-        // this.state.current.flipX = true;
         
-        this. timedEvent = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
-        this. timedEvent = this.time.addEvent({delay: 2000, callback: ()=>{this.state.current.state.isActive = true}, callbackScope:this, loop: true});
+        // this.enemy1.anims.play('enemy1-win')
+        
+        
+        this.timedEvent1 = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
+        this.timedEvent2 = this.time.addEvent({delay: 3000, callback: ()=>{
+            if(this.state.turn !== 'over'){
+                this.state.current.state.isActive = true;
+            }
+        }, callbackScope:this, loop: true});
         
         this.depthInit();
 
     }
 
     update(time, delta){
-        // 遊戲狀態更新t
-        // this.player1.body.setVelocity(0);
-        
-        this.checkRun();
-        this.checkFace();
-        // this.changeCurrent(time);
-        
+        // 遊戲狀態更新
+        this.state.current.setDepth(1);
 
-        
-
-          //鍵盤控制
+         //鍵盤控制
         let input = {
             left: this.keys.left.isDown,
             right:this.keys.right.isDown,
@@ -365,44 +371,68 @@ class GameScene extends Phaser.Scene{
             z: this.keys.z.isDown,
             x: this.keys.x.isDown
         }
-        // ---------------------------------------------------------------
-        // console.log(this.ball.body.velocity.x)
-        
-        if(this.state.current===this.player1){
-            this.state.current.flipX ? this.state.current.setOffset(16,15)  : this.state.current.setOffset(29,15) ;
-        }else{
-            this.state.current.flipX ? this.state.current.setOffset(22,23)  : this.state.current.setOffset(24,23) ;
+        if(this.state.turn !== 'over'){
+
+            if(this.teamA.getChildren().length === 3 ||this.teamB.getChildren().length === 3){
+                this.state.turn = 'over';
+            }
+
+
+            this.checkRun();
+            this.checkFace();
+            // this.changeCurrent(time);
+            
+            
+            if(this.state.current===this.player1){
+                this.state.current.flipX ? this.state.current.setOffset(16,15)  : this.state.current.setOffset(29,15) ;
+            }else{
+                this.state.current.flipX ? this.state.current.setOffset(22,23)  : this.state.current.setOffset(24,23) ;
+            }
+            
+            Player1_Control(this, input);
+            Player2_Control(this, input);
+            Player3_Control(this, input);
+            Player4_Control(this, input);
+            Player5_Control(this, input);
+            Player6_Control(this, input);
+
+            this.teamA.getChildren().forEach(el=>{
+                if(el.state.haveBall){
+                    this.teamB.getChildren().forEach(el=>{
+                        el.state.haveBall=false;
+                        this[`hit_${el.name}`].active = false;
+                    })
+                }
+            })
+            this.teamB.getChildren().forEach(el=>{
+                if(el.state.haveBall){
+                    this.teamA.getChildren().forEach(el=>el.state.haveBall=false)
+                }
+            })
+
+            this.updateText();
+
+
+
+
+            
+            // }
+            Enemy_Control(this);
+        }
+        else{
+            this.timedEvent1.paused = true;
+            this.timedEvent2.paused = true;
+            this.enemyAction.pause();
+            this.enemyActionPick.pause();
+            this.enemyActionThrow.pause();
+            this.teamA.getChildren().forEach(el=>{
+                el.anims.play(`${el.name}-lose`,true);
+            })
+            this.teamB.getChildren().forEach(el=>{
+                el.anims.play(`${el.name}-win`,true);
+            })
         }
         
-        Player1_Control(this, input);
-        Player2_Control(this, input);
-        Player3_Control(this, input);
-        Player4_Control(this, input);
-        Player5_Control(this, input);
-        Player6_Control(this, input);
-
-        this.teamA.getChildren().forEach(el=>{
-            if(el.state.haveBall){
-                this.teamB.getChildren().forEach(el=>{
-                    el.state.haveBall=false;
-                    this[`hit_${el.name}`].active = false;
-                })
-            }
-        })
-        this.teamB.getChildren().forEach(el=>{
-            if(el.state.haveBall){
-                this.teamA.getChildren().forEach(el=>el.state.haveBall=false)
-            }
-        })
-
-        this.updateText();
-
-
-
-
-           
-        // }
-        Enemy_Control(this);
         //for testing
         if(input.x ){
 
@@ -439,27 +469,38 @@ class GameScene extends Phaser.Scene{
 
 
     changeCurrent(){
-        if(!this.state.current.state.haveBall && this.state.current.state.canChange){
-            if(this.ball.x < 520){
-                
-                let dis = []
-                for(let i=0; i<this.teamA.getChildren().length-3 ; i++){
-                    // dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
-                    dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
-                }
-                let i = dis.indexOf(Math.min(...dis));
-                
-                    this.state.current = this.teamA.getChildren()[i];
-            }else if(this.ball.x < 910 && this.ball.y<290){
-                this.state.current =this.player4;
-            }else if(this.ball.x < 970 && this.ball.y > 475){
-                this.state.current = this.player6;
-            }else if(this.ball.x > 920 && this.ball.x > (this.ball.y + 2930)/3.5){
-                this.state.current = this.player5;
+        if(this.state.turn!=='over'){
+            if(!this.state.current.state.isActive){
+                this.state.current = this.teamA.getChildren().filter(el=>el!==this.state.current)[0]
             }
-        }
-        if(this.state.current.state.haveBall){
-            this.state.current.state.isActive = true
+            else if(this.state.current.state.haveBall){
+                this.state.current.state.isActive = true;
+                this.state.canChange = false;
+            }
+            else if(!this.state.current.state.haveBall && this.state.current.state.canChange){
+                if(this.ball.x < 520){
+                    
+                    let dis = []
+                    for(let i=0; i<this.teamA.getChildren().length-3 ; i++){
+                        if(this.teamA.getChildren()[i].state.isActive){
+                            dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
+                        }
+                    }
+                    let i = dis.indexOf(Math.min(...dis));
+                    
+                        this.state.current = this.teamA.getChildren()[i];
+                }else if(this.ball.x < 910 && this.ball.y<290){
+                    this.state.current =this.player4;
+                }else if(this.ball.x < 970 && this.ball.y > 475){
+                    this.state.current = this.player6;
+                }else if(this.ball.x > 920 && this.ball.x > (this.ball.y + 2930)/3.5){
+                    this.state.current = this.player5;
+                }
+            }
+            if(!this.state.current.state.haveBall){
+                this.state.canChange = true;
+            }
+            
         }
     }
     checkFace(){
@@ -516,7 +557,7 @@ class GameScene extends Phaser.Scene{
         let offsetX, offsetY;
             offsetX = 24;
             offsetY = 16 ;
-        this.tweens.add({
+        this.enemyActionPick = this.tweens.add({
             targets: this.ball,
             x: this.state.enemy.flipX?   this.state.enemy.x - offsetX : this.state.enemy.x + offsetX,
             y: this.state.enemy.y + offsetY,
@@ -589,7 +630,7 @@ class GameScene extends Phaser.Scene{
         this.ball.state.ballTo==='right'? speedX = 200 : speedX = -200;
         this.ball.setDamping(false);
         
-        this.tweens.add({
+        this.enemyActionThrow = this.tweens.add({
             targets: this.state.enmey,
             x: this.state.enemy.x ,
             ease: 'linear',
@@ -883,12 +924,17 @@ class GameScene extends Phaser.Scene{
     createCollideToTeamA(obj,cName){
         this[cName] = this.physics.add.overlap(obj, this.ball, null,(e)=>{
             if(this.ball.state.ballFrom=== 'enemy' ){
+
+                this.state.current.state.isActive = false;
+                this.state.current = this.teamA.getChildren().filter(el=>el!==obj)[0]
+
                 if(this.ball.state.ballTo==='left'){
-                    if(this.ball.x < e.x +30 && !e.flipX ){
+                    if(this.ball.x < e.x +30 ){
                         e.state.hp -= this.ball.state.damage;
                         
                         if(e.flipX){
-                            e.anims.play(`${e.name}-hit-down2`, true); 
+                            e.anims.play(`${e.name}-hit-down2`, true);
+                            e.state.hp <= 0? e.anims.chain(`${e.name}-die2`) : e.anims.chain(`${e.name}-hit-down2-2`) 
                         }
                         else{
                             e.anims.play(`${e.name}-hit-down`, true);
@@ -896,87 +942,47 @@ class GameScene extends Phaser.Scene{
                         }
                         e.setVelocityX(-800);
                         this[`hit_${e.name}`].active = false;
-                        this.tweens.add({
-                            targets: this.ball,
-                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 30, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{},
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
                               
                     }
                 }else {
-                    if(this.ball.x > e.x -24 && e.flipX){
+                    if(this.ball.x > e.x -24){
                         e.state.hp -= this.ball.state.damage;
+                        if(e.flipX){
+                            e.anims.play(`${e.name}-hit-down`, true);
+                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down-2`)
+                        }else{
+                            e.anims.play(`${e.name}-hit-down2`, true);
+                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down2-2`)
+                        }
                         e.setVelocityX(800);
-                        e.anims.play(`${e.name}-hit-down`, true);
                         // obj.anims.chain(`${obj.name}-hit-down-2`);
                         this[`hit_${e.name}`].active = false;
-                        this.tweens.add({
-                            targets: this.ball,
-                            y: { value: this.ball.y + 30, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        
-
-                        
-                    }else if (this.ball.x > e.x -24 && !e.flipX){
-                        e.state.hp -= this.ball.state.damage;
-                        e.setVelocityX(800);
-                        e.anims.play(`${e.name}-hit-down2`, true);
-                        this[`hit_${e.name}`].active = false;
-                        
-
-                        this.tweens.add({
-                            targets: this.ball,
-                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 30, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
-                        this.ball.setVelocityX(60);
-                        this.ball.setVelocityY(-80);
-                        this.ball.setAccelerationY(200);
-                        
                     }
                 }
+                this.tweens.add({
+                    targets: this.ball,
+                    y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
+                    duration: 2000,
+                    ease: 'Bounce.Out',
+                    delay: 500,
+                    onStart: ()=>{
+                        
+                    },
+                    onComplete: ()=>{
+                        this.ball.setDamping(true);
+                        this.ball.setAccelerationY(0);
+                        this.ball.state.ballFrom = '';
+                        this.state.turn='';
+                    }
+                });
                 // this[`hit_${e.name}`].active = false;
-                this.state.current.state.isActive = false;
+               
                 this.ball.anims.play('normal-ball');
                 
             }
@@ -987,126 +993,69 @@ class GameScene extends Phaser.Scene{
     createCollideToTeamB(obj,cName){
         this[cName] = this.physics.add.overlap(obj, this.ball, null,(e)=>{
             if(this.ball.state.ballFrom === 'us'){
+
+                this.state.enemy.state.isActive = false;
+                this.state.enemy = this.teamB.getChildren().filter(el=>el!==obj)[0]
+
                 if(this.ball.state.ballTo==='left'){
-                    if(this.ball.x < e.x +24 && !e.flipX ){
+                    if(this.ball.x < e.x +24  ){
                         e.state.hp -= this.ball.state.damage;
+
+                        if(e.flipX){
+                            e.anims.play(`${e.name}-hit-down2`, true);
+                           
+                        }else{
+                            e.anims.play(`${e.name}-hit-down`, true); 
+                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down-2`) 
+                        }
+
                         e.setVelocityX(-400);
-                        e.anims.play(`${e.name}-hit-down`, true); 
-                        e.anims.chain(`${e.name}-hit-down-2`);
                         this[`hit_${e.name}`].active = false;
 
-                        this.tweens.add({
-                            targets: this.ball,
-                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
-                        // this.ball.setBounce(2);
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
                         
                         // this.state.turn = 'enemy';     
-                    }else if(this.ball.x < obj.x +24 && e.flipX){
-                        e.state.hp -= this.ball.state.damage;
-                        e.setVelocityX(-400);
-                        e.anims.play(`${e.name}-hit-down2`, true); 
-                        this[`hit_${e.name}`].active = false;  
-                        this.tweens.add({
-                            targets: this.ball,
-                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
-                        this.ball.setVelocityX(60);
-                        this.ball.setVelocityY(-80);
-                        this.ball.setAccelerationY(200);
-                        
                     }
                 }else {
-                    if(this.ball.x > e.x -24 && e.flipX){
+                    if(this.ball.x > e.x -24){
                         e.state.hp -= this.ball.state.damage;
+                        if(e.flipX){
+                            e.anims.play(`${e.name}-hit-down`, true);
+                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down-2`) 
+                        }else{
+                            e.anims.play(`${e.name}-hit-down2`, true);
+                        }
+
                         e.setVelocityX(400);
-                        e.anims.play(`${e.name}-hit-down`, true);
-                        e.anims.chain(`${e.name}-hit-down-2`);
+                       
                         this[`hit_${e.name}`].active = false;
-                        // this.state.turn = 'enemy';  
-                        this.tweens.add({
-                            targets: this.ball,
-                            y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
-                        // this.ball.setBounce(2);
+
                         this.ball.setVelocityX(-60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        
-                        
-                    }else if (this.ball.x > e.x -24 && !e.flipX){
-                        e.state.hp -= this.ball.state.damage;
-                        e.setVelocityX(400);
-                        e.anims.play(`${e.name}-hit-down2`, true);
-                        // e.anims.chain(`${e.name}-hit-down-2`);
-                        this[`hit_${e.name}`].active = false;
-                        // this.state.turn = 'enemy';
-                        this.tweens.add({
-                            targets: this.ball,
-                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
-                        // this.ball.setBounce(2);
-                        this.ball.setVelocityX(-60);
-                        this.ball.setVelocityY(-80);
-                        this.ball.setAccelerationY(200);
-                             
                     }
-                    this.ball.anims.play('normal-ball')
+                    
                 }
+                this.tweens.add({
+                    targets: this.ball,
+                    // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
+                    y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
+                    duration: 2000,
+                    ease: 'Bounce.Out',
+                    delay: 500,
+                    onStart: ()=>{
+                        
+                    },
+                    onComplete: ()=>{
+                        this.ball.setDamping(true);
+                        this.ball.setAccelerationY(0);
+                        this.ball.state.ballFrom = '';
+                        this.state.turn='';
+                    }
+                });
+                this.ball.anims.play('normal-ball')
                 // this[`hit_${e.name}`].active = false;
                  
             }
@@ -1172,13 +1121,6 @@ class GameScene extends Phaser.Scene{
         }else{
             this.state.enemy = this.teamB.getChildren().filter(el=>el!==obj)[0]
             obj.destroy();
-        }
-
-        if(this.teamA.getChildren().length === 3){
-            console.log('You lose');
-            this.scene.pause();
-        }else if (this.teamB.getChildren().length === 3 ){
-            console.log('You win')
         }
     }
 }

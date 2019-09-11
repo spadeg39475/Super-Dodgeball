@@ -1,5 +1,5 @@
 export default function Player3_Control(scene,input){
-    if(scene.state.current === scene.player3){
+    if(scene.state.current === scene.player3 && scene.player3.state.alive){
         if(scene.player3.state.isActive){
             //direction control
             if(input.right){

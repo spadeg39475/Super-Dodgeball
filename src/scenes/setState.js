@@ -18,6 +18,7 @@ export default function setState(scene){
 
 
     scene.player1.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -32,6 +33,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.player2.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -46,6 +48,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.player3.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -60,6 +63,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.player4.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -73,6 +77,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.player5.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -86,6 +91,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.player6.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -100,6 +106,7 @@ export default function setState(scene){
     }
     
     scene.enemy1.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -114,6 +121,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.enemy2.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -128,6 +136,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.enemy3.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -142,6 +151,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.enemy4.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -155,6 +165,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.enemy5.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
@@ -168,6 +179,7 @@ export default function setState(scene){
         y: 0,
     }
     scene.enemy6.state ={
+        alive: true,
         isActive: true,
         haveBall: false,
         isRun: false,
