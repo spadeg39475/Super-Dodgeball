@@ -35,10 +35,10 @@ class GameScene extends Phaser.Scene{
         this.load.spritesheet('enemy6', './materials/img/character/Yamada/Yamada.png', {frameWidth:64, frameHeight: 64});
 
 
-        this.load.audio('matchStart',[
-            './materials/audio/06 - Match Start.ogg',
-            './materials/audio/06 - Match Start.mp3'
-        ]);
+        // this.load.audio('matchStart',[
+        //     './materials/audio/06 - Match Start.ogg',
+        //     './materials/audio/06 - Match Start.mp3'
+        // ]);
         this.load.audio('gamePlay', [
             './materials/audio/Track9.ogg',
             './materials/audio/Track9.mp3'
@@ -155,7 +155,7 @@ class GameScene extends Phaser.Scene{
         this.playerInit(this.enemy6, this.teamB, false)
         
 
-        this.ball = this.physics.add.sprite(300,400,'ball');
+        this.ball = this.physics.add.sprite(450,400,'ball');
         this.ball.name = 'ball'
         this.ball.setCircle(6.5)
         this.ball.setOffset(18.5,18.5)
@@ -300,18 +300,25 @@ class GameScene extends Phaser.Scene{
             el.on('animationcomplete', ()=>{
                 el.anims.play(`${el.name}-turn`)},this);
             el.on('animationcomplete-' + `${el.name}-hit-down-2`, ()=>{
-                el.state.isActive=true},this);
+                el.state.isActive=true; },this);
             el.on('animationcomplete-' + `${el.name}-hit-down2`, ()=>{
-                el.state.isActive=true},this);
+                el.state.isActive=true; },this);
+            el.on('animationcomplete-' + `${el.name}-die`, ()=>{
+                this.destroyPlayer(el);
+            },this);
                 
         })
         this.teamB.getChildren().forEach(el=>{
             el.on('animationcomplete', ()=>{
-                el.anims.play(`${el.name}-turn`)},this);
+                el.anims.play(`${el.name}-turn`)
+            },this);
             el.on('animationcomplete-' + `${el.name}-hit-down-2`, ()=>{
-                el.state.isActive=true},this);
+                el.state.isActive=true;},this);
             el.on('animationcomplete-' + `${el.name}-hit-down2`, ()=>{
                 el.state.isActive=true},this);
+            el.on('animationcomplete-' + `${el.name}-die`, ()=>{
+                this.destroyPlayer(el);
+            },this);
         })
         
         
@@ -334,14 +341,14 @@ class GameScene extends Phaser.Scene{
         this. timedEvent = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
         this. timedEvent = this.time.addEvent({delay: 2000, callback: ()=>{this.state.current.state.isActive = true}, callbackScope:this, loop: true});
         
-
+        this.depthInit();
 
     }
 
     update(time, delta){
         // 遊戲狀態更新t
         // this.player1.body.setVelocity(0);
-        this.depthInit();
+        
         this.checkRun();
         this.checkFace();
         // this.changeCurrent(time);
@@ -390,35 +397,15 @@ class GameScene extends Phaser.Scene{
 
         this.updateText();
 
-        //enemy control
-        // if(this.ball.x > 520 && this.ball.x < (this.ball.y + 2764)/3.5 && this.ball.x < 970 && this.ball.body.velocity.x <0){
-        //     let dis = new Array()
-        //     for(i=0; i<3; i++){
-        //         dis.push(this.distance(this.teamB.getChildren()[i], this.ball)) 
-        //     }
-        //     let i = dis.indexOf(Math.min(...dis));
-        //     this.state.enemy =  this.teamB.getChildren()[i];
-        //     this.tweens.add({
-        //         targets: this.state.enemy,
-        //         x: this.ball.x + 20,
-        //         y: this.ball.y - 30,
-        //         ease: 'linear',
-        //         delay:0,
-        //         duration: this.distance(this.state.enemy, this.ball)*10,
-        //         repeat: 0,
-        //         onStart: ()=>{
-        //             this.state.enemy.anims.play(`${this.state.enemy.name}-run`,true);
-        //         },
-        //         onComplete: ()=>{
-        //             this.state.enemy.anims.play(`${this.state.enemy.name}-turn`,true);
-        //             this.pickBall()
-        //         }
-        //     })
+
+
+
            
         // }
         Enemy_Control(this);
         //for testing
         if(input.x ){
+
         }
 
     }
@@ -456,7 +443,7 @@ class GameScene extends Phaser.Scene{
             if(this.ball.x < 520){
                 
                 let dis = []
-                for(let i=0; i<3 ; i++){
+                for(let i=0; i<this.teamA.getChildren().length-3 ; i++){
                     // dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
                     dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
                 }
@@ -557,11 +544,13 @@ class GameScene extends Phaser.Scene{
     throw(direct){
         this.ball.body.stop();
         this.state.current.state.haveBall = false;
-        let speedX;
+        let speedX,speedY;
         if(direct){this.ball.state.ballTo=direct}
         else{this.state.current.flipX? this.ball.state.ballTo = 'left' : this.ball.state.ballTo = 'right';}
         this.ball.state.ballTo==='right'? speedX = 200 : speedX = -200;
-        // this.ball.setFriction(0);
+        if(this.state.current.state.isJump){speedX += 100}
+        speedY = (this.state.enemy.y  - this.state.current.y) * 200 / Math.abs(this.state.enemy.x - this.state.current.x);
+
         this.ball.setDamping(false);
         
         this.tweens.add({
@@ -578,6 +567,7 @@ class GameScene extends Phaser.Scene{
             onComplete:  ()=>{
                 this.ball.state.ballFrom = 'us' 
                 this.ball.setVelocityX(speedX).setCollideWorldBounds(true);
+                this.ball.setVelocityY(speedY);
                 if(this.state.current.x <480 && this.state.current.x>430 && this.ball.body.velocity.x > 159.5){
                     let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 3)
                     this.ball.anims.play(ballAnime)
@@ -895,11 +885,17 @@ class GameScene extends Phaser.Scene{
             if(this.ball.state.ballFrom=== 'enemy' ){
                 if(this.ball.state.ballTo==='left'){
                     if(this.ball.x < e.x +30 && !e.flipX ){
+                        e.state.hp -= this.ball.state.damage;
+                        
+                        if(e.flipX){
+                            e.anims.play(`${e.name}-hit-down2`, true); 
+                        }
+                        else{
+                            e.anims.play(`${e.name}-hit-down`, true);
+                            e.state.hp <= 0? e.anims.chain(`${e.name}-die`) : e.anims.chain(`${e.name}-hit-down-2`)
+                        }
                         e.setVelocityX(-800);
-                        e.anims.play(`${e.name}-hit-down`, true); 
-                        e.anims.chain(`${e.name}-hit-down-2`);
-                        // this[`hit_${e.name}`].active = false;
-
+                        this[`hit_${e.name}`].active = false;
                         this.tweens.add({
                             targets: this.ball,
                             // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
@@ -907,9 +903,7 @@ class GameScene extends Phaser.Scene{
                             duration: 2000,
                             ease: 'Bounce.Out',
                             delay: 500,
-                            onStart: ()=>{
-                                
-                            },
+                            onStart: ()=>{},
                             onComplete: ()=>{
                                 this.ball.setDamping(true);
                                 this.ball.setAccelerationY(0);
@@ -920,37 +914,11 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
-                             
-                    }else if(this.ball.x < obj.x +24 && e.flipX){
-                        e.setVelocityX(-800);
-                        e.anims.play(`${e.name}-hit-down2`, true); 
-                        // obj.anims.chain(`${obj.name}-hit-down-2`);
-                        this[`hit_${e.name}`].active = false;
-                        this.tweens.add({
-                            targets: this.ball,
-                            // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                            y: { value: this.ball.y + 30, duration:1000, ease: 'Bounce.easeOut'},
-                            duration: 2000,
-                            ease: 'Bounce.Out',
-                            delay: 500,
-                            onStart: ()=>{
-                                
-                            },
-                            onComplete: ()=>{
-                                this.ball.setDamping(true);
-                                this.ball.setAccelerationY(0);
-                                this.ball.state.ballFrom = '';
-                                this.state.turn='';
-                            }
-                        });
-                        this.ball.setVelocityX(60);
-                        this.ball.setVelocityY(-100);
-                        this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
+                              
                     }
                 }else {
                     if(this.ball.x > e.x -24 && e.flipX){
+                        e.state.hp -= this.ball.state.damage;
                         e.setVelocityX(800);
                         e.anims.play(`${e.name}-hit-down`, true);
                         // obj.anims.chain(`${obj.name}-hit-down-2`);
@@ -974,10 +942,11 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
+                        
 
                         
                     }else if (this.ball.x > e.x -24 && !e.flipX){
+                        e.state.hp -= this.ball.state.damage;
                         e.setVelocityX(800);
                         e.anims.play(`${e.name}-hit-down2`, true);
                         this[`hit_${e.name}`].active = false;
@@ -1003,7 +972,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
+                        
                     }
                 }
                 // this[`hit_${e.name}`].active = false;
@@ -1020,6 +989,7 @@ class GameScene extends Phaser.Scene{
             if(this.ball.state.ballFrom === 'us'){
                 if(this.ball.state.ballTo==='left'){
                     if(this.ball.x < e.x +24 && !e.flipX ){
+                        e.state.hp -= this.ball.state.damage;
                         e.setVelocityX(-400);
                         e.anims.play(`${e.name}-hit-down`, true); 
                         e.anims.chain(`${e.name}-hit-down-2`);
@@ -1046,9 +1016,10 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
+                        
                         // this.state.turn = 'enemy';     
                     }else if(this.ball.x < obj.x +24 && e.flipX){
+                        e.state.hp -= this.ball.state.damage;
                         e.setVelocityX(-400);
                         e.anims.play(`${e.name}-hit-down2`, true); 
                         this[`hit_${e.name}`].active = false;  
@@ -1072,13 +1043,14 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
+                        
                     }
                 }else {
                     if(this.ball.x > e.x -24 && e.flipX){
+                        e.state.hp -= this.ball.state.damage;
                         e.setVelocityX(400);
                         e.anims.play(`${e.name}-hit-down`, true);
-                        // obj.anims.chain(`${obj.name}-hit-down-2`);
+                        e.anims.chain(`${e.name}-hit-down-2`);
                         this[`hit_${e.name}`].active = false;
                         // this.state.turn = 'enemy';  
                         this.tweens.add({
@@ -1101,11 +1073,13 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(-60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;
+                        
                         
                     }else if (this.ball.x > e.x -24 && !e.flipX){
+                        e.state.hp -= this.ball.state.damage;
                         e.setVelocityX(400);
                         e.anims.play(`${e.name}-hit-down2`, true);
+                        // e.anims.chain(`${e.name}-hit-down-2`);
                         this[`hit_${e.name}`].active = false;
                         // this.state.turn = 'enemy';
                         this.tweens.add({
@@ -1129,7 +1103,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(-60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        e.state.hp -= this.ball.state.damage;     
+                             
                     }
                     this.ball.anims.play('normal-ball')
                 }
@@ -1188,10 +1162,25 @@ class GameScene extends Phaser.Scene{
        this.hp4.text = `${hpText4}`;
        this.hp5.text = `${hpText5}`;
        this.hp6.text = `${hpText6}`;
-
-
     }
 
+
+     destroyPlayer(obj){
+        if(obj.name.slice(0,6)==='player'){
+            this.state.current = this.teamA.getChildren().filter(el=>el!==obj)[0]
+            obj.destroy();
+        }else{
+            this.state.enemy = this.teamB.getChildren().filter(el=>el!==obj)[0]
+            obj.destroy();
+        }
+
+        if(this.teamA.getChildren().length === 3){
+            console.log('You lose');
+            this.scene.pause();
+        }else if (this.teamB.getChildren().length === 3 ){
+            console.log('You win')
+        }
+    }
 }
 
 export default GameScene;

@@ -27,7 +27,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 90,
+        hp: 10,
         x: 0,
         y: 0,
     }
@@ -41,7 +41,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 70,
+        hp: 10,
         x: 0,
         y: 0,
     }
@@ -55,7 +55,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 70,
+        hp: 10,
         x: 0,
         y: 0,
     }
@@ -109,7 +109,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 100,
+        hp: 10,
         x: 0,
         y: 0,
     }
@@ -123,7 +123,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 80,
+        hp: 10,
         x: 0,
         y: 0,
     }
@@ -137,7 +137,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 100,
+        hp: 10,
         x: 0,
         y: 0,
     }

@@ -143,7 +143,7 @@ export default function Player1_Control(scene,input){
     }
 
     if(scene.player1.state.isJump){
-        if( Math.abs(scene.player1.body.velocity.y)  < 20 ){
+        if( Math.abs(scene.player1.body.velocity.y)  < 100 ){
             scene.player1.state.canThrow = true;
         }
         scene.player1.anims.play(`${scene.player1.name}-jump`);

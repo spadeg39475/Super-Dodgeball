@@ -108,6 +108,12 @@ export default function makeAnimations(scene) {
         frameRate: 5,
         repeat: 0
     })
+    scene.anims.create({
+        key: 'player1-die',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 77, end: 78 }),
+        frameRate: 10,
+        repeat: 7
+    })
 
 
 
@@ -180,6 +186,13 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player2-hit-down2',
         frames: scene.anims.generateFrameNumbers('player2', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player2-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('player2', { start: 41, end: 41 }),
         // frameRate: 10,
         duration: 1000,
         repeat: 0
@@ -290,6 +303,13 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'player3-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('player3', { start: 41, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'player3-tired',
         frames: scene.anims.generateFrameNumbers('player3', { start: 43, end: 44 }),
         frameRate: 5,
@@ -395,6 +415,13 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'player4-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 41, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'player4-catch',
         frames: scene.anims.generateFrameNumbers('player4', { start: 157, end: 157 }),
         frameRate: 5,
@@ -488,6 +515,13 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'player5-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 41, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'player5-catch',
         frames: scene.anims.generateFrameNumbers('player5', { start: 157, end: 157 }),
         frameRate: 5,
@@ -576,6 +610,13 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player6-hit-down2',
         frames: scene.anims.generateFrameNumbers('player6', { start: 49, end: 51 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 51, end: 51 }),
         // frameRate: 10,
         duration: 1000,
         repeat: 0
@@ -711,6 +752,13 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'enemy1-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('enemy1', { start: 41, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'enemy1-tired',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 43, end: 44 }),
         frameRate: 5,
@@ -811,6 +859,13 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy2-hit-down2',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy2-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('enemy2', { start: 41, end: 41 }),
         // frameRate: 10,
         duration: 1000,
         repeat: 0
@@ -921,6 +976,13 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'enemy3-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('enemy3', { start: 46, end: 46 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'enemy3-tired',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 52, end: 53 }),
         frameRate: 5,
@@ -1026,6 +1088,13 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
+        key: 'enemy4-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('enemy4', { start: 41, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
         key: 'enemy4-catch',
         frames: scene.anims.generateFrameNumbers('enemy4', { start: 190, end: 190 }),
         frameRate: 5,
@@ -1105,7 +1174,7 @@ export default function makeAnimations(scene) {
         repeat: 0
     })
     scene.anims.create({
-        key: 'enemy5-hit-down2',
+        key: 'enemy5-hit-down-2',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 38, end: 38 }),
         // frameRate: 10,
         duration: 1000,
@@ -1114,6 +1183,13 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy5-hit-down2',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy5-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('enemy5', { start: 41, end: 41 }),
         // frameRate: 10,
         duration: 1000,
         repeat: 0
@@ -1207,6 +1283,13 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy6-hit-down2',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 39, end: 41 }),
+        // frameRate: 10,
+        duration: 1000,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'enemy6-hit-down2-2',
+        frames: scene.anims.generateFrameNumbers('enemy6', { start: 41, end: 41 }),
         // frameRate: 10,
         duration: 1000,
         repeat: 0

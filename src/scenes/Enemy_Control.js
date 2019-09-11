@@ -10,7 +10,7 @@ export default function Enemy_Control(scene){
         && !scene.ball.state.isPass
         ){
             let dis = new Array()
-            for(i=0; i<3; i++){
+            for(i=0; i<scene.teamB.getChildren().length-3; i++){
                 dis.push(scene.distance(scene.teamB.getChildren()[i], scene.ball)) 
             }
             let i = dis.indexOf(Math.min(...dis));
@@ -65,7 +65,7 @@ export default function Enemy_Control(scene){
 
 
     if(scene.player1.state.haveBall || scene.player2.state.haveBall || scene.player3.state.haveBall){
-        for(let i=0; i<3; i++){
+        for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
             if(obj.x < scene.enemyPos[i].x + Phaser.Math.Between(-50,50)){
                 obj.setVelocityX(160);
@@ -75,7 +75,7 @@ export default function Enemy_Control(scene){
         }
     }
     else if (scene.player4.state.haveBall){
-        for(let i=0; i<3; i++){
+        for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
             if(obj.y < Phaser.Math.Between(350,400) ){
                 obj.setVelocityY(160);
@@ -85,7 +85,7 @@ export default function Enemy_Control(scene){
         }
     }
     else if (scene.player5.state.haveBall){
-        for(let i=0; i<3; i++){
+        for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
             if(obj.x > Phaser.Math.Between(600,800) ){
                 obj.setVelocityX(-160)
@@ -96,7 +96,7 @@ export default function Enemy_Control(scene){
         }
     }
     else if (scene.player6.state.haveBall){
-        for(let i=0; i<3; i++){
+        for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
             if(obj.y > Phaser.Math.Between(350,500) ){
                 obj.setVelocityX(Phaser.Math.Between(-200,200));
