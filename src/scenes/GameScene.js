@@ -7,6 +7,7 @@ import Player4_Control from './Player4_Control';
 import Player5_Control from './Player5_Control';
 import Player6_Control from './Player6_Control';
 import Enemy_Control from './Enemy_Control';
+// import GameOver from './GameOver';
 
 class GameScene extends Phaser.Scene{
 
@@ -308,7 +309,6 @@ class GameScene extends Phaser.Scene{
                 this.destroyPlayer(el);
             },this);
             el.on('animationcomplete-' + `${el.name}-die2`, ()=>{
-                el.state.alive = false;
                 this.destroyPlayer(el);
             },this);
         })
@@ -331,6 +331,14 @@ class GameScene extends Phaser.Scene{
             },this);
         })
         
+        this.player5.on('animationcomplete-' + 'player5-win', ()=>{
+            this.scene.pause()
+            this.scene.start('GameOver')
+        },this);
+        this.player5.on('animationcomplete-' + 'player5-lose', ()=>{
+            this.scene.pause()
+            this.scene.start('GameOver')
+        },this);
         
         console.log(this)
         
@@ -347,7 +355,7 @@ class GameScene extends Phaser.Scene{
         // this.enemy1.anims.play('enemy1-win')
         
         
-        this.timedEvent1 = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
+        // this.timedEvent1 = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
         this.timedEvent2 = this.time.addEvent({delay: 3000, callback: ()=>{
             if(this.state.turn !== 'over'){
                 this.state.current.state.isActive = true;
@@ -415,29 +423,46 @@ class GameScene extends Phaser.Scene{
 
 
 
-            
+            // this.changeCurrent()
             // }
             Enemy_Control(this);
         }
         else{
-            this.timedEvent1.paused = true;
+            
             this.timedEvent2.paused = true;
             this.enemyAction.pause();
             this.enemyActionPick.pause();
             this.enemyActionThrow.pause();
-            this.teamA.getChildren().forEach(el=>{
-                el.anims.play(`${el.name}-lose`,true);
-            })
-            this.teamB.getChildren().forEach(el=>{
-                el.anims.play(`${el.name}-win`,true);
-            })
+            if(this.teamA.getChildren().length === 3){
+                this.teamA.getChildren().forEach(el=>{
+                    el.anims.play(`${el.name}-lose`,true);
+                })
+                this.teamB.getChildren().forEach(el=>{
+                    el.anims.play(`${el.name}-win`,true);
+                })
+                this.cameras.main.centerOnX(800);
+            }else{
+                this.teamA.getChildren().forEach(el=>{
+                    el.anims.play(`${el.name}-win`,true);
+                })
+                this.teamB.getChildren().forEach(el=>{
+                    el.anims.play(`${el.name}-lose`,true);
+                })
+                this.cameras.main.centerOnX(100);
+            }
+            
+            // setTimeout(()=>{
+            //     this.scene.pause()
+            //     this.scene.start('GameOver')
+            // },5000)
+            
         }
         this.state.current.setDepth(1);
 
 
         //for testing
         if(input.x ){
-
+          
         }
 
     }
@@ -479,25 +504,25 @@ class GameScene extends Phaser.Scene{
                 this.state.current.state.isActive = true;
                 // this.state.current.canChange = false;
             }
-            else if(!this.state.current.state.haveBall && this.state.current.state.canChange){
-                if(this.ball.x < 520){
+            // else if(!this.state.current.state.haveBall && this.state.current.state.canChange){
+            //     if(this.ball.x < 520){
                     
-                    let dis = []
-                    for(let i=0; i<this.teamA.getChildren().length-3 ; i++){
-                        if(this.teamA.getChildren()[i].state.isActive){
-                            dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
-                        }
-                    }
-                    let i = dis.indexOf(Math.min(...dis));
-                    this.state.current = this.teamA.getChildren()[i];
-                }else if(this.ball.x < 910 && this.ball.y<290){
-                    this.state.current =this.player4;
-                }else if(this.ball.x < 970 && this.ball.y > 475){
-                    this.state.current = this.player6;
-                }else if(this.ball.x > 920 && this.ball.x > (this.ball.y + 2930)/3.5){
-                    this.state.current = this.player5;
-                }
-            }
+            //         let dis = []
+            //         for(let i=0; i<this.teamA.getChildren().length-3 ; i++){
+            //             if(this.teamA.getChildren()[i].state.isActive){
+            //                 dis.push(this.distance(this.teamA.getChildren()[i], this.ball))
+            //             }
+            //         }
+            //         let i = dis.indexOf(Math.min(...dis));
+            //         this.state.current = this.teamA.getChildren()[i];
+            //     }else if(this.ball.x < 910 && this.ball.y<290){
+            //         this.state.current =this.player4;
+            //     }else if(this.ball.x < 970 && this.ball.y > 475){
+            //         this.state.current = this.player6;
+            //     }else if(this.ball.x > 920 && this.ball.x > (this.ball.y + 2930)/3.5){
+            //         this.state.current = this.player5;
+            //     }
+            // }
             // if(!this.state.current.state.haveBall){
             //     this.state.current.canChange = true;
             // }
@@ -952,6 +977,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.state.current = this.teamA.getChildren().filter(el=>el!==e)[0]
                               
                     }
                 }else {
@@ -977,6 +1003,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.state.current = this.teamA.getChildren().filter(el=>el!==e)[0]
                     }
                 }
                 this.tweens.add({
@@ -1029,7 +1056,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
-                        
+                        this.state.enemy = this.teamB.getChildren().filter(el=>el!==e)[0]
                         // this.state.turn = 'enemy';     
                     }
                 }else {
@@ -1049,6 +1076,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(-60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.state.enemy = this.teamB.getChildren().filter(el=>el!==e)[0]
                     }
                     
                 }
@@ -1130,10 +1158,10 @@ class GameScene extends Phaser.Scene{
 
      destroyPlayer(obj){
         if(obj.name.slice(0,6)==='player'){
-            this.state.current = this.teamA.getChildren().filter(el=>el!==obj)[0]
+            // this.state.current = this.teamA.getChildren().filter(el=>el!==obj)[0]
             obj.destroy();
         }else{
-            this.state.enemy = this.teamB.getChildren().filter(el=>el!==obj)[0]
+            // this.state.enemy = this.teamB.getChildren().filter(el=>el!==obj)[0]
             obj.destroy();
         }
     }

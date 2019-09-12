@@ -1,5 +1,7 @@
 import 'phaser';
+import TitleScene from './scenes/TitleScene';
 import GameScene from './scenes/GameScene';
+import GameOver from './scenes/GameOver';
 
 const config = {
     type: Phaser.AUTO,
@@ -16,7 +18,9 @@ const config = {
         }
     },
     scene: [
-        GameScene,
+        TitleScene,
+        GameScene, 
+        GameOver
     ],
     audio: {
         disableWebAudio: true
