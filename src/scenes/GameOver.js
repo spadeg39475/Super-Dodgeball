@@ -21,7 +21,16 @@ class GameOver extends Phaser.Scene{
             strokeThickness: 2,
         })
         this.text.setShadow(3, 3, "#00008B", 0, true, true);
-        console.log(this.text)
+
+        this.time.addEvent({
+            delay: 5000,                
+            callback: ()=>{
+
+                this.scene.sleep();
+                this.scene.start('TitleScene')
+            },
+            loop: false,
+        })
     }
     update(){
         if(this.text.y <= 280){

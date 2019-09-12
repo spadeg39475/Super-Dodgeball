@@ -250,13 +250,13 @@ export default function makeAnimations(scene) {
         key: 'player2-lose',
         frames: scene.anims.generateFrameNumbers('player2', { start: 158, end: 161 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'player2-win',
         frames: scene.anims.generateFrameNumbers('player2', { start: 144, end: 145 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -390,13 +390,13 @@ export default function makeAnimations(scene) {
         key: 'player3-lose',
         frames: scene.anims.generateFrameNumbers('player3', { start: 158, end: 161 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'player3-win',
         frames: scene.anims.generateFrameNumbers('player3', { start: 144, end: 145 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -503,13 +503,13 @@ export default function makeAnimations(scene) {
         key: 'player4-lose',
         frames: scene.anims.generateFrameNumbers('player4', { start: 158, end: 161 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'player4-win',
         frames: scene.anims.generateFrameNumbers('player4', { start: 223, end: 224 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
     //player5
@@ -615,13 +615,13 @@ export default function makeAnimations(scene) {
         key: 'player5-lose',
         frames: scene.anims.generateFrameNumbers('player5', { start: 176, end: 179 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'player5-win',
         frames: scene.anims.generateFrameNumbers('player5', { start: 265, end: 266 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
     //player6
@@ -727,13 +727,13 @@ export default function makeAnimations(scene) {
         key: 'player6-lose',
         frames: scene.anims.generateFrameNumbers('player6', { start: 178, end: 181 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'player6-win',
         frames: scene.anims.generateFrameNumbers('player6', { start: 191, end: 192 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -899,13 +899,13 @@ export default function makeAnimations(scene) {
         key: 'enemy1-lose',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 140, end: 143 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'enemy1-win',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 189, end: 190 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -1036,13 +1036,13 @@ export default function makeAnimations(scene) {
         key: 'enemy2-lose',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 171, end: 174 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'enemy2-win',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 267, end: 268 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -1176,13 +1176,13 @@ export default function makeAnimations(scene) {
         key: 'enemy3-lose',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 186, end: 189 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'enemy3-win',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 223, end: 224 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -1289,13 +1289,13 @@ export default function makeAnimations(scene) {
         key: 'enemy4-lose',
         frames: scene.anims.generateFrameNumbers('enemy4', { start: 191, end: 194 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'enemy4-win',
         frames: scene.anims.generateFrameNumbers('enemy4', { start: 209, end: 210 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -1402,13 +1402,13 @@ export default function makeAnimations(scene) {
         key: 'enemy5-lose',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 132, end: 135 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'enemy5-win',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 118, end: 119 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 
 
@@ -1515,12 +1515,12 @@ export default function makeAnimations(scene) {
         key: 'enemy6-lose',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 202, end: 205 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
     scene.anims.create({
         key: 'enemy6-win',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 280, end: 281 }),
         frameRate: 5,
-        repeat: 9
+        repeat: 7
     })
 }

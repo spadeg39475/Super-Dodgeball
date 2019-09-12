@@ -44,7 +44,19 @@ class GameScene extends Phaser.Scene{
             './materials/audio/Track9.ogg',
             './materials/audio/Track9.mp3'
         ]);
-
+        this.load.audio('gameStart', [
+            './materials/audio/Track 18.ogg',
+            './materials/audio/Track 18.mp3'
+        ]);
+        this.load.audio('gameWin', [
+            './materials/audio/Track 19.ogg',
+            './materials/audio/Track 19.mp3'
+        ]);
+        this.load.audio('gameLose', [
+            './materials/audio/Track 20.ogg',
+            './materials/audio/Track 20.mp3'
+        ]);
+        
     
         this.load.image('tiles', '../materials/img/court4.png')
         this.load.tilemapTiledJSON('court', './materials/img/court3.json');
@@ -75,9 +87,30 @@ class GameScene extends Phaser.Scene{
 
 
 
+        let gameLose = this.sound.add('gameLose');
+        let gameWin = this.sound.add('gameWin');
+        let gameStart = this.sound.add('gameStart');
+        let gamePlay;
+
+        gameStart.play();
+        gameStart.once('complete', ()=>{
+            gamePlay = this.sound.add('gamePlay');
+            gamePlay.play();
+            gamePlay.setLoop(true);
+            this.state.isStart = true;
+        });
+
+        gameWin.once('complete', ()=>{
+            this.scene.sleep();
+            this.scene.start('GameOver')
+        });
+
+        gameLose.once('complete', ()=>{
+            this.scene.sleep()
+            this.scene.start('GameOver')
+        });
         
-        let music = this.sound.add('gamePlay');
-        // music.play();
+        
         // music.setLoop(true);
 
         this.playerPos = []
@@ -189,7 +222,7 @@ class GameScene extends Phaser.Scene{
         
        
 
-
+        
         
         
         // create collides
@@ -331,15 +364,29 @@ class GameScene extends Phaser.Scene{
             },this);
         })
         
-        this.player5.on('animationcomplete-' + 'player5-win', ()=>{
-            this.scene.pause()
-            this.scene.start('GameOver')
-        },this);
-        this.player5.on('animationcomplete-' + 'player5-lose', ()=>{
-            this.scene.pause()
-            this.scene.start('GameOver')
-        },this);
+
+        this.player5.once('animationstart-' +　'player5-win',()=>{
+            gamePlay.stop();
+            gameWin.play();
+        },this)
+        this.player5.once('animationstart-' +　'player5-lose',()=>{
+            gamePlay.stop();
+            gameLose.play();
+        },this)
+        // this.player5.on('animationcomplete-' + 'player5-win', ()=>{
+        //     this.scene.sleep()
+        //     this.scene.start('GameOver');
+        //     gameWin.stop();
+        // },this);
+        // this.player5.on('animationcomplete-' + 'player5-lose', ()=>{
+        //     this.scene.sleep()
+        //     this.scene.start('GameOver')
+        //     gameLose.stop();
+        // },this);
         
+
+
+
         console.log(this)
         
 
@@ -379,7 +426,7 @@ class GameScene extends Phaser.Scene{
             z: this.keys.z.isDown,
             x: this.keys.x.isDown
         }
-        if(this.state.turn !== 'over'){
+        if(this.state.turn !== 'over' && this.state.isStart){
 
             if(this.teamA.getChildren().length === 3 ||this.teamB.getChildren().length === 3){
                 this.state.turn = 'over';
@@ -427,7 +474,7 @@ class GameScene extends Phaser.Scene{
             // }
             Enemy_Control(this);
         }
-        else{
+        else if (this.state.turn === 'over'){
             
             this.timedEvent2.paused = true;
             this.enemyAction.pause();

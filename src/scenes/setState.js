@@ -1,5 +1,6 @@
 export default function setState(scene){
     scene.state = {
+        isStart: false,
         turn: 'us',
         current: scene.player1,
         enemy: scene.enemy1,
