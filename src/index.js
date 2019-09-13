@@ -18,7 +18,7 @@ const config = {
         }
     },
     scene: [
-        TitleScene,
+        // TitleScene,
         GameScene, 
         GameOver
     ],

@@ -93,6 +93,7 @@ class GameScene extends Phaser.Scene{
         let gamePlay;
 
         gameStart.play();
+        gameStart.setMute(true);
         gameStart.once('complete', ()=>{
             gamePlay = this.sound.add('gamePlay');
             gamePlay.play();
@@ -199,7 +200,11 @@ class GameScene extends Phaser.Scene{
 
 
         this.physics.add.collider(this.ball, block);
-        this.physics.add.collider(this.ball, background);
+        this.physics.add.collider(this.ball, background, ()=>{
+            this.ball.setDamping(true)
+            this.inactiveCollides(this.teamA);
+            this.inactiveCollides(this.teamB);
+        });
         
         this.teamA.getChildren().forEach(el=>{
             this.physics.add.collider(el,block);
@@ -362,6 +367,8 @@ class GameScene extends Phaser.Scene{
                 el.state.alive = false;
                 this.destroyPlayer(el);
             },this);
+
+
         })
         
 
@@ -410,7 +417,7 @@ class GameScene extends Phaser.Scene{
         }, callbackScope:this, loop: true});
         
         this.depthInit();
-
+        this.timer = 0;
     }
 
     update(time, delta){
@@ -472,14 +479,14 @@ class GameScene extends Phaser.Scene{
 
             // this.changeCurrent()
             // }
-            Enemy_Control(this);
+            Enemy_Control(this,time,delta);
         }
         else if (this.state.turn === 'over'){
             
             this.timedEvent2.paused = true;
             this.enemyAction.pause();
             this.enemyActionPick.pause();
-            this.enemyActionThrow.pause();
+            // this.enemyActionThrow.pause();
             if(this.teamA.getChildren().length === 3){
                 this.teamA.getChildren().forEach(el=>{
                     el.anims.play(`${el.name}-lose`,true);
@@ -509,7 +516,7 @@ class GameScene extends Phaser.Scene{
 
         //for testing
         if(input.x ){
-          
+          console.log(this.state.enemy.state.haveBall)
         }
 
     }
@@ -626,7 +633,7 @@ class GameScene extends Phaser.Scene{
     }
 
     enemyPickBall(){
-        this.state.enemy.state.haveBall = true;  
+        
         let offsetX, offsetY;
             offsetX = 24;
             offsetY = 16 ;
@@ -635,16 +642,12 @@ class GameScene extends Phaser.Scene{
             x: this.state.enemy.flipX?   this.state.enemy.x - offsetX : this.state.enemy.x + offsetX,
             y: this.state.enemy.y + offsetY,
             ease: 'linear',
-            delay:250,
+            delay:750,
             duration: 0,
             repeat: 0,
+            completeDelay: 1000,
             onComplete: ()=>{
-                if(this.state.enemy === this.enemy1 || this.state.enemy === this.enemy2 || this.state.enemy === this.enemy3){
-                    this.enemyThrow()
-                }
-                else{
-                    this.enemyPass()
-                }
+                this.state.enemy.state.haveBall = true;
             }
         })
         this.ball.setDamping(true);
@@ -670,10 +673,7 @@ class GameScene extends Phaser.Scene{
         this.tweens.add({
             targets: this.state.current,
             ease: 'linear',
-            delay:0,
             duration: 500,
-            yoyo: true,
-            repeat: 0,
             onStart:  ()=> {
                 this.state.current.anims.play(`${this.state.current.name}-throw`)    
             },
@@ -695,27 +695,30 @@ class GameScene extends Phaser.Scene{
             }
         })
     }
-    enemyThrow(direct){
-        this.ball.body.stop();
-        let speedX;
-        if(direct){this.ball.state.ballTo=direct}
-        else{this.state.enemy.flipX? this.ball.state.ballTo = 'left' : this.ball.state.ballTo = 'right';}
+    enemyThrow(){
+        // this.ball.body.stop();
+        this.state.enemy.state.haveBall = false;
+        this.state.enemy.state.isThrow = true;
+        this.state.enemy.anims.play(`${this.state.enemy.name}-throw`, true);
+        
+        
+        let speedX, speedY;
+        this.state.enemy.flipX? this.ball.state.ballTo = 'left' : this.ball.state.ballTo = 'right';
         this.ball.state.ballTo==='right'? speedX = 200 : speedX = -200;
         this.ball.setDamping(false);
+        speedY = (this.state.current.y  - this.state.enemy.y) * 200 / Math.abs(this.state.enemy.x - this.state.current.x);
         
-        this.enemyActionThrow = this.tweens.add({
-            targets: this.state.enmey,
-            x: this.state.enemy.x ,
+        
+        this.ball.state.ballFrom = 'enemy' 
+        this.tweens.add({
+            targets: this.state.enemy,
             ease: 'linear',
-            // delay:0,
-            // duration: 100,
-            // completeDelay: 100,
-            onStart:  ()=> {this.state.enemy.anims.play(`${this.state.enemy.name}-throw`)},
-            onComplete:  ()=>{
-                this.ball.state.ballFrom = 'enemy' 
-                
-                this.ball.setVelocityX(speedX)
-                // .setCollideWorldBounds(true);
+            duration: 0,
+            completeDelay: 250,
+            onStart: ()=>{},
+            onComplete: ()=>{
+                this.ball.setVelocityX(speedX);
+                this.ball.setVelocityY(speedY);
                 if(this.state.enemy.x <480 && this.state.enemy.x>430 && this.ball.body.velocity.x > 159.5){
                     let ballAnime = 'magic-ball' + Math.ceil(Math.random() * 3)
                     this.ball.anims.play(ballAnime)
@@ -724,13 +727,14 @@ class GameScene extends Phaser.Scene{
                     this.ball.state.damage = 10;
                 }
                 this.state.enemy.state.isThrow = false;
-                this.state.enemy.state.haveBall = false;
                 this.activeCollides(this.teamA);
             }
         })
+        
     }
    
     
+        
 
 
 
@@ -742,7 +746,7 @@ class GameScene extends Phaser.Scene{
             this.state.current.anims.play(`${this.state.current.name}-catch`)
             //從右邊來的球
             if(this.ball.state.ballTo==='left'){
-                if(this.ball.x > this.state.current.x + 45& this.ball.x < this.state.current.x + 60){
+                if(this.ball.x > this.state.current.x + 30 & this.ball.x < this.state.current.x + 50){
                     this.state.current.state.haveBall = true;
                     this.tweens.add({
                         targets: this.ball,
@@ -918,34 +922,35 @@ class GameScene extends Phaser.Scene{
             this.passTween.play();
             this.state.current.state.isThrow = false;
     }
-
+    
     enemyPass(){
         this.state.enemy.state.haveBall = false;
         this.ball.state.isPass = true;
-        let passObj = this.checkNearObj(this.teamB, 3)
+        let passObj = this.teamB.getChildren()[0];
         let offsetX = 24;
         let offsetY = 16 ;
-
+        
         this.enemyPassTween = this.tweens.timeline();
         this.enemyPassTween.add({
             targets: this.ball,
             x: passObj.x - offsetX,
-            ease: 'linear',
-            duration: 1500,
+            ease: 'Power0',
+            duration: 1520,
+            completeDelay: 2000,
             onStart: ()=>{this.ball.setDamping(false);},
             onComplete: ()=>{
                 this.ball.body.stop();
                 this.ball.setDamping(true);
                 this.state.enemy = passObj;
-                this.state.enemy.state.haveBall = true;
+               
                 this.ball.y = this.state.enemy.y + offsetY;
+                this.state.enemy.state.haveBall = true;
                 this.ball.state.isPass=false;
-                // this.state.turn = 'enemy'
-            }
+            },
         })
         this.enemyPassTween.add({
             targets: this.ball,
-            y: passObj.y -200,
+            y: passObj.y -150,
             duration: 750,
             ease: 'Sine.easeOut',
             offset: 0
@@ -955,10 +960,14 @@ class GameScene extends Phaser.Scene{
             y: passObj.y + offsetY,
             duration: 750,
             ease: 'Sine.easeIn',
-            onComplete: ()=>{this.enemyPassTween.destroy()}
+            onStart: ()=>{},
+            onComplete: ()=>{
+                this.enemyPassTween.destroy();
+            }
         })
 
         this.enemyPassTween.play();
+        
         
     }
 
@@ -1156,6 +1165,12 @@ class GameScene extends Phaser.Scene{
             this[`hit_${el.name}`].active = true;
         })
     }
+    inactiveCollides(team){
+        team.getChildren().forEach(el=>{
+            this[`hit_${el.name}`].active = false;
+        })
+    }
+    
 
     updateText(){
 
