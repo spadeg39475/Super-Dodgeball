@@ -33,8 +33,8 @@ class TitleScene extends Phaser.Scene {
         let keyObj = this.input.keyboard.addKey('ENTER');
 
         let music = this.sound.add('gameTitle');
-        // music.play();
-        // music.setLoop(true);
+        music.play();
+        music.setLoop(true);
 
         keyObj.on('down', () => {
            

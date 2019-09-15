@@ -1,8 +1,9 @@
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG, defaultCipherList } from "constants";
+import { setTimeout } from "timers";
 
 export default function Enemy_Control(scene,time,delta){
     if(
-        scene.ball.x > 510 
+        scene.ball.x > 515 
         && scene.ball.x < (scene.ball.y + 2764)/3.5 
         && scene.ball.x < 970
         && scene.ball.y > 300
@@ -17,24 +18,37 @@ export default function Enemy_Control(scene,time,delta){
             }
             let i = dis.indexOf(Math.min(...dis));
             scene.state.enemy =  scene.teamB.getChildren()[i];
+            
+            if( Math.abs(scene.state.enemy.x - scene.ball.x) > 30  ){
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
+                scene.state.enemy.setVelocityX(scene.ball.x - scene.state.enemy.x)
+            }
+            if( scene.state.enemy.y - scene.ball.y > -20  || scene.state.enemy.y-scene.ball.y < -40){
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
+                scene.state.enemy.setVelocityY(scene.ball.y-30 - scene.state.enemy.y)
+            }
+            else if(!scene.state.enemy.body.touching.none){
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`,true)
+                scene.enemyPickBall()
+            }
 
-            scene.enemyAction = scene.tweens.createTimeline();
-            scene.enemyAction.add({
-                targets: scene.state.enemy,
-                x: scene.ball.x + 20,
-                y: scene.ball.y -30,
-                ease: 'linear',
-                duration: scene.distance(scene.state.enemy, scene.ball)*8,
-                onStart: ()=>{scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)},
-                onComplete: ()=>{
-                        scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`)
-                        scene.enemyPickBall();
-                        scene.enemyAction.destroy();
-                    }
-            })
-        
-            scene.ball.setDamping(true);
-            scene.enemyAction.play();
+            // scene.enemyAction = scene.tweens.createTimeline();
+            // scene.enemyAction.add({
+            //     targets: scene.state.enemy,
+            //     x: scene.ball.x + 20,
+            //     y: scene.ball.y -30,
+            //     ease: 'linear',
+            //     duration: scene.distance(scene.state.enemy, scene.ball)*8,
+            //     onStart: ()=>{scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)},
+            //     onComplete: ()=>{
+            //             scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`)
+            //             scene.enemyPickBall();
+            //             scene.enemyAction.destroy();
+            //         }
+            // })
+            
+            // scene.ball.setDamping(true);
+            // scene.enemyAction.play();
     }
     
         
@@ -44,8 +58,11 @@ export default function Enemy_Control(scene,time,delta){
         // }
         if(scene.state.enemy === scene.enemy1 || scene.state.enemy === scene.enemy2 || scene.state.enemy === scene.enemy3){
             if(scene.state.enemy.state.haveBall){
-              
-                    scene.enemyThrow()
+                if(scene.count===0){
+                    setTimeout(()=>{scene.enemyThrow()}, 500)
+                    scene.count++
+                }
+               
                 
             }
         }
@@ -65,25 +82,48 @@ export default function Enemy_Control(scene,time,delta){
         // && scene.state.turn === ''
     ){
         scene.state.enemy = scene.enemy5;
-        scene.enemyAction = scene.tweens.createTimeline();
-        scene.enemyAction.add({
-            targets: scene.state.enemy,
-            x: scene.ball.x - 5,
-            y: scene.ball.y - 30,
-            ease: 'linear',
-            duration: scene.distance(scene.state.enemy, scene.ball)*10,
-            onStart: ()=>{
-                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true);
-            },
-            onComplete: ()=>{
-                scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`);
-                scene.enemyPickBall();
-                scene.enemyAction.destroy();
-             
+        if(!scene.state.enemy.state.haveBall){
+            // if( Math.abs(scene.state.enemy.x - scene.ball.x) > 30 ){
+            //     scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
+            //     scene.state.enemy.setVelocityX(scene.ball.x - scene.state.enemy.x)
+            // }
+            if( (scene.state.enemy.y - scene.ball.y) > -20  || (scene.state.enemy.y-scene.ball.y) < -50){
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
+                scene.state.enemy.setVelocityY(scene.state.enemy.y>scene.ball.y-30? -100 : 100);
             }
-        })
+            else if(!scene.state.enemy.body.touching.none){
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`,true)
+                scene.enemyPickBall()
+            }
+        }
+        else if (scene.state.enemy.state.haveBall){
+            if(scene.count === 0){
+                setTimeout(()=>{scene.enemyPass()}, 1000)
+                scene.count++
+            }
+            
+        }
+
+
+        // scene.enemyAction = scene.tweens.createTimeline();
+        // scene.enemyAction.add({
+        //     targets: scene.state.enemy,
+        //     x: scene.ball.x - 5,
+        //     y: scene.ball.y - 30,
+        //     ease: 'linear',
+        //     duration: scene.distance(scene.state.enemy, scene.ball)*10,
+        //     onStart: ()=>{
+        //         scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true);
+        //     },
+        //     onComplete: ()=>{
+        //         scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`);
+        //         scene.enemyPickBall();
+        //         scene.enemyAction.destroy();
+             
+        //     }
+        // })
         
-        scene.enemyAction.play();
+        // scene.enemyAction.play();
     }
 
 
