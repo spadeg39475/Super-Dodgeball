@@ -2,6 +2,7 @@ export default function setState(scene){
     scene.state = {
         isStart: false,
         turn: 'us',
+        canChange: true,
         current: scene.player1,
         enemy: scene.enemy1,
         dx: 0,
@@ -29,7 +30,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 10,
+        hp: 20,
         x: 0,
         y: 0,
     }
@@ -44,7 +45,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 10,
+        hp: 20,
         x: 0,
         y: 0,
     }
@@ -59,7 +60,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 10,
+        hp: 20,
         x: 0,
         y: 0,
     }
@@ -117,7 +118,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 10,
+        hp: 20,
         x: 0,
         y: 0,
     }
@@ -132,7 +133,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 10,
+        hp: 20,
         x: 0,
         y: 0,
     }
@@ -147,7 +148,7 @@ export default function setState(scene){
         isJump: false,
         flipX: false,
         canChange: true,
-        hp: 10,
+        hp: 20,
         x: 0,
         y: 0,
     }
