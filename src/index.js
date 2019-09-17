@@ -1,11 +1,13 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./app.js";
+
 import 'phaser';
 import TitleScene from './scenes/TitleScene';
 import GameScene from './scenes/GameScene';
 import GameOver from './scenes/GameOver';
+
+import App from "./components/app.js";
 
 const config = {
     type: Phaser.AUTO,
