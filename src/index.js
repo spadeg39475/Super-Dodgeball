@@ -1,3 +1,7 @@
+
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./app.js";
 import 'phaser';
 import TitleScene from './scenes/TitleScene';
 import GameScene from './scenes/GameScene';
@@ -28,3 +32,4 @@ const config = {
 }
 
 const game = new Phaser.Game(config);
+ReactDOM.render(<App />, document.getElementById("root"));
