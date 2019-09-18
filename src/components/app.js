@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import Nav from './Nav.js'
 import Banner from './Banner.js'
 
 const App = () => {
     return (
-        <div className='main'>
-            <Banner />
-        </div>
+        <React.Fragment>
+            <Nav />
+            <div className='main'>
+                <Banner />
+            </div>
+        </React.Fragment>
        
     )
 }
