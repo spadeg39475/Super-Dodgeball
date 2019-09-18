@@ -1,0 +1,16 @@
+.kunio{
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    width: 64px;
+    height:64px;
+    z-index: 2;
+    transform: scale(5);
+    background: url("../../materials/img/character/Kunio/Kunio.png") 0 0 no-repeat;
+    -webkit-animation-name: 'kunio';
+    -webkit-animation-iteration-count: infinite;/* 动画无限播放 */
+    /* -webkit-animation-timing-function: step-start;马上跳到动画每一结束桢的状态 */
+    /* -webkit-animation-duration: 1000ms;动画运行的时间 */
+    -webkit-animation: kunio 0.3s steps(2) infinite;
+}
+
