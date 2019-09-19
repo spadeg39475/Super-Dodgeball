@@ -12,11 +12,10 @@ const App = () => {
 
             <BrowserRouter>
                 <Nav />
-                <div className='main'>
                     <Route exact path="/" component={Home}/>
                     <Route  path="/about" component={About}/>
                     <Route  path="/game"  component={Game}/>
-                </div>
+                
             </BrowserRouter>        
         </React.Fragment>
        
