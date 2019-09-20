@@ -1,5 +1,41 @@
 #game{
     position: absolute;
-    top:15%;
+    top:10%;
     left: 30%;
+}
+.keys{
+    width:360px;
+    position: relative;
+    padding-top: 10%;
+    left: 50px;
+    overflow: hidden;
+}
+
+.keys .key-item {
+    display: flex;
+    align-items: center;
+}
+
+.keys .key-item .key{
+    width:48px;
+    height:48px;
+    margin: 10px;
+}
+
+.keys .key-item .key img{
+    width:100%;
+}
+
+.keys .key-item .text{
+    max-width:250px;
+    padding-left: 5px;
+    font-size: 18px;
+    font-family: 'Press Start 2P', cursive;
+}
+#direction{
+    width:120px;
+    height:80px;  
+}
+#direction-text{
+    padding-top: 40px;
 }

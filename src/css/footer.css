@@ -1,0 +1,11 @@
+footer{
+    height:80px;
+    background-color: black;
+    color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+  
+}

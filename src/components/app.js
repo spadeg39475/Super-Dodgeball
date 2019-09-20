@@ -4,6 +4,7 @@ import Home from './Home'
 import About from './About'
 import Game from './Game'
 import Nav from './Nav'
+import Footer from './Footer'
 
 
 const App = () => {
@@ -16,7 +17,9 @@ const App = () => {
                     <Route  path="/about" component={About}/>
                     <Route  path="/game"  component={Game}/>
                 
-            </BrowserRouter>        
+            </BrowserRouter>  
+
+            <Footer />      
         </React.Fragment>
        
     )

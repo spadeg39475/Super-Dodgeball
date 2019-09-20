@@ -19,8 +19,6 @@ nav{
 nav div{
     padding: 12px 16px ;
     letter-spacing: 2px;
-    
-    
 }
 .ball{
     width:36px;
@@ -30,4 +28,5 @@ nav div{
 
 a{
     color: #303030;
+    cursor: pointer;
 }

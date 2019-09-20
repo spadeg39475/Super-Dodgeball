@@ -15,22 +15,25 @@ const Home = () => {
                 <div className="kunio"></div>
                 <div className='title'>
                     <p className='p1'>Super Dodge Ball</p>
-                    <p className='p2'>- Kunio-kun Series</p>
+                    <p className='p2'> - 熱血高校</p>
                 </div>
             </div>
 
             <div className='story'>
                 <div className='article'>
-                    <p className='title'>永遠的童年回憶</p>
-                    <p className='text'> <span>1987</span>年
-                        <span> TECHNOS </span>在經過了大型機台版「熱血高校躲避球部」的一炮而紅後，於隔年的<span> 1988 </span>年，推出了任天堂版<span>( </span>簡稱<span> FC )</span>的熱血高校
-                        更獲得了廣大的迴響，從此奠定了熱血躲避球部的分支基礎。熱血系列也形成了「熱血硬派系列」和「熱血躲避球部系列」兩大分支
+                    {/* <p className='title'></p> */}
+                    <p className='text'>興趣是打架、運動萬能的不良少年國雄<br/>
+                        在全國高校闘球試合上遇到了宿敵 
+                        － 花園高校<br/>
+                        目標是奪得全國優勝....
                     </p>
+                    <div className="img"></div>
                 </div>
-                <div className="img"></div>
+               
             </div>    
             <div className='demo'>
                 <Demo videoId='chcHJm7G4p8'/>
+                <div className="kunio"></div>
             </div>
             
             

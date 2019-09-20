@@ -43,7 +43,44 @@ const Game = () => {
 
     return (
         <React.Fragment>
-            <div id='game'></div>
+            <div className='main'>
+                <div id='game'></div>
+                <div className='keys'>
+                    <div className='key-item '>
+                        <div class='key' id='direction'>
+                            <img src='../../materials/img/Keys/direction.png'></img>
+                        </div>
+                        <div className='text' id='direction-text'>Move</div>
+                    </div>
+                    <div className='key-item'>
+                        <div class='key'>
+                            <img src='../../materials/img/Keys/Z.png'></img>
+                        </div>
+                        <div className='text'>Throw/Catch</div>
+                    </div>
+
+                    <div className='key-item'>
+                        <div class='key'>
+                            <img src='../../materials/img/Keys/X.png'></img>
+                        </div>
+                        <div className='text'> Pass/Dodge</div>
+                    </div>
+
+                    <div className='key-item'>
+                        <div class='key'>
+                            <img src='../../materials/img/Keys/Z.png'></img>
+                        </div>
+                        <div class='key'>
+                            <img src='../../materials/img/Keys/X.png'></img>
+                        </div>
+                        <div className='text'>Jump</div>
+                    </div>
+
+                    
+                    
+                </div>
+            </div>
+            
             
         </React.Fragment>
     )
