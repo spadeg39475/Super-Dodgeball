@@ -9,7 +9,6 @@ module.exports = {
   entry:"./src/index.js",
   output:{ 
     path:path.resolve("dist"),
-    // publicPath: './',
     filename:"index_bundle.js" 
   },
   module: {
@@ -47,7 +46,8 @@ module.exports = {
       },
       {
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
-        use: "file-loader"
+        // use: "file-loader"
+        use: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'
       }
     ]
   },
