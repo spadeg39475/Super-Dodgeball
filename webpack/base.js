@@ -47,7 +47,7 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
         // use: "file-loader"
-        use: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'
+        use: 'url-loader?limit=8192&name=materials/img/[hash:8].[name].[ext]'
       }
     ]
   },
