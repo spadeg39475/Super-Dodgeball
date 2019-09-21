@@ -9,7 +9,7 @@ class TitleScene extends Phaser.Scene {
         });
     }
     preload() {
-        this.load.image('title', "'title'");
+        this.load.image('title', './materials/img/SuperDodgeBallNES-Title-JP.png');
         this.load.audio('gameTitle', [
             './materials/audio/Track 1.ogg',
             './materials/audio/Track 1.mp3'
@@ -21,7 +21,7 @@ class TitleScene extends Phaser.Scene {
     }
     create() {
         
-        this.title = this.add.image(400,280, '../../materials/img/SuperDodgeBallNES-Title-JP.png');
+        this.title = this.add.image(400,280, 'title');
         this.title.setScale(2.5);
 
         this.text = this.add.text(250,430, 'PRESS ENTER TO START', {
