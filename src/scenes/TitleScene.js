@@ -1,4 +1,4 @@
-const title = require('../../materials/img/SuperDodgeBallNES-Title-JP.png')
+
 
 
 
@@ -21,7 +21,7 @@ class TitleScene extends Phaser.Scene {
     }
     create() {
         
-        this.title = this.add.image(400,280, 'title');
+        this.title = this.add.image(400,280, '../../materials/img/SuperDodgeBallNES-Title-JP.png');
         this.title.setScale(2.5);
 
         this.text = this.add.text(250,430, 'PRESS ENTER TO START', {

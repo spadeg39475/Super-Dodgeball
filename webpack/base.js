@@ -20,8 +20,8 @@ module.exports = {
             loader: 'file-loader',
             query: {
               name: '[name].[ext]',
-              // outputPath: './fonts/',
-              // publicPath: '../fonts/'
+              outputPath: './fonts/',
+              publicPath: '../fonts/'
           }
         }]
     },
@@ -51,8 +51,8 @@ module.exports = {
           loader: 'file-loader',
           query: {
             name: '[name].[ext]',
-            outputPath: './',
-            publicPath: './'
+            outputPath: './images',
+            publicPath: '../images'
         }
       }]
       }
