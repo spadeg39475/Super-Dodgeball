@@ -7,7 +7,9 @@ import GameScene from '../scenes/GameScene';
 import GameOver from '../scenes/GameOver';
 import '../css/game.css'
 
-
+import KeyDirection from '../../materials/img/Keys/direction.png';
+import KeyZ from '../../materials/img/Keys/Z.png';
+import KeyX from '../../materials/img/Keys/X.png';
 
 
 
@@ -48,30 +50,30 @@ const Game = () => {
                 <div className='keys'>
                     <div className='key-item '>
                         <div class='key' id='direction'>
-                            <img src='../../materials/img/Keys/direction.png'></img>
+                            <img src={KeyDirection}></img>
                         </div>
                         <div className='text' id='direction-text'>Move</div>
                     </div>
                     <div className='key-item'>
                         <div class='key'>
-                            <img src='../../materials/img/Keys/Z.png'></img>
+                            <img src={KeyZ}></img>
                         </div>
                         <div className='text'>Throw/Catch</div>
                     </div>
 
                     <div className='key-item'>
                         <div class='key'>
-                            <img src='../../materials/img/Keys/X.png'></img>
+                            <img src={KeyX}></img>
                         </div>
                         <div className='text'> Pass/Dodge</div>
                     </div>
 
                     <div className='key-item'>
                         <div class='key'>
-                            <img src='../../materials/img/Keys/Z.png'></img>
+                            <img src={KeyZ}></img>
                         </div>
                         <div class='key'>
-                            <img src='../../materials/img/Keys/X.png'></img>
+                            <img src={KeyX}></img>
                         </div>
                         <div className='text'>Jump</div>
                     </div>
