@@ -13,7 +13,9 @@ import KeyX from '../../materials/img/Keys/X.png';
 
 
 
+
 const Game = () => {
+    
     useEffect(()=>{
         const config = {
             type: Phaser.AUTO,
@@ -38,10 +40,9 @@ const Game = () => {
                 disableWebAudio: true
             }
         }
-    
+
         new Phaser.Game(config);
     })
-
 
     return (
         <React.Fragment>
@@ -49,30 +50,30 @@ const Game = () => {
                 <div id='game'></div>
                 <div className='keys'>
                     <div className='key-item '>
-                        <div class='key' id='direction'>
+                        <div className='key' id='direction'>
                             <img src={KeyDirection}></img>
                         </div>
                         <div className='text' id='direction-text'>Move</div>
                     </div>
                     <div className='key-item'>
-                        <div class='key'>
+                        <div className='key'>
                             <img src={KeyZ}></img>
                         </div>
                         <div className='text'>Throw/Catch</div>
                     </div>
 
                     <div className='key-item'>
-                        <div class='key'>
+                        <div className='key'>
                             <img src={KeyX}></img>
                         </div>
                         <div className='text'> Pass/Dodge</div>
                     </div>
 
                     <div className='key-item'>
-                        <div class='key'>
+                        <div className='key'>
                             <img src={KeyZ}></img>
                         </div>
-                        <div class='key'>
+                        <div className='key'>
                             <img src={KeyX}></img>
                         </div>
                         <div className='text'>Jump</div>

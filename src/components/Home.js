@@ -12,13 +12,13 @@ const Home = () => {
         <React.Fragment>
             
             <div className='main'>
-                <div className="kunio"></div>
+                {/* <div className="kunio"></div> */}
                 <div className='title'>
                     <p className='p1'>Super Dodge Ball</p>
                     <p className='p2'> - 熱血高校</p>
                 </div>
             </div>
-
+            <div className='background'></div>
             <div className='story'>
                 <div className='article'>
                     {/* <p className='title'></p> */}
@@ -27,7 +27,9 @@ const Home = () => {
                         － 花園高校<br/>
                         目標是奪得全國優勝....
                     </p>
-                    <div className="img"></div>
+                    <div className="img">
+                        <div className="kunio"></div>
+                    </div>
                 </div>
                
             </div>    
