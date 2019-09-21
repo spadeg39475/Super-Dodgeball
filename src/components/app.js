@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter , Route } from 'react-router-dom';
+import { HashRouter , Route } from 'react-router-dom';
 import Home from './Home'
 import About from './About'
 import Game from './Game'
@@ -11,13 +11,13 @@ const App = () => {
     return (
         <React.Fragment>
 
-            <BrowserRouter>
+            <HashRouter>
                 <Nav />
                     <Route exact path="/" component={Home}/>
                     <Route  path="/about" component={About}/>
                     <Route  path="/game"  component={Game}/>
                 
-            </BrowserRouter>  
+            </HashRouter>  
 
             <Footer />      
         </React.Fragment>

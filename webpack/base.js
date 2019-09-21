@@ -13,16 +13,17 @@ module.exports = {
   },
   module: {
     rules: [
+      
       {
         test: /\.(eot|woff|woff2|[ot]tf)$/,
-        use: {
+        use: [{
             loader: 'file-loader',
-            // options: {
-            //     name: '[name].[ext]',
-            //     outputPath: './fonts/',
-            //     publicPath: '/fonts/'
-            // }
-        }
+            query: {
+              name: '[name].[ext]',
+              // outputPath: './fonts/',
+              // publicPath: '../fonts/'
+          }
+        }]
     },
       { 
         test:/\.css$/, 
@@ -46,8 +47,14 @@ module.exports = {
       },
       {
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
-        use: "file-loader"
-        // use: 'url-loader?limit=8192&name=materials/img/[hash:8].[name].[ext]'
+        use: [{
+          loader: 'file-loader',
+          query: {
+            name: '[name].[ext]',
+            // outputPath: './fonts/',
+            // publicPath: '../fonts/'
+        }
+      }]
       }
     ]
   },
