@@ -52,7 +52,7 @@ module.exports = {
           query: {
             name: '[name].[ext]',
             outputPath: './images',
-            publicPath: '../images'
+            publicPath: './images'
         }
       }]
       }
