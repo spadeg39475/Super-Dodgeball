@@ -21,21 +21,21 @@ class GameScene extends Phaser.Scene{
         // 載入資源
         this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 50, frameHeight: 50});
         
-        this.load.spritesheet('player1', './materials/img/character/Kunio/kunio.png', {frameWidth:64, frameHeight: 64});
+        this.load.spritesheet('player1', './materials/img/character/Kunio/Kunio.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('player2', './materials/img/character/Nanase/Nanase.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('player3', './materials/img/character/Saotome/Saotome2.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('player4', './materials/img/character/Sugata/Sugata.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('player5', './materials/img/character/Sawaguchi/Sawaguchi2.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('player6', './materials/img/character/Gouda/Gouda2.png', {frameWidth:64, frameHeight: 64});
         
-        this.load.spritesheet('enemy1', './materials/img/character/hira/hira2.png', {frameWidth:64, frameHeight: 64});
+        this.load.spritesheet('enemy1', './materials/img/character/Hira/Hira2.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('enemy2', './materials/img/character/Kinoshita/Kinoshita.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('enemy3', './materials/img/character/Onizuka/Onizuka.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('enemy4', './materials/img/character/Kobayashi/Kobayashi.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('enemy5', './materials/img/character/Wataru/Wataru2.png', {frameWidth:64, frameHeight: 64});
         this.load.spritesheet('enemy6', './materials/img/character/Yamada/Yamada.png', {frameWidth:64, frameHeight: 64});
 
-        this.load.image('tiles', '../materials/img/court4.png')
+        this.load.image('tiles', './materials/img/court4.png')
         this.load.tilemapTiledJSON('court', './materials/img/court3.json');
         // this.load.audio('matchStart',[
         //     './materials/audio/06 - Match Start.ogg',
