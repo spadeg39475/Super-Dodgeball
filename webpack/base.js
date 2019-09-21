@@ -13,6 +13,17 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.(eot|woff|woff2|[ot]tf)$/,
+        use: {
+            loader: 'file-loader',
+            // options: {
+            //     name: '[name].[ext]',
+            //     outputPath: './fonts/',
+            //     publicPath: '/fonts/'
+            // }
+        }
+    },
       { 
         test:/\.css$/, 
         use:[{loader:"style-loader"},{loader:"css-loader"}] 

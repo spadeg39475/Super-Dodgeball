@@ -1,7 +1,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-
+import './css/index.css'
 // import 'phaser';
 // import TitleScene from './scenes/TitleScene';
 // import GameScene from './scenes/GameScene';
