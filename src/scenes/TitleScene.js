@@ -1,3 +1,7 @@
+const title = require('../../materials/img/SuperDodgeBallNES-Title-JP.png')
+
+
+
 class TitleScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -5,15 +9,15 @@ class TitleScene extends Phaser.Scene {
         });
     }
     preload() {
-        this.load.image('title', './materials/img/SuperDodgeBallNES-Title-JP.png');
+        this.load.image('title', "'title'");
         this.load.audio('gameTitle', [
             './materials/audio/Track 1.ogg',
             './materials/audio/Track 1.mp3'
         ]);
 
 
-        this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 50, frameHeight: 50});
-        this.load.spritesheet('kunio', './materials/img/character/Kunio/kunio.png', {frameWidth:64, frameHeight: 64});
+        // this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 50, frameHeight: 50});
+        // this.load.spritesheet('kunio', './materials/img/character/Kunio/kunio.png', {frameWidth:64, frameHeight: 64});
     }
     create() {
         

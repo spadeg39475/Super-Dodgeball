@@ -30,7 +30,7 @@ const Game = () => {
                 }
             },
             scene: [
-                // TitleScene,
+                TitleScene,
                 GameScene, 
                 GameOver
             ],
