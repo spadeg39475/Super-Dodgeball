@@ -112,9 +112,9 @@ class GameScene extends Phaser.Scene{
         let gamePlay;
 
         gameStart.play();
-        gameStart.setMute(true);
+        // gameStart.setMute(true);
         gameStart.once('complete', ()=>{
-            gamePlay = this.sound.add('gamePlay',{volume: 0});
+            gamePlay = this.sound.add('gamePlay',{volume: 1});
             gamePlay.play();
             gamePlay.setLoop(true);
             this.state.isStart = true;
