@@ -34,7 +34,10 @@ const Home = () => {
                
             </div>    
             <div className='demo'>
-                <Demo videoId='chcHJm7G4p8'/>
+                <div className='video'>
+                    <Demo videoId='chcHJm7G4p8'/>
+                </div>
+                
                 <div className="kunio"></div>
             </div>
             

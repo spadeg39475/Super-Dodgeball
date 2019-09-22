@@ -17,7 +17,10 @@ export default function Enemy_Control(scene,time,delta){
                 dis.push(scene.distance(scene.teamB.getChildren()[i], scene.ball)) 
             }
             let i = dis.indexOf(Math.min(...dis));
-            scene.state.enemy =  scene.teamB.getChildren()[i];
+            if(i !== -1 && scene.teamB.getChildren()[i].state.isActive){
+                scene.state.enemy =  scene.teamB.getChildren()[i];
+            }
+            
             
             if( Math.abs(scene.state.enemy.x - scene.ball.x) > 30  ){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
@@ -27,7 +30,7 @@ export default function Enemy_Control(scene,time,delta){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
                 scene.state.enemy.setVelocityY(scene.ball.y-30 - scene.state.enemy.y)
             }
-            else if(!scene.state.enemy.body.touching.none){
+            else if(!scene.state.enemy.body.touching.none && !scene.state.enemy.haveBall){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`,true)
                 scene.state.enemy.flipX = true;
                 scene.enemyPickBall()
@@ -40,7 +43,7 @@ export default function Enemy_Control(scene,time,delta){
         && scene.ball.x > scene.state.enemy.x - 40 && scene.ball.x < scene.state.enemy.x - 30
     ){
         let num = Math.random();
-        if(num > 0.5){
+        if(num > 0.7){
             scene.enemyCatch()
         }
     }
@@ -52,7 +55,7 @@ export default function Enemy_Control(scene,time,delta){
     if(scene.state.enemy === scene.enemy1 || scene.state.enemy === scene.enemy2 || scene.state.enemy === scene.enemy3){
         if(scene.state.enemy.state.haveBall){
             let num = Math.random()
-            if(num > 0.5 && scene.state.enemy.x < 650){
+            if(num > 0.9 && scene.state.enemy.x < 650){
                 scene.state.enemy.state.canThrow = false;
                 scene.enemyJump()
             }
