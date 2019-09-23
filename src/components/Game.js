@@ -40,8 +40,8 @@ const Game = () => {
                 disableWebAudio: true
             }
         }
-
-        new Phaser.Game(config);
+        
+        window.game = new Phaser.Game(config);
     })
 
     return (

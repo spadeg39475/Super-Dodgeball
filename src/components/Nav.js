@@ -14,14 +14,19 @@ function newgame(){
     }
 }
 const Nav = () => {
-    
+    function destroyGame(){
+        if(window.game){
+            window.game.destroy(true,false)
+        }
+    }
+
     return (
         <header>
             <nav>
             
-                <div><img className='ball' src={ball} /><Link to='/'>HOME</Link></div>
-                <div><Link to='/about'>ABOUT</Link></div>
-                <div><Link to='/game' onClick={newgame}>GAME</Link></div>
+                <div><img className='ball' src={ball} onClick={destroyGame} /><Link to='/'>HOME</Link></div>
+                <div><Link to='/about' onClick={destroyGame}>ABOUT</Link></div>
+                <div><Link to='/game' onClick={destroyGame}>GAME</Link></div>
             </nav>
         </header>
        
