@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import setState from '../scenes/setState';
+
 
 export const GameContext = createContext({
     game: null,
@@ -7,18 +7,24 @@ export const GameContext = createContext({
 });
 
 const GameContextProvider = (props) => {
+    
     const setGame = (game)=>{
         setState({...state, game: game})
     }
-
+    
     const initState = {
         game: null,
         setGame:setGame
     }
+    
+    const [state, setState ] = useState(initState)
+    console.log(state)
+    
 
-    const [state, setState ] = useState(initState) 
+    
+     
     return (
-        <GameContext.Provider value={{state}}>
+        <GameContext.Provider value={{state, setGame:state.setGame}}>
             {props.children}
         </GameContext.Provider> 
     )

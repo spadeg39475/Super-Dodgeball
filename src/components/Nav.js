@@ -15,14 +15,15 @@ function newgame(){
     }
 }
 const Nav = () => {
-    const state = useContext(GameContext);
+    const {state, setGame} = useContext(GameContext);
     
     const destroyGame=()=>{
         
         if(state.game){
             state.game.destroy(true,false)
-            state.setGame(null);
+            setGame(null);
         }
+        
     }
     
     return (
