@@ -18,7 +18,7 @@ const GameContextProvider = (props) => {
     }
     
     const [state, setState ] = useState(initState)
-    console.log(state)
+    
     
 
     

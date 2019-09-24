@@ -42,7 +42,7 @@ const Game = () => {
                 disableWebAudio: true
             }
         }
-        console.log(state.setGame)
+        
         if(state.game===null){
             setGame(new Phaser.Game(config));
         }
