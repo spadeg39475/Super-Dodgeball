@@ -1,5 +1,6 @@
-import React , { useState, useEffect}from "react";
+import React , { useState, useContext}from "react";
 import { Link } from "react-router-dom";
+import { GameContext } from '../contexts/context'
 
 
 import ball from '../../materials/img/ball-icon.png'
@@ -14,17 +15,21 @@ function newgame(){
     }
 }
 const Nav = () => {
-    function destroyGame(){
-        if(window.game){
-            window.game.destroy(true,false)
+    const state = useContext(GameContext);
+    
+    const destroyGame=()=>{
+        
+        if(state.game){
+            state.game.destroy(true,false)
+            state.setGame(null);
         }
     }
-
+    
     return (
         <header>
             <nav>
             
-                <div><img className='ball' src={ball} onClick={destroyGame} /><Link to='/'>HOME</Link></div>
+                <div><img className='ball' src={ball} /><Link to='/' onClick={destroyGame}>HOME</Link></div>
                 <div><Link to='/about' onClick={destroyGame}>ABOUT</Link></div>
                 <div><Link to='/game' onClick={destroyGame}>GAME</Link></div>
             </nav>

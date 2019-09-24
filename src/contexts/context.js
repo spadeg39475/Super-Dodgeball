@@ -1,18 +1,27 @@
-import React, { createContext } from 'react';
+import React, { useState, createContext } from 'react';
+import setState from '../scenes/setState';
 
-export const GameContext = createContext();
+export const GameContext = createContext({
+    game: null,
+    setGame: ()=>{}
+});
 
-class GameContextProvider extends React.Component {
-    state = {
-        gameBody: null
+const GameContextProvider = (props) => {
+    const setGame = (game)=>{
+        setState({...state, game: game})
     }
-    render(){
-        return (
-            <GameContext.Provider value={{...this.state}}>
-                {this.props.children}
-            </GameContext.Provider> 
-        )
+
+    const initState = {
+        game: null,
+        setGame:setGame
     }
+
+    const [state, setState ] = useState(initState) 
+    return (
+        <GameContext.Provider value={{state}}>
+            {props.children}
+        </GameContext.Provider> 
+    )
 
 }
 

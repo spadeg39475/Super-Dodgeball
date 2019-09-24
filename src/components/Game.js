@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from "react";
-
+import React, { useState, useEffect , useContext} from "react";
+import { GameContext } from '../contexts/context'
 
 import 'phaser';
 import TitleScene from '../scenes/TitleScene';
@@ -16,6 +16,7 @@ import KeyX from '../../materials/img/Keys/X.png';
 
 
 const Game = () => {
+    const state = useContext(GameContext);
     
     useEffect(()=>{
         const config = {
@@ -42,7 +43,10 @@ const Game = () => {
             }
         }
         
-        window.game = new Phaser.Game(config);
+        if(state.game===null){
+            state.setGame (new Phaser.Game(config));
+        }
+        
     })
 
     return (
