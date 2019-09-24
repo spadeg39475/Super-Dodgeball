@@ -6,6 +6,8 @@ import Game from './Game'
 import Nav from './Nav'
 import Footer from './Footer'
 
+import GameContextProvider from '../contexts/context.js'
+
 
 const App = () => {
     
@@ -13,11 +15,12 @@ const App = () => {
         <React.Fragment>
 
             <BrowserRouter>
-                <Nav />
-                <Route exact path="/" component={Home}/>
-                <Route  path="/about" component={About}/>
-                <Route  path="/game"  component={Game}/>
-                
+                <GameContextProvider>
+                    <Nav />
+                    <Route exact path="/" component={Home}/>
+                    <Route  path="/about" component={About}/>
+                    <Route  path="/game"  component={Game}/>
+                </GameContextProvider>
             </BrowserRouter>  
 
             <Footer />      
