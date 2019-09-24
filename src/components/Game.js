@@ -82,10 +82,7 @@ const Game = () => {
                             <img src={KeyX}></img>
                         </div>
                         <div className='text'>Jump</div>
-                    </div>
-
-                    
-                    
+                    </div>   
                 </div>
             </div>
             

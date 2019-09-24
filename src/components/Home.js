@@ -42,13 +42,6 @@ const Home = () => {
             </div>
             
             
-        
-            
-           
-            
-            {/* <video id="demo" preload='true' controls loop  width="640" height="360">
-                <source src="../../materials/video/demo.mp4" type="video/mp4"/>
-            </video> */}
         </React.Fragment>
        
     )

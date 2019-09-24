@@ -9,13 +9,15 @@ import { callbackify } from "util";
 
 const Nav = () => {
     const {state, setGame} = useContext(GameContext);
-    const [ballPos, setBallPos] = useState({left: 'calc(50% - 20% - 95px)'})
+    const [ballPos, setBallPos] = useState({left: 'calc(50% - 20% - 95px)'});
+
     const destroyGame=()=>{
         if(state.game){
             state.game.destroy(true,false)
             setGame(null);
         } 
     }
+    
     const changeBallPos=(e)=>{
         switch(e.target.id){
             case 'nav-home': 
