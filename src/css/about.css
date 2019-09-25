@@ -1,18 +1,10 @@
-.about-background{
+.about-body{
     width:100%;
-    height: 500px;
+    background-color: rgb(44, 44, 43);
     position: absolute;
-    background-image: url('../../materials/img/street.png');
-    background-repeat:no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-position-x: 80%;
-    top:1100px;
-    filter: grayscale(0) blur(1px) opacity(0.7);
-    background-attachment: fixed;
+    top:600px;
+
 }
-
-
 
 
 .intro {
@@ -22,9 +14,9 @@
     font-family: Noto Sans;
     color: #f3f3f3;
     background-color: rgb(44, 44, 43);
-    position: absolute;
-    top:600px;
-    height:500px;
+    /* position: absolute; */
+    
+    /* height:600px; */
     letter-spacing: 2px;
     text-align: center;
 } 
@@ -33,9 +25,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    margin: 20px auto;
     flex-wrap: wrap;
-    
 }
 
 .intro .title{
@@ -48,95 +39,50 @@
     margin-bottom: 20px;
 }
 .intro .content{
-    width:90%;
-    line-height: 1.3;
+    width:70%;
+    line-height: 2;
     margin: 10px auto;
     text-align: left;
 }
 
-.gameSetting {
+.author {
     width:100%;
     margin: 0 auto;
-    padding: 20px;
+    padding-top: 70px;
     font-family: Noto Sans;
     color: #f3f3f3;
-    background-color: #314250;
-    position: relative;
-    margin-top: 600px;
-    height:500px;
+    background-color: rgb(44, 44, 43);
+    top:1400px;
     letter-spacing: 2px;
-}
-.gameSetting > .container{
+    text-align: center;
+} 
+.author > .container{
     width:60%;
     display: flex;
-    /* align-items: center; */
+    align-items: center;
     justify-content: center;
     margin: auto;
     flex-wrap: wrap;
-    
+    padding-bottom: 50px;
 }
-.gameSetting .title{
+
+.author .title{
     width:100%;
-    font-size: 1.8em;
-    font-weight: bolder;
+    font-size: 2em;
+    font-weight: bold;
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #f3f3f3;
-    text-align: center;
-    color: #f3f3f3;
     margin-bottom: 20px;
 }
-
-.gameSetting >.container >.block{
+.author .content{
+    width:70%;
+    line-height: 2;
+    margin: 10px auto;
+    text-align: left;
+}
+.about-footer{
     width:100%;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-.gameSetting >.container >.block >.picture{
-    width: 45%;
-    display: inline-block;
-    height: 200px;
-    position: relative;
-    background-image: url('../../materials/img/roof.png');
-    background-repeat:no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-position-x: 80%;
-}
-
-.gameSetting >.container >.block >.picture >.kunio{
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-
-    width: 64px;
-    height:64px;
-    margin-right: 20px;
-    
-    transform: scale(2.3);
-    background: url("../../materials/img/character/Kunio/show.png");
-}
-.gameSetting >.container >.block >.picture >.mochizuki{
-    position: absolute;
-    bottom: 40px;
-    left: 140px;
-
-    width: 64px;
-    height:64px;
-    
-    transform: scale(-2.3, 2.3);
-    
-    background: url("../../materials/img/character/Mochizuki/Mochizuki.png") -768px -1088px no-repeat;
-}
-
-
-.gameSetting >.container >.block >.content{
-    width: 45%;
-    display: inline-block;
-    height: 200px;
-}
-.gameSetting >.container >.block >.content>.sybtitle{
-    font-size: 2em;
-    font-weight: bold;
+    top:1000px;
 }

@@ -21,7 +21,7 @@
 .background{
    
     width:100%;
-    height: 750px;
+    height: 700px;
     position: absolute;
     background-image: url('../../materials/img/banner.png');
     background-repeat:no-repeat;
@@ -31,6 +31,21 @@
     filter: grayscale(0) blur(2px) opacity(0.4);
     background-attachment: fixed;
 }
+.about-background{
+    width:100%;
+    height: 600px;
+    position: absolute;
+    
+    background-image: url('../../materials/img/street.png');
+    background-repeat:no-repeat;
+    background-size: cover;
+    top:1620px;
+    background-position-x: 80%;
+    
+    filter: grayscale(0) blur(1px) opacity(0.7);
+    background-attachment: fixed;
+}
+
 
 
 
@@ -122,7 +137,7 @@
 
 .story .article{
     position: relative;
-    width:70%;
+    width:60%;
     height: 400px;
     padding-top: 20px;
     overflow: hidden;
@@ -130,38 +145,38 @@
     font-family: jackeyfont;
     
     display: flex;
-    align-items: center;
-    justify-content: right;
+    /* align-items: center; */
+    justify-content: center;
     /* background-image: url('../../materials/img/switch-right.png'); */
     background-repeat:no-repeat;
     background-size: 100%;
 }
-
-/* .story .article .title{
-    width:80%;
-    font-size: 3em;
-    padding: 10px;
-    padding-left: 50px;
+.story .article .block{
+    height:400px;
+    width:55%;
+}
+.story .article .subtitle{
+    /* width:80%; */
+    font-size: 2.2em;
+    /* padding: 10px; */
+    /* padding-left: 50px; */
+    margin-bottom: 50px;
     font-style: italic;
     /* border-bottom: 1px solid #f3f3f3; */
-    /* background: -webkit-linear-gradient(top,#a7a7a7 0,#494848 100%); */
-    /* -webkit-background-clip: text; */
-    /* -webkit-text-fill-color: transparent; */
-    /* font-weight: bold;
-} */ 
+    font-family: Noto Sans;
+    font-weight: bold;
+} 
 .story .article .text{
     width:90%;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 500;
-    padding-left: 50px;
+    /* padding-left: 50px; */
     line-height: 2;
 }
-.story .article span{
-    font-family: 'Times New Roman', Times, serif;
-}
+
 .story .img{
-    width:50%;
-    height: 400px;
+    width:40%;
+    height: 300px;
     background-image: url('../../materials/img/park.png');
     background-repeat:no-repeat;
     background-size: cover;
@@ -192,7 +207,6 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    
 }
 
 .video{
@@ -214,4 +228,171 @@
 }
 
 
+.gameSetting {
+    width:100%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Noto Sans;
+    color: #f3f3f3;
+    background-color: #314250;
+    position: relative;
+    margin-top: 600px;
+    height:800px;
+    letter-spacing: 2px;
+}
+.gameSetting > .container{
+    width:60%;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    margin: auto;
+    flex-wrap: wrap;
+    
+}
+.gameSetting .title{
+    width:100%;
+    font-weight: bolder;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    
+    font-size: 2.2em;
+    
+    margin-bottom: 50px;
+    font-style: italic;
+    font-family: Noto Sans;
+    text-align: left;
+    color: #f3f3f3;
+    margin-bottom: 20px;
+}
 
+.gameSetting >.container >.block{
+    width:100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+}
+.gameSetting >.container >.bl1 >.picture{
+    width: 45%;
+    display: inline-block;
+    height: 200px;
+    position: relative;
+    background-image: url('../../materials/img/roof.png');
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-position-x: 80%;
+}
+
+.gameSetting >.container >.bl1 >.picture >.kunio{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+
+    width: 64px;
+    height:64px;
+    margin-right: 20px;
+    
+    transform: scale(2.3);
+    background: url("../../materials/img/character/Kunio/show.png");
+}
+.gameSetting >.container >.bl1 >.picture >.mochizuki{
+    position: absolute;
+    bottom: 40px;
+    left: 140px;
+
+    width: 64px;
+    height:64px;
+    
+    transform: scale(-2.3, 2.3);
+    
+    background: url("../../materials/img/character/Mochizuki/Mochizuki.png") -768px -1088px no-repeat;
+}
+
+
+.gameSetting >.container >.block >.content{
+    width: 45%;
+    display: inline-block;
+    height: 200px;
+}
+.gameSetting >.container >.bl1 >.content>.subtitle{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 20px auto;
+    font-style: italic;
+    text-align: center;
+}
+.gameSetting >.container >.bl1 >.content>.subtitle>div{
+    display: inline-block;
+    width:60px;
+    height:1px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    background-color: #f3f3f3;
+}
+
+.gameSetting >.container >.bl2 >.picture{
+    width: 45%;
+    display: inline-block;
+    height: 200px;
+    position: relative;
+    background-image: url('../../materials/img/court4.png');
+    background-repeat:no-repeat;
+    background-size: 200%;
+    background-position-x: 40%;
+    background-position-y: 50%;
+}
+.gameSetting >.container >.bl2 >.picture >.kunio{
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+
+    width: 64px;
+    height:64px;
+    margin-right: 20px;
+    
+    transform: scale(2.3);
+    background: url("../../materials/img/character/Kunio/throw.png");
+}
+
+.gameSetting >.container >.bl2 >.picture >.mochizuki{
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+
+    width: 64px;
+    height:64px;
+    
+    transform: scale(-2.3, 2.3);
+    
+    background: url("../../materials/img/character/Mochizuki/Mochizuki.png") -960px -64px no-repeat;
+}
+.gameSetting >.container >.bl2 >.picture >.ball{
+    position: absolute;
+    top:90px;
+    right: 90px;
+
+    width: 50px;
+    height:50px;
+    
+    transform: scale(2.3);
+    
+    background: url("../../materials/img/ball.png") 0 -50px no-repeat;
+}
+.gameSetting >.container >.bl2 >.content>.subtitle{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 30px auto;
+    font-style: italic;
+    text-align: center;
+}
+.gameSetting >.container >.bl2 >.content>.subtitle>div{
+    display: inline-block;
+    width:60px;
+    height:1px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    background-color: #f3f3f3;
+    transition: 0.3;
+}

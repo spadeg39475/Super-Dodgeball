@@ -23,7 +23,7 @@ const App = () => {
                 </GameContextProvider>
             </BrowserRouter>  
 
-            <Footer />      
+              
         </React.Fragment>
        
     )

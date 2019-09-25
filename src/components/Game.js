@@ -1,5 +1,6 @@
 import React, { useState, useEffect , useContext} from "react";
 import { GameContext } from '../contexts/context'
+import Footer from './Footer';
 
 import 'phaser';
 import TitleScene from '../scenes/TitleScene';
@@ -30,7 +31,7 @@ const Game = () => {
                     gravity: {
                         y: 0
                     },
-                    debug:true
+                    // debug:true
                 }
             },
             scene: [
@@ -86,6 +87,7 @@ const Game = () => {
                 </div>
             </div>
             
+            <Footer />    
             
         </React.Fragment>
     )
