@@ -5,7 +5,7 @@ import { GameContext } from '../contexts/context'
 
 import ball from '../../materials/img/ball-icon.png'
 import '../css/nav.css'
-import { callbackify } from "util";
+
 
 const Nav = () => {
     const {state, setGame} = useContext(GameContext);

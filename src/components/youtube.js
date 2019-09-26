@@ -22,7 +22,6 @@ class Demo extends React.Component {
          iv_load_policy: 3,
          modestbranding: 1,
       }
-      
     }
     const {videoId} = this.props
     

@@ -2,8 +2,7 @@
     width:100%;
     background-color: rgb(44, 44, 43);
     position: absolute;
-    top:600px;
-
+    top:550px;
 }
 
 
@@ -11,11 +10,10 @@
     width:100%;
     margin: 0 auto;
     padding: 20px;
-    font-family: Noto Sans;
+    font-family: 'Noto Sans TC', sans-serif;
     color: #f3f3f3;
     background-color: rgb(44, 44, 43);
     /* position: absolute; */
-    
     /* height:600px; */
     letter-spacing: 2px;
     text-align: center;
@@ -49,7 +47,7 @@
     width:100%;
     margin: 0 auto;
     padding-top: 70px;
-    font-family: Noto Sans;
+    font-family: 'Noto Sans TC', sans-serif;
     color: #f3f3f3;
     background-color: rgb(44, 44, 43);
     top:1400px;
@@ -85,4 +83,36 @@
     width:100%;
     position: absolute;
     top:1000px;
+}
+
+@media screen and (max-width: 900px){
+    .intro .container{
+        width: 90%;
+    }
+    .intro .content{
+        width:80%;
+    }
+    .author .container{
+        width: 90%;
+    }
+    .author .content{
+        width:80%;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .intro .container{
+        width: 90%;
+    }
+    .intro .content{
+        width:100%;
+        line-height: 1.5;
+    }
+    .author .container{
+        width: 90%;
+    }
+    .author .content{
+        width:100%;
+        line-height: 1.5;
+    }    
 }

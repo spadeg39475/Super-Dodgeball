@@ -2,10 +2,15 @@
     width:100%;
     min-height: 800px;
     position: relative;
-
 }
 
 .main::before{
+    -webkit-background-repeat:no-repeat;
+    -webkit-background-size: cover;
+    -webkit-background-position: center;
+    -webkit-background-position-y: 20%;
+    -webkit-background-attachment: fixed;
+
     content: "";
     width:100%;
     height: 800px;
@@ -15,10 +20,18 @@
     background-size: cover;
     background-position: center;
     background-position-y: 20%;
-    filter: grayscale(0) blur(2px) opacity(0.7);
+    opacity: 0.8;
     background-attachment: fixed;
+     /* filter: saturate(1.5); */
+     /* filter: grayscale(0) blur(3px) opacity(0.7); */
+     
 }
 .background{
+    -webkit-background-repeat:no-repeat;
+    -webkit-background-size: cover;
+    -webkit-background-position: center;
+    -webkit-background-position-y: 20%;
+    -webkit-background-attachment: fixed;
    
     width:100%;
     height: 700px;
@@ -30,21 +43,45 @@
     background-position-y: 20%;
     filter: grayscale(0) blur(2px) opacity(0.4);
     background-attachment: fixed;
+
+    
 }
 .about-background{
+    -webkit-background-repeat:no-repeat;
+    -webkit-background-size: cover;
+    -webkit-background-position-x: 80%;
+    -webkit-background-attachment: fixed;
+
     width:100%;
     height: 600px;
     position: absolute;
-    
+    top:1620px;
     background-image: url('../../materials/img/street.png');
     background-repeat:no-repeat;
     background-size: cover;
-    top:1620px;
     background-position-x: 80%;
+    background-attachment: fixed;
+
     
+}
+.about-background2{
+    -webkit-background-repeat:no-repeat;
+    -webkit-background-size: cover;
+    -webkit-background-position-x: 80%;
+    -webkit-background-attachment: fixed;
+
+    width:100%;
+    height: 700px;
+    position: absolute;
+    top:2220px;
     filter: grayscale(0) blur(1px) opacity(0.7);
+    background-image: url('../../materials/img/street.png');
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position-x: 80%;
     background-attachment: fixed;
 }
+
 
 
 
@@ -66,73 +103,227 @@
     position: relative;
     width:100%;
     height:750px;
-    padding-top: 200px;
+    padding-top: 180px;
     overflow: hidden;
-    
+    display: flex;
+    justify-content: center;
 }
 
 .main >.title>.p1{
-    text-align:right ;
+    text-align:right;
+    font-size: 4em;
+    margin: 0 auto;
+    position: absolute;
+    right:0;
+    width: 80%;
+    text-align: right;
     opacity: 0;
-    font-size: 3em;
-    position: relative;
-    width: 100%;
-    font-style: italic;
     font-family: 'Press Start 2P', cursive;
     padding: 50px 0;
-    color:white;  
+    color:#f3f3f3;
     letter-spacing: 10px;
-    /* background: -webkit-linear-gradient(top,#000000 0,#838383 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
+    font-weight: 700;
 
     animation-name: move-in;
     animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
     animation-delay: .5s;
+
+    
+    text-shadow: rgb(0, 0, 0) 7px 7px 1px;
 }
 .main .title .p2{
-    text-align:right ;
+    text-align: right ;
+    width: 80%;
     opacity: 0;
-    font-size: 5em;
-    position: relative;
+    font-size: 6em;
+    position: absolute;
     font-style: italic;
     font-family: jackeyfont;
-    color:white;
-    /* background: -webkit-linear-gradient(top,#000000 0,#707070 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
+    color:#f3f3f3;  
+    font-weight: 1000;
+    padding-top: 40px;
+    top:350px;
+    right: -50%;
+    
     animation-name: move-in;
     animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
     animation-delay: 1.5s;
+    
+    text-shadow: rgb(0, 0, 0) 10px 7px 1px;
 }
+
+.main .title .start{
+    font-size: 3em;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    /* margin-top: 350px; */
+    width:250px;
+    height:70px;
+    line-height: 70px;
+    border-radius: 200px;
+    background-color: #181717;
+    align-self: flex-end;
+    margin-bottom: 150px;  
+}
+.main .title a{
+    color: white;
+}
+.main .title .down-arrow{
+    position: absolute;
+    width:50px;
+    bottom: 20px;
+    left: calc(50% - 25px );
+
+    animation-name: move-down;
+    animation-direction: alternate-reverse;
+    animation-duration: 1s;
+    /* animation-fill-mode: forwards; */
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    
+    cursor:pointer;
+}
+
 
 @keyframes move-in {
     from {
       right:0%;
+
       opacity: 0;
     }
     to {
-        right:10%;
+        right: 10%;
         opacity: 1;
     }
 }
+@keyframes move-down {
+    from {
+      bottom:20px;
+    }
+    to {
+        bottom:40px;
+    }
+}
+
+/* rwd for title */
+@media screen and (max-width: 1500px){
+    .main >.title>.p1{
+        font-size: 3.5em;
+        width: 100%;
+    }
+    .main >.title>.p2{
+        font-size: 5em;
+        top:300px;
+    }
+    @keyframes move-in {
+        from {
+          right:0%;
+    
+          opacity: 0;
+        }
+        to {
+            right: 5%;
+            opacity: 1;
+        }
+    }
+}
+@media screen and (max-width: 1200px){
+    .main >.title>.p1{
+        font-size: 2.5em;
+        width: 100%;
+       
+    }
+    .main >.title>.p2{
+        font-size: 4em;
+        width: 100%;
+    }   
+}
+@media screen and (max-width: 900px){
+    
+    .main >.title>.p1{
+        font-size: 2.3em;
+        width: 100%;
+       /* display: flex; */
+       /* flex-wrap: wrap; */
+       /* top:30px; */
+       letter-spacing: normal;
+       text-align: center;
+    }
+    
+    .main >.title>.p2{
+        font-size: 4em;
+        /* width: 90%; */
+        top: 300px;
+        letter-spacing: normal;
+        text-align: center;
+    }
+    @keyframes move-in {
+        from {
+          right:0%;
+    
+          opacity: 0;
+        }
+        to {
+            right: 0%;
+            opacity: 1;
+        }
+    }
+}
+@media screen and (max-width: 600px){
+    .main{
+        min-height: 600px;
+    }
+    .main::before{
+        height: 600px;
+    }
+    .main > .title{
+        padding-top: 100px;
+        height:600px;
+    }
+    
+    .main >.title>.p1{
+        font-size: 1.2em;
+        padding: 0px;
+        letter-spacing: 1px;
+        position: absolute;
+        top: 300px;
+        animation-delay: 1.5s;
+    }
+    .main >.title>.p2{
+        font-size: 4.6em;
+        top:150px;
+        animation-delay: .5s;
+    }
+
+    .about-background{
+        top:1360px;
+        height:600px;
+        background-position-x: 30%;
+    }
+    .about-background2{
+        top:1920px;
+        height:600px;
+        background-position-x: 30%;
+    }
+}
+
+
+
 .story{
     /* margin-top: 20px; */
     width:100%;
     min-height: 700px;
-    display: flex;
     background-color: #020202;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 5px 10px #020202;
 }
-
-
-
 
 
 .story .article{
@@ -163,8 +354,9 @@
     margin-bottom: 50px;
     font-style: italic;
     /* border-bottom: 1px solid #f3f3f3; */
-    font-family: Noto Sans;
+    font-family: 'Noto Sans TC', sans-serif;
     font-weight: bold;
+    
 } 
 .story .article .text{
     width:90%;
@@ -177,30 +369,69 @@
 .story .img{
     width:40%;
     height: 300px;
-    background-image: url('../../materials/img/park.png');
+    background-image: url('../../materials/img/story-pic.PNG');
     background-repeat:no-repeat;
     background-size: cover;
-    background-position: center;
+    /* background-position: center; */
     /* background-position-y: 20%; */
-    background-position-x: 42%;
-    filter: grayscale(1) blur(1px) opacity(1);
+    /* background-position-x: 42%; */
+    /* filter: grayscale(1) blur(1px) opacity(1); */
     position: relative;
 }
-.img .kunio{
-    position: absolute;
-    bottom: 20%;
-
-    left: 10%;
-    width: 64px;
-    height:64px;
-    transform: scale(3);
-    background: url("../../materials/img/character/Kunio/Kunio.png") 0 0 no-repeat;
+/* rwd for story */
+@media screen and (max-width: 1500px){
+    .story .article{
+        width:90%;
+    }
+}
+@media screen and (max-width: 900px){
+    .story .article{
+        padding-top: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height:90%;
+    }
+    .story .article .block{
+        width:90%;
+        height:250px;
+    } 
+    .story .article .block .text{
+        margin-right: 0;
+        margin-bottom: 20px;
+        width:100%;
+    }
+    .story .article  .img{
+        width:60%;
+        margin-top: 20px;
+        
+    }
+}
+@media screen and (max-width: 600px){
+   
+    .story .article .block{
+        width: 100%;
+    }
+    .story .article .block .text{
+        font-size: 1em;
+    }
+    .story .article  .img{
+        width:90%;
+        height: 250px;
+        background-size: contain;
+        background-position: center;
+    }
+    .story .article .block .subtitle{
+        padding-top: 0;
+    }
+    
 }
 
 
 .demo{
     width:100%;
-    min-height: 700px;
+    min-height: 800px;
     background-color: #0D0E18;
     display: flex;
     align-items: center;
@@ -232,13 +463,16 @@
     width:100%;
     margin: 0 auto;
     padding: 20px;
-    font-family: Noto Sans;
-    color: #f3f3f3;
-    background-color: #314250;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #3f3f3f;
+    /* background-color: #314250; */
+    background-color: #000000af;
     position: relative;
     margin-top: 600px;
-    height:800px;
+    height:700px;
     letter-spacing: 2px;
+    /* box-shadow: 0 0 5px 10px #314250; */
+    
 }
 .gameSetting > .container{
     width:60%;
@@ -247,24 +481,10 @@
     justify-content: center;
     margin: auto;
     flex-wrap: wrap;
+    padding-top: 30px;
     
 }
-.gameSetting .title{
-    width:100%;
-    font-weight: bolder;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    
-    font-size: 2.2em;
-    
-    margin-bottom: 50px;
-    font-style: italic;
-    font-family: Noto Sans;
-    text-align: left;
-    color: #f3f3f3;
-    margin-bottom: 20px;
-}
+
 
 .gameSetting >.container >.block{
     width:100%;
@@ -277,37 +497,11 @@
     width: 45%;
     display: inline-block;
     height: 200px;
-    position: relative;
-    background-image: url('../../materials/img/roof.png');
+
+    background-image: url('../../materials/img/game-pic.PNG');
     background-repeat:no-repeat;
     background-size: cover;
-    background-position: center;
-    background-position-x: 80%;
-}
-
-.gameSetting >.container >.bl1 >.picture >.kunio{
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-
-    width: 64px;
-    height:64px;
-    margin-right: 20px;
-    
-    transform: scale(2.3);
-    background: url("../../materials/img/character/Kunio/show.png");
-}
-.gameSetting >.container >.bl1 >.picture >.mochizuki{
-    position: absolute;
-    bottom: 40px;
-    left: 140px;
-
-    width: 64px;
-    height:64px;
-    
-    transform: scale(-2.3, 2.3);
-    
-    background: url("../../materials/img/character/Mochizuki/Mochizuki.png") -768px -1088px no-repeat;
+    background-position-x: 5%;
 }
 
 
@@ -322,6 +516,10 @@
     margin: 20px auto;
     font-style: italic;
     text-align: center;
+    position: relative;
+    color:white;
+    /* text-shadow: rgb(3, 3, 3) 3px 3px 1px; */
+  
 }
 .gameSetting >.container >.bl1 >.content>.subtitle>div{
     display: inline-block;
@@ -330,6 +528,7 @@
     margin-bottom: 5px;
     margin-right: 10px;
     background-color: #f3f3f3;
+
 }
 
 .gameSetting >.container >.bl2 >.picture{
@@ -337,55 +536,22 @@
     display: inline-block;
     height: 200px;
     position: relative;
-    background-image: url('../../materials/img/court4.png');
+    background-image: url('../../materials/img/game-pic2.PNG');
     background-repeat:no-repeat;
-    background-size: 200%;
-    background-position-x: 40%;
-    background-position-y: 50%;
-}
-.gameSetting >.container >.bl2 >.picture >.kunio{
-    position: absolute;
-    bottom: 30px;
-    left: 20px;
-
-    width: 64px;
-    height:64px;
-    margin-right: 20px;
-    
-    transform: scale(2.3);
-    background: url("../../materials/img/character/Kunio/throw.png");
+    background-size: cover;
+    background-position: center;
+    background-position-x: 90%;
 }
 
-.gameSetting >.container >.bl2 >.picture >.mochizuki{
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-
-    width: 64px;
-    height:64px;
-    
-    transform: scale(-2.3, 2.3);
-    
-    background: url("../../materials/img/character/Mochizuki/Mochizuki.png") -960px -64px no-repeat;
-}
-.gameSetting >.container >.bl2 >.picture >.ball{
-    position: absolute;
-    top:90px;
-    right: 90px;
-
-    width: 50px;
-    height:50px;
-    
-    transform: scale(2.3);
-    
-    background: url("../../materials/img/ball.png") 0 -50px no-repeat;
-}
 .gameSetting >.container >.bl2 >.content>.subtitle{
     font-size: 1.5em;
     font-weight: bold;
-    margin: 30px auto;
+    margin: 20px auto;
     font-style: italic;
     text-align: center;
+    position: relative;
+    color: white;
+    /* text-shadow: rgb(3, 3, 3) 3px 3px 1px; */
 }
 .gameSetting >.container >.bl2 >.content>.subtitle>div{
     display: inline-block;
@@ -395,4 +561,38 @@
     margin-left: 10px;
     background-color: #f3f3f3;
     transition: 0.3;
+}
+
+/* rwd for game setting */
+@media screen and (max-width: 1200px){
+    .gameSetting > .container{
+        width:90%;
+    }
+}
+@media screen and (max-width: 600px){
+    .gameSetting {
+        height:900px;
+        margin-top: 0;
+    }
+    .gameSetting >.container >.block{
+        display:flex;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    .gameSetting >.container >.bl1 >.picture{
+        width:100%;
+    }
+    .gameSetting >.container >.bl1 >.content{
+        width:100%;height: 180px;
+    }
+    .gameSetting >.container >.bl2 >.picture{
+        width:100%; order:1;
+    }
+    .gameSetting >.container >.bl2 >.content{
+        width:100%; order:2;
+    }
+    .gameSetting >.container >.bl1 >.content>.subtitle,
+    .gameSetting >.container >.bl2 >.content>.subtitle{
+        font-size: 1.2em; margin: 30px auto;
+    }
 }
