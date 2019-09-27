@@ -6,7 +6,8 @@ export default function Player2_Control(scene,input){
                 if(scene.player2.state.isRun){
                     if(scene.player2.x < 480){
                         if(scene.player2.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x +30 : scene.ball.x = scene.player2.x+24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x +30 : scene.ball.x = scene.player2.x+20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player2.y : scene.ball.y = scene.player2.y + 14;
                             scene.ball.setVelocityX(160)
                         }
                         scene.player2.setVelocityX(160);
@@ -16,7 +17,8 @@ export default function Player2_Control(scene,input){
                 }else{
                     if(scene.player2.x < 480){
                         if(scene.player2.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x +30 : scene.ball.x = scene.player2.x+24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x +30 : scene.ball.x = scene.player2.x+20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player2.y : scene.ball.y = scene.player2.y + 16;
                             scene.ball.setVelocityX(100)
                         }
                         scene.player2.setVelocityX(100);
@@ -30,8 +32,9 @@ export default function Player2_Control(scene,input){
                 if(scene.player2.state.isRun){
                     if(scene.player2.x > 90 && scene.player2.x >(740-scene.player2.y)/3.2){
                         if(scene.player2.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x -30 : scene.ball.x = scene.player2.x-24;
-                            scene.ball.setVelocityX(-160)
+                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x -30 : scene.ball.x = scene.player2.x-20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player2.y : scene.ball.y = scene.player2.y + 16;
+                            scene.ball.setVelocityX(-160);
                         }
                         scene.player2.setVelocityX(-160);
                     }
@@ -41,7 +44,8 @@ export default function Player2_Control(scene,input){
                 }else{
                     if(scene.player2.x > 90 && scene.player2.x > (740-scene.player2.y)/3.2){
                         if(scene.player2.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x -30 : scene.ball.x = scene.player2.x-24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player2.x -30 : scene.ball.x = scene.player2.x-20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player2.y : scene.ball.y = scene.player2.y + 16;
                             scene.ball.setVelocityX(-100)
                         }
                         scene.player2.setVelocityX(-100);

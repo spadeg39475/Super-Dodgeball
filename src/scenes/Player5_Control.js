@@ -6,7 +6,7 @@ export default function Player5_Control(scene,input){
                 if(scene.player5.state.isRun){
                     // if(scene.player5.x < 480){
                     //     if(scene.state.haveBall){
-                    //         scene.state.current===scene.player1? scene.ball.x = scene.player5.x +30 : scene.ball.x = scene.player5.x+24;
+                    //         scene.state.current===scene.player1? scene.ball.x = scene.player5.x +30 : scene.ball.x = scene.player5.x+20;
                     //         scene.ball.setVelocityX(160)
                     //     }
                     //     scene.player5.setVelocityX(160);
@@ -16,7 +16,7 @@ export default function Player5_Control(scene,input){
                 }else{
                     // if(scene.player5.x < 480){
                     //     if(scene.state.haveBall){
-                    //         scene.state.current===scene.player1? scene.ball.x = scene.player5.x +30 : scene.ball.x = scene.player5.x+24;
+                    //         scene.state.current===scene.player1? scene.ball.x = scene.player5.x +30 : scene.ball.x = scene.player5.x+20;
                     //         scene.ball.setVelocityX(100)
                     //     }
                     //     scene.player5.setVelocityX(100);
@@ -30,7 +30,7 @@ export default function Player5_Control(scene,input){
                 if(scene.player5.state.isRun){
                     // if(scene.player5.x > 90 && scene.player5.x >(740-scene.player5.y)/3.2){
                         // if(scene.state.haveBall){
-                        //     scene.state.current===scene.player1? scene.ball.x = scene.player5.x -30 : scene.ball.x = scene.player5.x-24;
+                        //     scene.state.current===scene.player1? scene.ball.x = scene.player5.x -30 : scene.ball.x = scene.player5.x-20;
                         //     scene.ball.setVelocityX(-160)
                         // }
                     //     scene.player5.setVelocityX(-160);
@@ -41,7 +41,8 @@ export default function Player5_Control(scene,input){
                 }else{
                     // if(scene.player5.x > 90 && scene.player5.x > (740-scene.player5.y)/3.2){
                         if(scene.player5.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player5.x -30 : scene.ball.x = scene.player5.x-24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player5.x -30 : scene.ball.x = scene.player5.x-20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player5.y : scene.ball.y = scene.player5.y + 16;
                             // scene.ball.setVelocityX(-100)
                         }
                     //     scene.player5.setVelocityX(-100);

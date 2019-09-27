@@ -120,7 +120,18 @@ export default function makeAnimations(scene) {
         frameRate: 10,
         repeat: 7
     })
-
+    scene.anims.create({
+        key: 'player1-lose',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 592, end: 595 }),
+        frameRate: 5,
+        repeat: 7
+    })
+    scene.anims.create({
+        key: 'player1-win',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 540, end: 541 }),
+        frameRate: 5,
+        repeat: 7
+    })
 
 
 
@@ -997,7 +1008,7 @@ export default function makeAnimations(scene) {
     })
     scene.anims.create({
         key: 'enemy2-catch',
-        frames: scene.anims.generateFrameNumbers('enemy2', { start: 139, end: 139 }),
+        frames: scene.anims.generateFrameNumbers('enemy2', { start: 170, end: 170 }),
         frameRate: 5,
         repeat: 0
     })

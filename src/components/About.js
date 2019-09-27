@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext} from "react";
+import { GameContext } from '../contexts/context'
 import Footer from './Footer';
 
 import '../css/about.css'
 
 const About = () => {
+
+    const {state, setGame} = useContext(GameContext);
+    if(state.game){
+        state.game.destroy(true,false)
+        setGame(null);
+    } 
+
     return (
         <React.Fragment>
+            
             <div className='main'></div>
             <div className='about-body'>
                 <div className='intro'>

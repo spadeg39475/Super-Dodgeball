@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect , useContext} from "react";
+import { GameContext } from '../contexts/context'
 import { Link } from "react-router-dom";
 
 import Demo from './youtube';
@@ -10,7 +11,14 @@ import '../css/home.css';
 
 
 const Home = () => {
-
+   
+    const {state, setGame} = useContext(GameContext);
+    if(state.game){
+        state.game.destroy(true,false)
+        setGame(null);
+    } 
+    
+    
     return (
         <React.Fragment>
             

@@ -49,6 +49,8 @@ const Game = () => {
         }
         
     })
+  
+   
 
     return (
         <React.Fragment>

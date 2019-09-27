@@ -1,50 +1,57 @@
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG, defaultCipherList } from "constants";
-import { setTimeout } from "timers";
 
 export default function Enemy_Control(scene,time,delta){
     if(
         scene.ball.x > 520 
-        // && scene.ball.x < (scene.ball.y + 2764)/3.5 
+        && scene.state.enemy.state.isActive 
         && scene.ball.x < 970
         && scene.ball.y > 300
         && scene.ball.y < 470
-        && scene.ball.body.velocity.x ===0
+        // && scene.ball.body.velocity.x ===0
         && scene.state.turn === ''
         && !scene.ball.state.isPass
-        ){
-            let dis = new Array()
-            for(i=0; i<scene.teamB.getChildren().length-3; i++){
-                dis.push(scene.distance(scene.teamB.getChildren()[i], scene.ball)) 
-            }
-            let i = dis.indexOf(Math.min(...dis));
-            if(i !== -1 && scene.teamB.getChildren()[i].state.isActive){
-                scene.state.enemy =  scene.teamB.getChildren()[i];
-            }
+        ){  
+            // if(!scene.state.enemy.state.isActive){
+            //     let dis = new Array();
+            //     for(let i=0; i<scene.teamB.getChildren().length-3; i++){
+            //         dis.push(scene.distance(scene.teamB.getChildren()[i], scene.ball)) 
+            //     }
+            //     let i = dis.indexOf(Math.min(...dis));
+            //     if(i !== -1 && scene.teamB.getChildren()[i].state.isActive){
+            //         scene.state.enemy =  scene.teamB.getChildren()[i];
+            //     }
+            // }
+
+            
             
             
             if( Math.abs(scene.state.enemy.x - scene.ball.x) > 30  ){
-                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
-                scene.state.enemy.setVelocityX(scene.ball.x - scene.state.enemy.x)
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true);
+                scene.state.enemy.x-scene.ball.x>0? scene.state.enemy.setVelocityX(-160) : scene.state.enemy.setVelocityX(160);
+                // scene.state.enemy.setVelocityX(scene.ball.x - scene.state.enemy.x)
             }
+            
             if( scene.state.enemy.y - scene.ball.y > -20  || scene.state.enemy.y-scene.ball.y < -40){
-                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
-                scene.state.enemy.setVelocityY(scene.ball.y-30 - scene.state.enemy.y)
+                scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true);
+                scene.state.enemy.y-scene.ball.y>-30? scene.state.enemy.setVelocityY(-100) : scene.state.enemy.setVelocityY(100);
+               
             }
-            else if(!scene.state.enemy.body.touching.none && !scene.state.enemy.haveBall){
+            else if(!scene.state.enemy.body.touching.none && !scene.state.enemy.haveBall ){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`,true)
                 scene.state.enemy.flipX = true;
-                scene.enemyPickBall()
+                scene.enemyPickBall();
             }   
     }
     
     if( scene.ball.state.ballFrom==='us'
         && scene.state.turn === 'us'
         && scene.ball.state.ballTo==='right'
+        && scene.state.enemy.state.isActive 
         && scene.ball.x > scene.state.enemy.x - 40 && scene.ball.x < scene.state.enemy.x - 30
     ){
         let num = Math.random();
         if(num > 0.7){
-            scene.enemyCatch()
+            scene.enemyCatch();
+            
         }
     }
 
@@ -62,12 +69,15 @@ export default function Enemy_Control(scene,time,delta){
             if(scene.state.enemy.x<= 600 && scene.state.enemy.state.canThrow){
                 scene.enemyThrow()
                 scene.state.enemy.state.canThrow = false;
-            }else if(scene.state.enemy.x>600 && scene.state.enemy.state.haveBall){
+                
+            }else if(scene.state.enemy.x>600 ){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
                 scene.state.enemy.flipX = true;
-                scene.ball.x = scene.state.enemy.x - 24;
+                scene.ball.x = scene.state.enemy.x - 20;
+                scene.ball.y= scene.state.enemy.y + 16;
                 scene.state.enemy.setVelocityX(-160);
                 scene.ball.setVelocityX(-160);
+                
             }
         }
     }

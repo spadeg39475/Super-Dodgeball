@@ -6,7 +6,8 @@ export default function Player6_Control(scene,input){
                 if(scene.player6.state.isRun){
                     if(scene.player6.x < 930){
                         if(scene.player6.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x +30 : scene.ball.x = scene.player6.x+24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x +30 : scene.ball.x = scene.player6.x+20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player6.y : scene.ball.y = scene.player6.y + 16;
                             scene.ball.setVelocityX(160)
                         }
                         scene.player6.setVelocityX(160);
@@ -16,7 +17,8 @@ export default function Player6_Control(scene,input){
                 }else{
                     if(scene.player6.x < 930){
                         if(scene.player6.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x +30 : scene.ball.x = scene.player6.x+24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x +30 : scene.ball.x = scene.player6.x+20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player6.y : scene.ball.y = scene.player6.y + 16;
                             scene.ball.setVelocityX(100)
                         }
                         scene.player6.setVelocityX(100);
@@ -30,7 +32,8 @@ export default function Player6_Control(scene,input){
                 if(scene.player6.state.isRun){
                     if(scene.player6.x > 560){
                         if(scene.player6.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x -30 : scene.ball.x = scene.player6.x-24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x -30 : scene.ball.x = scene.player6.x-20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player6.y : scene.ball.y = scene.player6.y + 16;
                             scene.ball.setVelocityX(-160)
                         }
                         scene.player6.setVelocityX(-160);
@@ -41,7 +44,8 @@ export default function Player6_Control(scene,input){
                 }else{
                     if(scene.player6.x > 560 ){
                         if(scene.player6.state.haveBall){
-                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x -30 : scene.ball.x = scene.player6.x-24;
+                            scene.state.current===scene.player1? scene.ball.x = scene.player6.x -30 : scene.ball.x = scene.player6.x-20;
+                            scene.state.current===scene.player1? scene.ball.y = scene.player6.y : scene.ball.y = scene.player6.y + 16;
                             scene.ball.setVelocityX(-100)
                         }
                         scene.player6.setVelocityX(-100);
@@ -116,7 +120,7 @@ export default function Player6_Control(scene,input){
                 scene[`hit_${scene.player6.name}`].active = true;
             }
         }
-        
+
     }
 
     
