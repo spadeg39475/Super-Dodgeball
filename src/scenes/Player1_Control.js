@@ -97,9 +97,9 @@ export default function Player1_Control(scene,input){
             // }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 250)){
                 if(scene.player1.state.haveBall && scene.player1.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player1.anims.play(`${scene.player1.name}-throw`)
-                    scene.throw();
+                    // scene.player1.anims.play(`${scene.player1.name}-throw`,true)
                     scene.player1.state.isThrow = true;
+                    scene.throw();
                 }else if(!scene.player1.state.haveBall && scene.ball.state.ballFrom ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player1.state.haveBall  && scene.player1.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
@@ -143,18 +143,19 @@ export default function Player1_Control(scene,input){
         scene.player1.state.onFloor = true;
         scene.player1.state.isJump = false;
         scene.player1.state.canChange =true;
-        scene.player1.anims.play('player1-turn');
-        
+        if(scene.player1.state.isActive){
+            scene.player1.anims.play('player1-turn');
+        } 
     }
 
-    if(scene.player1.state.isJump){
+    if(scene.player1.state.isJump && scene.player1.state.isActive){
         if( Math.abs(scene.player1.body.velocity.y)  < 100 ){
             scene.player1.state.canThrow = true;
         }
-        scene.player1.anims.play(`${scene.player1.name}-jump`);
+        // scene.player1.anims.play(`${scene.player1.name}-jump`);
     }
     if(scene.player1.state.isThrow){
-        scene.player1.anims.play(`${scene.player1.name}-throw`);
+        scene.player1.anims.play(`${scene.player1.name}-throw`,true);
     }
     
     if(scene.ball.body.velocity.x === 0){

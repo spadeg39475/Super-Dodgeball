@@ -133,12 +133,15 @@ export default function Player4_Control(scene,input){
         scene.player4.state.onFloor = true;
         scene.player4.state.isJump = false;
         scene.player4.state.canChange =true;
-        scene.player4.anims.play('player4-turn');
+        if(scene.player4.state.isActive){
+            scene.player4.anims.play('player4-turn');
+        }
+        
 
     }
 
-    if(scene.player4.state.isJump){
-        if( Math.abs(scene.player4.body.velocity.y)  < 20 ){
+    if(scene.player4.state.isJump && scene.player4.state.isActive){
+        if( Math.abs(scene.player4.body.velocity.y)  < 100 ){
             scene.player4.state.canThrow = true;
         }
         scene.player4.anims.play(`${scene.player4.name}-jump`);

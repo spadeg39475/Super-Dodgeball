@@ -1,7 +1,7 @@
 #game{
     position: absolute;
     top:10%;
-    left: 30%;
+    left: calc(50% - 400px);
 }
 .keys{
     width:80%;

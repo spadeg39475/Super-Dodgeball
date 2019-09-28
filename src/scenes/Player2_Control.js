@@ -134,11 +134,14 @@ export default function Player2_Control(scene,input){
         scene.player2.state.onFloor = true;
         scene.player2.state.isJump = false;
         scene.player2.state.canChange =true;
-        scene.player2.anims.play('player2-turn');
+        if(scene.player2.state.isActive){
+            scene.player2.anims.play('player2-turn');
+        }
+        
     }
 
-    if(scene.player2.state.isJump){
-        if( Math.abs(scene.player2.body.velocity.y)  < 20 ){
+    if(scene.player2.state.isJump && scene.player2.state.isActive){
+        if( Math.abs(scene.player2.body.velocity.y)  < 100 ){
             scene.player2.state.canThrow = true;
         }
         scene.player2.anims.play(`${scene.player2.name}-jump`);

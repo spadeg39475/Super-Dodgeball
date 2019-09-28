@@ -134,11 +134,14 @@ export default function Player6_Control(scene,input){
         scene.player6.state.onFloor = true;
         scene.player6.state.isJump = false;
         scene.player6.state.canChange =true;
-        scene.player6.anims.play('player6-turn');
+        if(scene.player1.state.isActive){
+            scene.player6.anims.play('player6-turn');
+        }
+      
     }
 
-    if(scene.player6.state.isJump){
-        if( Math.abs(scene.player6.body.velocity.y)  < 20 ){
+    if(scene.player6.state.isJump && scene.player6.state.isActive){
+        if( Math.abs(scene.player6.body.velocity.y)  < 100 ){
             scene.player6.state.canThrow = true;
         }
         scene.player6.anims.play(`${scene.player6.name}-jump`);

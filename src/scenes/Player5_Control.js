@@ -56,12 +56,12 @@ export default function Player5_Control(scene,input){
                 if(scene.player5.y > 268  && scene.player5.y < 450){
                     if(scene.player5.state.haveBall){
                         scene.ball.setVelocityY(-100);
-                        scene.ball.setVelocityX(-20);
+                        scene.ball.setVelocityX(-15);
                         scene.state.current===scene.player1? scene.ball.y = scene.player5.y : scene.ball.y = scene.player5.y + 16;
                     }
                     
                     scene.player5.setVelocityY(-100);
-                    scene.player5.setVelocityX(-20);
+                    scene.player5.setVelocityX(-15);
                 }
                 
                 scene.player5.state.isRun 
@@ -72,11 +72,11 @@ export default function Player5_Control(scene,input){
                 if(scene.player5.y < 437 && scene.player5.y > 265){
                     if(scene.player5.state.haveBall){
                         scene.ball.setVelocityY(100);
-                        scene.ball.setVelocityX(20);
+                        scene.ball.setVelocityX(15);
                         scene.state.current===scene.player1? scene.ball.y = scene.player5.y : scene.ball.y = scene.player5.y + 16;
                     }
                     scene.player5.setVelocityY(100);
-                    scene.player5.setVelocityX(20)
+                    scene.player5.setVelocityX(15)
                 }
                 scene.player5.state.isRun 
                     ? scene.player5.anims.play(`${scene.player5.name}-run`,true) 
@@ -138,11 +138,14 @@ export default function Player5_Control(scene,input){
         scene.player5.state.onFloor = true;
         scene.player5.state.isJump = false;
         scene.player5.state.canChange =true;
-        scene.player5.anims.play('player5-turn');
+        if(scene.player5.state.isActive){
+            scene.player5.anims.play('player5-turn');
+        }
+        
     }
 
-    if(scene.player5.state.isJump){
-        if( Math.abs(scene.player5.body.velocity.y)  < 20 ){
+    if(scene.player5.state.isJump && scene.player5.state.isActive){
+        if( Math.abs(scene.player5.body.velocity.y)  < 100 ){
             scene.player5.state.canThrow = true;
         }
         scene.player5.anims.play(`${scene.player5.name}-jump`);

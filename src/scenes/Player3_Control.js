@@ -137,11 +137,14 @@ export default function Player3_Control(scene,input){
         scene.player3.state.onFloor = true;
         scene.player3.state.isJump = false;
         scene.player3.state.canChange =true;
-        scene.player3.anims.play('player3-turn');
+        if(scene.player3.state.isActive){
+            scene.player3.anims.play('player3-turn');
+        }
+       
     }
 
-    if(scene.player3.state.isJump){
-        if( Math.abs(scene.player3.body.velocity.y)  < 20 ){
+    if(scene.player3.state.isJump && scene.player3.state.isActive){
+        if( Math.abs(scene.player3.body.velocity.y)  < 100 ){
             scene.player3.state.canThrow = true;
         }
         scene.player3.anims.play(`${scene.player3.name}-jump`);

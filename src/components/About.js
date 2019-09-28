@@ -15,7 +15,17 @@ const About = () => {
     return (
         <React.Fragment>
             
-            <div className='main'></div>
+            <div className='main'>
+                <div className='about-title'>
+                    {/* <p className='p1'>永遠的童年回憶</p> */}
+                    {/* <p className='p2'>Memory</p> */}
+                    
+                    {/* <div className='start'><Link to='/game' id='nav-game'>PLAY</Link></div> */}
+                    <a href='#story' id='down'>
+                        <img className='down-arrow'src='./materials/img/down-arrow.svg'></img>
+                    </a>
+                </div>
+            </div>
             <div className='about-body'>
                 <div className='intro'>
                         <div className='container'>

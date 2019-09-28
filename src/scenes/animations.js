@@ -22,8 +22,9 @@ export default function makeAnimations(scene) {
    
     scene.anims.create({
         key: 'player1-throw',
-        frames: scene.anims.generateFrameNumbers('player1', { start: 30, end: 31 }),
-        duration: 200,
+        frames: scene.anims.generateFrameNumbers('player1', { start: 29, end: 32 }),
+        // duration: 200,
+        frameRate:8,
         repeat: 0
     })
     scene.anims.create({

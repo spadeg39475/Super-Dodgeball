@@ -1,30 +1,30 @@
 
 export default function Enemy_Control(scene,time,delta){
+    // run and pick
     if(
         scene.ball.x > 520 
         && scene.state.enemy.state.isActive 
         && scene.ball.x < 970
         && scene.ball.y > 300
         && scene.ball.y < 470
-        // && scene.ball.body.velocity.x ===0
         && scene.state.turn === ''
         && !scene.ball.state.isPass
         ){  
-            // if(!scene.state.enemy.state.isActive){
-            //     let dis = new Array();
-            //     for(let i=0; i<scene.teamB.getChildren().length-3; i++){
-            //         dis.push(scene.distance(scene.teamB.getChildren()[i], scene.ball)) 
-            //     }
-            //     let i = dis.indexOf(Math.min(...dis));
-            //     if(i !== -1 && scene.teamB.getChildren()[i].state.isActive){
-            //         scene.state.enemy =  scene.teamB.getChildren()[i];
-            //     }
-            // }
+            
+                let dis = new Array();
+                for(let i=0; i<scene.teamB.getChildren().length-3; i++){
+                    dis.push(scene.distance(scene.teamB.getChildren()[i], scene.ball)) 
+                }
+                let i = dis.indexOf(Math.min(...dis));
+                if(i !== -1 && scene.teamB.getChildren()[i].state.isActive){
+                    scene.state.enemy =  scene.teamB.getChildren()[i];
+                }
+
 
             
             
             
-            if( Math.abs(scene.state.enemy.x - scene.ball.x) > 30  ){
+            if( Math.abs(scene.state.enemy.x - scene.ball.x) > 40  ){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true);
                 scene.state.enemy.x-scene.ball.x>0? scene.state.enemy.setVelocityX(-160) : scene.state.enemy.setVelocityX(160);
                 // scene.state.enemy.setVelocityX(scene.ball.x - scene.state.enemy.x)
@@ -35,17 +35,20 @@ export default function Enemy_Control(scene,time,delta){
                 scene.state.enemy.y-scene.ball.y>-30? scene.state.enemy.setVelocityY(-100) : scene.state.enemy.setVelocityY(100);
                
             }
-            else if(!scene.state.enemy.body.touching.none && !scene.state.enemy.haveBall ){
+            else if(!scene.state.enemy.body.touching.none && !scene.state.enemy.haveBall && scene.ball.state.ballFrom===''){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`,true)
                 scene.state.enemy.flipX = true;
                 scene.enemyPickBall();
             }   
     }
     
+
+    // catch
     if( scene.ball.state.ballFrom==='us'
         && scene.state.turn === 'us'
         && scene.ball.state.ballTo==='right'
-        && scene.state.enemy.state.isActive 
+        && scene.state.enemy.state.isActive
+        && !scene.ball.state.isPass
         && scene.ball.x > scene.state.enemy.x - 40 && scene.ball.x < scene.state.enemy.x - 30
     ){
         let num = Math.random();
@@ -58,7 +61,7 @@ export default function Enemy_Control(scene,time,delta){
         
        
 
-        
+    // throw
     if(scene.state.enemy === scene.enemy1 || scene.state.enemy === scene.enemy2 || scene.state.enemy === scene.enemy3){
         if(scene.state.enemy.state.haveBall){
             let num = Math.random()
@@ -82,6 +85,7 @@ export default function Enemy_Control(scene,time,delta){
         }
     }
 
+    // jump state
     if(scene.state.enemy.state.isJump){
         if( Math.abs(scene.state.enemy.body.velocity.y)  < 100 ){
             scene.state.enemy.state.canThrow = true;
@@ -102,13 +106,28 @@ export default function Enemy_Control(scene,time,delta){
         scene.state.enemy.anims.play(`${scene.state.enemy.name}-turn`);
         
     }
-
+    //inside control
+    if(scene.enemy1.x < 500 && scene.enemy1.state.isActive && scene.state.enemy !== scene.enemy1){
+        scene.ennemy1.setVelocityX(160);
+        scene.enemy1.anims.play('enemy1-run',true);
+        scene.enemy1.flipX=false;
+    }
+    if(scene.enemy2.x < 500 && scene.enemy2.state.isActive && scene.state.enemy !== scene.enemy2){
+        scene.ennemy2.setVelocityX(160);
+        scene.enemy2.anims.play('enemy1-run',true);
+        scene.enemy2.flipX=false;
+    }
+    if(scene.enemy3.x < 500 && scene.enemy3.state.isActive && scene.state.enemy !== scene.enemy3){
+        scene.ennemy3.setVelocityX(160);
+        scene.enemy3.anims.play('enemy3-run',true);
+        scene.enemy3.flipX=false;
+    }
 
 
 
     //enemy4
     if(
-        scene.ball.x > 120 
+        scene.ball.x > 30 
         && scene.ball.x < 520 
         && scene.ball.y < 295
         && scene.ball.body.velocity.x ===0
@@ -126,7 +145,7 @@ export default function Enemy_Control(scene,time,delta){
                 scene.enemy4.flipX = false;
                 scene.enemy4.setVelocityX(160)
             }
-            else if(!scene.enemy4.body.touching.none){
+            else if(!scene.enemy4.body.touching.none ||  Math.abs(scene.enemy4.x-scene.ball.x)<20  ){
                 scene.enemy4.anims.play(`${scene.enemy4.name}-pick`,true)
                 scene.enemyPickBall()
             }
@@ -136,10 +155,24 @@ export default function Enemy_Control(scene,time,delta){
                 scene.enemy4.state.canThrow = false;
             }
             
-        } 
-        
+        }   
     }
-       
+    if(scene.enemy4.x < 260 && scene.state.enemy !== scene.enemy4 && scene.enemy4.state.isActive){
+        scene.enemy4.setVelocityX(160);
+        scene.enemy4.anims.play('enemy4-run',true);
+        scene.enemy4.flipX=false;
+    }
+    else if(scene.enemy4.x > 320 && scene.state.enemy !== scene.enemy4 && scene.enemy4.state.isActive){
+        scene.enemy4.setVelocityX(-160);
+        scene.enemy4.anims.play('enemy4-run',true);
+        scene.enemy4.flipX=true;
+    }
+    if(scene.state.enemy===scene.enemy4 && scene.enemy4.state.haveBall){
+        if(scene.state.enemy.state.canThrow){
+            scene.enemyPass()
+            scene.state.enemy.state.canThrow = false;
+        }
+    }
 
     
 
@@ -147,7 +180,7 @@ export default function Enemy_Control(scene,time,delta){
     if(
         scene.ball.x < 120 
         && scene.ball.x < (643 - scene.ball.y)/2.86 
-        && scene.ball.y > 300
+        && scene.ball.y > 280
         && scene.ball.y < 470
         && scene.ball.body.velocity.x ===0
         && scene.state.turn !== 'us'
@@ -163,7 +196,7 @@ export default function Enemy_Control(scene,time,delta){
                 scene.state.enemy.setVelocityX(scene.state.enemy.y>scene.ball.y-30? 10 : -10)
                 scene.state.enemy.setVelocityY(scene.state.enemy.y>scene.ball.y-30? -100 : 100);
             }
-            else if(!scene.state.enemy.body.touching.none){
+            else if(!scene.state.enemy.body.touching.none ){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-pick`,true)
                 scene.enemyPickBall()
             }
@@ -177,9 +210,30 @@ export default function Enemy_Control(scene,time,delta){
         }
     }
 
+    if(scene.enemy5.y < 320 && scene.state.enemy !== scene.enemy5 && scene.enemy5.state.isActive){
+        scene.enemy5.setVelocityX(-10);
+        scene.enemy5.setVelocityY(100);
+        scene.enemy5.anims.play('enemy5-run',true);
+        scene.enemy5.flipX=false;
+    }
+    else if(scene.enemy5.y > 385 && scene.state.enemy !== scene.enemy5 && scene.enemy5.state.isActive){
+        scene.enemy5.setVelocityX(10);
+        scene.enemy5.setVelocityY(-100);
+        scene.enemy5.anims.play('enemy5-run',true);
+        scene.enemy5.flipX=false;
+    }
+    if(scene.state.enemy===scene.enemy5 && scene.enemy5.state.haveBall){
+        if(scene.state.enemy.state.canThrow){
+            scene.enemyPass()
+            scene.state.enemy.state.canThrow = false;
+        }
+    }
+
+
+
     //enemy 6
     if(
-        scene.ball.x > 100 
+        scene.ball.x > 50 
         && scene.ball.x < 520 
         && scene.ball.y > 480
         && scene.ball.body.velocity.x ===0
@@ -187,19 +241,20 @@ export default function Enemy_Control(scene,time,delta){
     ){
         scene.state.enemy = scene.enemy6;
         if(!scene.enemy6.state.haveBall){
-            if( (scene.enemy6.x - scene.ball.x) > 30){
+            if( (scene.enemy6.x - scene.ball.x) > 20){
                 scene.enemy6.anims.play(`${scene.enemy6.name}-run`,true)
                 scene.enemy6.flipX = true;
                 scene.enemy6.setVelocityX(-160)
             }
-            else if ((scene.enemy6.x - scene.ball.x) < -30){
+            else if ((scene.enemy6.x - scene.ball.x) < -20){
                 scene.enemy6.anims.play(`${scene.enemy6.name}-run`,true)
                 scene.enemy6.flipX = false;
                 scene.enemy6.setVelocityX(160)
             }
-            else if(!scene.state.enemy.body.touching.none){
+            else if(!scene.state.enemy.body.touching.none ||  Math.abs(scene.enemy6.x-scene.ball.x)<20){
                 scene.enemy6.anims.play(`${scene.enemy6.name}-pick`,true)
                 scene.enemyPickBall()
+                scene.enemy6.state.haveBall=true;
             }
         }else if (scene.enemy6.state.haveBall){
             if(scene.enemy6.state.canThrow){
@@ -208,12 +263,27 @@ export default function Enemy_Control(scene,time,delta){
             }
         }   
     }
-    
+    if(scene.enemy6.x < 220 && scene.state.enemy !== scene.enemy6 && scene.enemy6.state.isActive){
+        scene.enemy6.setVelocityX(160);
+        scene.enemy6.anims.play('enemy6-run',true);
+        scene.enemy6.flipX=false;
+    }
+    else if(scene.enemy6.x > 320 && scene.state.enemy !== scene.enemy6 && scene.enemy6.state.isActive){
+        scene.enemy6.setVelocityX(-160);
+        scene.enemy6.anims.play('enemy4-run',true);
+        scene.enemy6.flipX=true;
+    }
+    if(scene.state.enemy===scene.enemy6 && scene.enemy6.state.haveBall){
+        if(scene.state.enemy.state.canThrow){
+            scene.enemyPass()
+            scene.state.enemy.state.canThrow = false;
+        }
+    }
 
 
 
 
-
+    // run with ball
     if(scene.player1.state.haveBall || scene.player2.state.haveBall || scene.player3.state.haveBall){
         
         for(let i=0; i<scene.teamB.getChildren().length-3; i++){
@@ -257,5 +327,9 @@ export default function Enemy_Control(scene,time,delta){
             }
         }
     }
+
+   
+
+
 
 }
