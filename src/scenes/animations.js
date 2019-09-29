@@ -22,21 +22,29 @@ export default function makeAnimations(scene) {
    
     scene.anims.create({
         key: 'player1-throw',
-        frames: scene.anims.generateFrameNumbers('player1', { start: 29, end: 32 }),
-        // duration: 200,
-        frameRate:8,
+        frames: scene.anims.generateFrameNumbers('player1', { start: 447, end: 449 }),
+        duration: 500,
+        // frameRate:8,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player1-jump-throw',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 490, end: 492 }),
+        duration: 500,
+        // frameRate:8,
         repeat: 0
     })
     scene.anims.create({
         key: 'player1-pass',
         frames: scene.anims.generateFrameNumbers('player1', { start: 28, end: 28 }),
-        duration: 200,
+        // frames: scene.anims.generateFrameNumbers('player1', { start: 401, end: 401 }),
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
         key: 'player1-pick',
         frames: scene.anims.generateFrameNumbers('player1', { start: 53, end: 53 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
 
@@ -101,7 +109,7 @@ export default function makeAnimations(scene) {
         key: 'player1-tired',
         frames: scene.anims.generateFrameNumbers('player1', { start: 157, end: 158 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 5
     })
     scene.anims.create({
         key: 'player1-dodge',
@@ -163,7 +171,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player2-pick',
         frames: scene.anims.generateFrameNumbers('player2', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -219,7 +227,7 @@ export default function makeAnimations(scene) {
         key: 'player2-tired',
         frames: scene.anims.generateFrameNumbers('player2', { start: 43, end: 44 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 5
     })
     scene.anims.create({
         key: 'player2-catch',
@@ -229,16 +237,23 @@ export default function makeAnimations(scene) {
     })
     scene.anims.create({
         key: 'player2-throw',
-        frames: scene.anims.generateFrameNumbers('player2', { start: 127, end: 128 }),
-        frameRate: 8,
-        // duration: 1000,
+        frames: scene.anims.generateFrameNumbers('player2', { start: 126, end: 129 }),
+        // frameRate: 8,
+        duration: 500,
         repeat: 0
     })
     scene.anims.create({
         key: 'player2-throw2',
         frames: scene.anims.generateFrameNumbers('player2', { start: 126, end: 129 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player2-jump-throw',
+        frames: scene.anims.generateFrameNumbers('player2', { start: 131, end: 134 }),
+        // frameRate: 8,
+        duration: 500,
+        repeat: 0
     })
     scene.anims.create({
         key: 'player2-dodge',
@@ -303,7 +318,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player3-pick',
         frames: scene.anims.generateFrameNumbers('player3', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -359,7 +374,7 @@ export default function makeAnimations(scene) {
         key: 'player3-tired',
         frames: scene.anims.generateFrameNumbers('player3', { start: 43, end: 44 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 5
     })
     scene.anims.create({
         key: 'player3-catch',
@@ -369,9 +384,9 @@ export default function makeAnimations(scene) {
     })
     scene.anims.create({
         key: 'player3-throw',
-        frames: scene.anims.generateFrameNumbers('player3', { start: 127, end: 128 }),
-        frameRate: 8,
-        // duration: 1000,
+        frames: scene.anims.generateFrameNumbers('player3', { start: 126, end: 129 }),
+        // frameRate: 8,
+        duration: 500,
         repeat: 0
     })
     scene.anims.create({
@@ -379,6 +394,13 @@ export default function makeAnimations(scene) {
         frames: scene.anims.generateFrameNumbers('player3', { start: 126, end: 129 }),
         frameRate: 5,
         repeat: -1
+    })
+    scene.anims.create({
+        key: 'player3-jump-throw',
+        frames: scene.anims.generateFrameNumbers('player3', { start: 131, end: 134 }),
+        // frameRate: 8,
+        duration: 500,
+        repeat: 0
     })
     scene.anims.create({
         key: 'player3-dodge',
@@ -440,7 +462,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player4-pick',
         frames: scene.anims.generateFrameNumbers('player4', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -500,16 +522,22 @@ export default function makeAnimations(scene) {
     })
     scene.anims.create({
         key: 'player4-throw',
-        frames: scene.anims.generateFrameNumbers('player4', { start: 127, end: 128 }),
-        frameRate: 8,
-        // duration: 1000,
+        frames: scene.anims.generateFrameNumbers('player4', { start: 126, end: 129 }),
+        // frameRate: 8,
+        duration: 500,
         repeat: 0
     })
     scene.anims.create({
         key: 'player4-throw2',
         frames: scene.anims.generateFrameNumbers('player4', { start: 126, end: 129 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player4-jump-throw',
+        frames: scene.anims.generateFrameNumbers('player4', { start: 131, end: 134 }),
+        duration: 500,
+        repeat: 0
     })
     scene.anims.create({
         key: 'player4-lose',
@@ -552,7 +580,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player5-pick',
         frames: scene.anims.generateFrameNumbers('player5', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -612,9 +640,9 @@ export default function makeAnimations(scene) {
     })
     scene.anims.create({
         key: 'player5-throw',
-        frames: scene.anims.generateFrameNumbers('player5', { start: 127, end: 128 }),
-        frameRate: 8,
-        // duration: 1000,
+        frames: scene.anims.generateFrameNumbers('player5', { start: 126, end: 129 }),
+        // frameRate: 8,
+        duration: 500,
         repeat: 0
     })
     scene.anims.create({
@@ -622,6 +650,13 @@ export default function makeAnimations(scene) {
         frames: scene.anims.generateFrameNumbers('player5', { start: 126, end: 129 }),
         frameRate: 5,
         repeat: -1
+    })
+    scene.anims.create({
+        key: 'player5-jump-throw',
+        frames: scene.anims.generateFrameNumbers('player5', { start: 131, end: 134 }),
+        duration: 500,
+        // duration: 1000,
+        repeat: 0
     })
     scene.anims.create({
         key: 'player5-lose',
@@ -664,7 +699,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player6-pick',
         frames: scene.anims.generateFrameNumbers('player6', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -725,14 +760,21 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'player6-throw',
         frames: scene.anims.generateFrameNumbers('player6', { start: 147, end: 150 }),
-        frameRate: 8,
-        // duration: 1000,
+        // frameRate: 8,
+        duration: 500,
         repeat: 0
     })
     scene.anims.create({
         key: 'player6-throw2',
         frames: scene.anims.generateFrameNumbers('player6', { start: 148, end: 149 }),
         frameRate: 5,
+        repeat: 0
+    })
+    scene.anims.create({
+        key: 'player6-jump-throw',
+        frames: scene.anims.generateFrameNumbers('player6', { start: 152, end: 155 }),
+        duration: 500,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({
@@ -812,7 +854,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy1-pick',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -868,7 +910,7 @@ export default function makeAnimations(scene) {
         key: 'enemy1-tired',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 43, end: 44 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 5
     })
     scene.anims.create({
         key: 'enemy1-catch',
@@ -880,7 +922,7 @@ export default function makeAnimations(scene) {
         key: 'enemy1-throw',
         frames: scene.anims.generateFrameNumbers('enemy1', { start: 109, end: 112 }),
         frameRate: 5,
-        // duration: 200,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({
@@ -949,7 +991,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy2-pick',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -1005,7 +1047,7 @@ export default function makeAnimations(scene) {
         key: 'enemy2-tired',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 43, end: 44 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 5
     })
     scene.anims.create({
         key: 'enemy2-catch',
@@ -1017,7 +1059,7 @@ export default function makeAnimations(scene) {
         key: 'enemy2-throw',
         frames: scene.anims.generateFrameNumbers('enemy2', { start: 139, end: 143 }),
         frameRate: 8,
-        // duration: 200,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({
@@ -1089,7 +1131,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy3-pick',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -1145,7 +1187,7 @@ export default function makeAnimations(scene) {
         key: 'enemy3-tired',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 52, end: 53 }),
         frameRate: 5,
-        repeat: -1
+        repeat: 5
     })
     scene.anims.create({
         key: 'enemy3-catch',
@@ -1156,7 +1198,8 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy3-throw',
         frames: scene.anims.generateFrameNumbers('enemy3', { start: 154, end: 158 }),
-        frameRate: 5,
+        frameRate: 8,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({
@@ -1225,7 +1268,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy4-pick',
         frames: scene.anims.generateFrameNumbers('enemy4', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -1286,7 +1329,8 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy4-throw',
         frames: scene.anims.generateFrameNumbers('enemy4', { start: 159, end: 163 }),
-        frameRate: 5,
+        frameRate: 8,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({
@@ -1337,7 +1381,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy5-pick',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -1398,7 +1442,8 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy5-throw',
         frames: scene.anims.generateFrameNumbers('enemy5', { start: 100, end: 103 }),
-        frameRate: 5,
+        frameRate: 8,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({
@@ -1449,7 +1494,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy6-pick',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 15, end: 15 }),
-        duration: 250,
+        duration: 100,
         repeat: 0
     })
     scene.anims.create({
@@ -1510,7 +1555,8 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy6-throw',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 171, end: 174 }),
-        frameRate: 5,
+        frameRate: 8,
+        // duration: 1000,
         repeat: 0
     })
     scene.anims.create({

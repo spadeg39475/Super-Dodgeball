@@ -12,7 +12,10 @@ export default function Player1_Control(scene,input){
                         }
                         scene.player1.setVelocityX(160);
                     }
-                    scene.player1.anims.play(`${scene.player1.name}-run`, true);
+                    if(!scene.player1.state.isThrow){
+                        scene.player1.anims.play(`${scene.player1.name}-run`, true);
+                    }
+                    
                     scene.player1.flipX = false;
                 }else{
                     if(scene.player1.x < 470){
@@ -23,7 +26,10 @@ export default function Player1_Control(scene,input){
                         }
                         scene.player1.setVelocityX(100);
                     }
-                    scene.player1.anims.play(`${scene.player1.name}-walk`, true);
+                    if(!scene.player1.state.isThrow){
+                        scene.player1.anims.play(`${scene.player1.name}-walk`, true);
+                    }
+                    
                     scene.player1.flipX = false;
                 }
             }
@@ -111,6 +117,7 @@ export default function Player1_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 250)){
                 if(scene.player1.state.haveBall && scene.player1.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    scene.player1.state.isThrow = true;
                     scene.pass();
                 }else if(!scene.player1.state.haveBall  && scene.player1.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player1.anims.play(`${scene.player1.name}-pick`);
@@ -147,16 +154,23 @@ export default function Player1_Control(scene,input){
             scene.player1.anims.play('player1-turn');
         } 
     }
+    
+
+    
 
     if(scene.player1.state.isJump && scene.player1.state.isActive){
         if( Math.abs(scene.player1.body.velocity.y)  < 100 ){
             scene.player1.state.canThrow = true;
         }
-        // scene.player1.anims.play(`${scene.player1.name}-jump`);
-    }
-    if(scene.player1.state.isThrow){
+        if(scene.player1.state.isThrow){
+            scene.player1.anims.play(`${scene.player1.name}-jump-throw`,true);
+        }else{
+            scene.player1.anims.play(`${scene.player1.name}-jump`);
+        }
+    }else if(scene.player1.state.isThrow){
         scene.player1.anims.play(`${scene.player1.name}-throw`,true);
     }
+    
     
     if(scene.ball.body.velocity.x === 0){
         scene.ball.setAccelerationX(0)

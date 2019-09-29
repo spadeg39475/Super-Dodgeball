@@ -1,4 +1,5 @@
 
+
 export default function Enemy_Control(scene,time,delta){
     // run and pick
     if(
@@ -7,7 +8,7 @@ export default function Enemy_Control(scene,time,delta){
         && scene.ball.x < 970
         && scene.ball.y > 300
         && scene.ball.y < 470
-        && scene.state.turn === ''
+        && scene.state.turn === '' 
         && !scene.ball.state.isPass
         ){  
             
@@ -24,7 +25,7 @@ export default function Enemy_Control(scene,time,delta){
             
             
             
-            if( Math.abs(scene.state.enemy.x - scene.ball.x) > 40  ){
+            if( Math.abs(scene.state.enemy.x - scene.ball.x) > 30  ){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true);
                 scene.state.enemy.x-scene.ball.x>0? scene.state.enemy.setVelocityX(-160) : scene.state.enemy.setVelocityX(160);
                 // scene.state.enemy.setVelocityX(scene.ball.x - scene.state.enemy.x)
@@ -151,7 +152,10 @@ export default function Enemy_Control(scene,time,delta){
             }
         }else if(scene.enemy4.state.haveBall){
             if(scene.enemy4.state.canThrow){
+                scene.enemy4.flipX=false;
+                scene.enemy4.state.isThrow =true;
                 scene.enemyPass()
+                
                 scene.enemy4.state.canThrow = false;
             }
             
@@ -168,9 +172,12 @@ export default function Enemy_Control(scene,time,delta){
         scene.enemy4.flipX=true;
     }
     if(scene.state.enemy===scene.enemy4 && scene.enemy4.state.haveBall){
-        if(scene.state.enemy.state.canThrow){
-            scene.enemyPass()
-            scene.state.enemy.state.canThrow = false;
+        if(scene.enemy4.state.canThrow){
+            scene.enemy4.flipX=false;
+            scene.enemy4.state.isThrow =true;
+            scene.enemyPass();
+            
+            scene.enemy4.state.canThrow = false;
         }
     }
 
@@ -203,7 +210,10 @@ export default function Enemy_Control(scene,time,delta){
         }
         else if (scene.state.enemy.state.haveBall){
             if(scene.state.enemy.state.canThrow){
-                scene.enemyPass()
+                scene.enemy5.flipX=false;
+                scene.enemy5.state.isThrow =true;
+                scene.enemyPass();
+                
                 scene.state.enemy.state.canThrow = false;
             }
             
@@ -223,9 +233,12 @@ export default function Enemy_Control(scene,time,delta){
         scene.enemy5.flipX=false;
     }
     if(scene.state.enemy===scene.enemy5 && scene.enemy5.state.haveBall){
-        if(scene.state.enemy.state.canThrow){
-            scene.enemyPass()
-            scene.state.enemy.state.canThrow = false;
+        if(scene.enemy5.state.canThrow){
+            scene.enemy5.flipX=false;
+            scene.enemy5.state.isThrow =true;
+            scene.enemyPass();
+            
+            scene.enemy5.state.canThrow = false;
         }
     }
 
@@ -233,7 +246,7 @@ export default function Enemy_Control(scene,time,delta){
 
     //enemy 6
     if(
-        scene.ball.x > 50 
+        scene.ball.x > 20 
         && scene.ball.x < 520 
         && scene.ball.y > 480
         && scene.ball.body.velocity.x ===0
@@ -254,11 +267,14 @@ export default function Enemy_Control(scene,time,delta){
             else if(!scene.state.enemy.body.touching.none ||  Math.abs(scene.enemy6.x-scene.ball.x)<20){
                 scene.enemy6.anims.play(`${scene.enemy6.name}-pick`,true)
                 scene.enemyPickBall()
-                scene.enemy6.state.haveBall=true;
+               
             }
         }else if (scene.enemy6.state.haveBall){
             if(scene.enemy6.state.canThrow){
-                scene.enemyPass()
+                
+                scene.enemy6.flipX=false;
+                scene.enemy6.state.isThrow =true;
+                scene.enemyPass();
                 scene.enemy6.state.canThrow = false;
             }
         }   
@@ -274,9 +290,12 @@ export default function Enemy_Control(scene,time,delta){
         scene.enemy6.flipX=true;
     }
     if(scene.state.enemy===scene.enemy6 && scene.enemy6.state.haveBall){
-        if(scene.state.enemy.state.canThrow){
-            scene.enemyPass()
-            scene.state.enemy.state.canThrow = false;
+        if(scene.enemy6.state.canThrow){
+            scene.enemy6.flipX=false;
+            scene.enemy6.state.isThrow =true;
+            scene.enemyPass();
+            
+            scene.enemy6.state.canThrow = false;
         }
     }
 
@@ -288,17 +307,17 @@ export default function Enemy_Control(scene,time,delta){
         
         for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
-            if(obj.x < scene.enemyPos[i].x + Phaser.Math.Between(-50,50)){
+            if(obj.x < scene.enemyPos[i].x + Phaser.Math.Between(-50,50) && obj.state.alive){
                 obj.setVelocityX(160);
                 obj.anims.play(`${obj.name}-run`,true);
                 obj.flipX = false;
             }
         }
     }
-    else if (scene.player4.state.haveBall){
+    else if (scene.player4.state.haveBall ){
         for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
-            if(obj.y < Phaser.Math.Between(350,400) ){
+            if(obj.y < Phaser.Math.Between(350,400) && obj.state.alive){
                 obj.setVelocityY(160);
                 obj.anims.play(`${obj.name}-run`,true);
                 obj.flipX = false;
@@ -308,7 +327,7 @@ export default function Enemy_Control(scene,time,delta){
     else if (scene.player5.state.haveBall){
         for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
-            if(obj.x > Phaser.Math.Between(600,800) ){
+            if(obj.x > Phaser.Math.Between(600,800) && obj.state.alive){
                 obj.setVelocityX(-160)
                 obj.setVelocityY(Phaser.Math.Between(-300,300));
                 obj.anims.play(`${obj.name}-run`,true);
@@ -319,7 +338,7 @@ export default function Enemy_Control(scene,time,delta){
     else if (scene.player6.state.haveBall){
         for(let i=0; i<scene.teamB.getChildren().length-3; i++){
             let obj =scene.teamB.getChildren()[i]
-            if(obj.y > Phaser.Math.Between(350,500) ){
+            if(obj.y > Phaser.Math.Between(350,500) && obj.state.alive){
                 obj.setVelocityX(Phaser.Math.Between(-200,200));
                 obj.setVelocityY(-160);
                 obj.anims.play(`${obj.name}-run`,true);
@@ -328,7 +347,55 @@ export default function Enemy_Control(scene,time,delta){
         }
     }
 
-   
+
+    if(scene.ball.state.ballFrom==='enemy' && !scene.ball.state.isPass && scene.state.turn ==='enemy'){
+        if(scene.state.dy!==0 && scene.ball.y > scene.state.dy){
+            scene.ball.setVelocityX(-60);
+            scene.ball.setVelocityY(-80);
+            scene.ball.setAccelerationY(200);
+            scene.ball.anims.play('normal-ball');
+            
+            scene.inactiveCollides(scene.teamA);
+            scene.state.dy =0;
+            scene.tweens.add({
+                targets: scene.ball,
+                y: { value: scene.ball.y , duration:1000, ease: 'Bounce.easeOut'},
+                duration: 2000,
+                ease: 'Bounce.Out',
+                delay: 200,
+                onStart: ()=>{
+                    scene.ball.state.ballFrom = '';
+                    scene.state.turn='';
+                },
+                onComplete: ()=>{
+                    scene.ball.setDamping(true);
+                    scene.ball.setAccelerationY(0);
+                    
+                }
+            });
+        }
+    }
+    
+    if(scene.state.turn !== 'enemy' && scene.ball.x < 500){
+        for(let i=0; i<scene.teamB.getChildren().length-3; i++ ){
+            let el = scene.teamB.getChildren()[i];
+            if(!el.state.haveBall && el.x<700){
+                el.setVelocityX(160);
+                el.anims.play(`${el.name}-run`,true);
+                el.flipX=false;
+            }
+        }
+    }
+
+
+    scene.teamB.getChildren().forEach(el => {
+        if(el.state.isThrow){
+            if(el===scene.enemy4 || el===scene.enemy5 || el===scene.enemy6){
+                el.flipX = false;
+            }
+            el.anims.play(`${el.name}-throw`,true);
+        }
+    })
 
 
 

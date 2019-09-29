@@ -21,6 +21,9 @@ nav div{
     letter-spacing: 2px;
     text-shadow: gray 2px 2px 1px;
 }
+nav div:hover{
+  padding-top: 1px;
+}
 .ball{
     width:36px;
     height:36px;

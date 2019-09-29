@@ -91,7 +91,7 @@ export default function Player4_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
                 if(scene.player4.state.haveBall && scene.player4.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player4.anims.play(`${scene.player4.name}-throw`)
+                    // scene.player4.anims.play(`${scene.player4.name}-throw`)
                     scene.throw();
                     scene.player4.state.isThrow = true;
                 }else if(!scene.player4.state.haveBall && scene.state.turn ==='enemy'){
@@ -105,6 +105,7 @@ export default function Player4_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player4.state.haveBall && scene.player4.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    scene.player4.state.isThrow = true;
                     scene.pass();
                 }else if(!scene.player4.state.haveBall  && scene.player4.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player4.anims.play(`${scene.player4.name}-pick`);
@@ -144,10 +145,13 @@ export default function Player4_Control(scene,input){
         if( Math.abs(scene.player4.body.velocity.y)  < 100 ){
             scene.player4.state.canThrow = true;
         }
-        scene.player4.anims.play(`${scene.player4.name}-jump`);
-    }
-    if(scene.player4.state.isThrow){
-        scene.player4.anims.play(`${scene.player4.name}-throw`);
+        if(scene.player4.state.isThrow){
+            scene.player4.anims.play(`${scene.player4.name}-jump-throw`,true);
+        }else{
+            scene.player4.anims.play(`${scene.player4.name}-jump`);
+        }
+    }else if(scene.player4.state.isThrow){
+        scene.player4.anims.play(`${scene.player4.name}-throw`,true);
     }
     
     if(scene.ball.body.velocity.x === 0){

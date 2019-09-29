@@ -12,7 +12,10 @@ export default function Player2_Control(scene,input){
                         }
                         scene.player2.setVelocityX(160);
                     }
-                    scene.player2.anims.play(`${scene.player2.name}-run`, true);
+                    if(!scene.player2.state.isThrow){
+                        scene.player2.anims.play(`${scene.player2.name}-run`, true);
+                    }
+                   
                     scene.player2.flipX = false;
                 }else{
                     if(scene.player2.x < 480){
@@ -23,7 +26,10 @@ export default function Player2_Control(scene,input){
                         }
                         scene.player2.setVelocityX(100);
                     }
-                    scene.player2.anims.play(`${scene.player2.name}-walk`, true);
+                    if(!scene.player2.state.isThrow){
+                        scene.player2.anims.play(`${scene.player2.name}-walk`, true);
+                    }
+                    
                     scene.player2.flipX = false;
                 }
             }
@@ -91,7 +97,7 @@ export default function Player2_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
                 if(scene.player2.state.haveBall && scene.player2.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player2.anims.play(`${scene.player2.name}-throw`)
+                    // scene.player2.anims.play(`${scene.player2.name}-throw`)
                     scene.throw();
                     scene.player2.state.isThrow = true;
                 }else if(!scene.player2.state.haveBall && scene.state.turn ==='enemy'){
@@ -105,6 +111,7 @@ export default function Player2_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player2.state.haveBall && scene.player2.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    scene.player2.state.isThrow = true;
                     scene.pass();
                 }else if(!scene.player2.state.haveBall  && scene.player2.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player2.anims.play(`${scene.player2.name}-pick`);
@@ -144,10 +151,13 @@ export default function Player2_Control(scene,input){
         if( Math.abs(scene.player2.body.velocity.y)  < 100 ){
             scene.player2.state.canThrow = true;
         }
-        scene.player2.anims.play(`${scene.player2.name}-jump`);
-    }
-    if(scene.player2.state.isThrow){
-        scene.player2.anims.play(`${scene.player2.name}-throw`);
+        if(scene.player2.state.isThrow){
+            scene.player2.anims.play(`${scene.player2.name}-jump-throw`,true);
+        }else{
+            scene.player2.anims.play(`${scene.player2.name}-jump`);
+        }
+    }else if(scene.player2.state.isThrow){
+        scene.player2.anims.play(`${scene.player2.name}-throw`, true);
     }
     
     if(scene.ball.body.velocity.x === 0){

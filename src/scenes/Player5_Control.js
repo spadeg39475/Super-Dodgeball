@@ -92,7 +92,7 @@ export default function Player5_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.z, 500)){
                 if(scene.player5.state.haveBall && scene.player5.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player5.anims.play(`${scene.player5.name}-throw`)
+                    // scene.player5.anims.play(`${scene.player5.name}-throw`)
                     scene.throw();
                     scene.player5.state.isThrow = true;
                    
@@ -107,6 +107,7 @@ export default function Player5_Control(scene,input){
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player5.state.haveBall && scene.player5.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    scene.player5.state.isThrow = true;
                     scene.pass();
                 }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
                     scene.player5.anims.play(`${scene.player5.name}-pick`);
@@ -148,10 +149,13 @@ export default function Player5_Control(scene,input){
         if( Math.abs(scene.player5.body.velocity.y)  < 100 ){
             scene.player5.state.canThrow = true;
         }
-        scene.player5.anims.play(`${scene.player5.name}-jump`);
-    }
-    if(scene.player5.state.isThrow){
-        scene.player5.anims.play(`${scene.player5.name}-throw`);
+        if(scene.player5.state.isThrow){
+            scene.player5.anims.play(`${scene.player5.name}-jump-throw`,true);
+        }else{
+            scene.player5.anims.play(`${scene.player5.name}-jump`);
+        }
+    }else if(scene.player5.state.isThrow){
+        scene.player5.anims.play(`${scene.player5.name}-throw`,true);
     }
     
     if(scene.ball.body.velocity.x === 0){

@@ -28,7 +28,7 @@ const Home = () => {
                     <p className='p1'>Super Dodge Ball</p>
                     <p className='p2'>熱血高校</p>
                     
-                    <div className='start'><Link to='/game' id='nav-game'>PLAY</Link></div>
+                    <Link to='/game' id='nav-game' className='start'>PLAY</Link>
                     <a href='#story' id='down'>
                         <img className='down-arrow'src='./materials/img/down-arrow.svg'></img>
                     </a>
