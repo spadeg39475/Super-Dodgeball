@@ -66,9 +66,10 @@ export default function Enemy_Control(scene,time,delta){
     if(scene.state.enemy === scene.enemy1 || scene.state.enemy === scene.enemy2 || scene.state.enemy === scene.enemy3){
         if(scene.state.enemy.state.haveBall){
             let num = Math.random()
-            if(num > 0.9 && scene.state.enemy.x < 650){
+            if(num > 0.95 && scene.state.enemy.x < 650){
                 scene.state.enemy.state.canThrow = false;
-                scene.enemyJump()
+                    scene.enemyJump()
+                
             }
             if(scene.state.enemy.x<= 600 && scene.state.enemy.state.canThrow){
                 scene.enemyThrow()
@@ -78,7 +79,7 @@ export default function Enemy_Control(scene,time,delta){
                 scene.state.enemy.anims.play(`${scene.state.enemy.name}-run`,true)
                 scene.state.enemy.flipX = true;
                 scene.ball.x = scene.state.enemy.x - 20;
-                scene.ball.y= scene.state.enemy.y + 16;
+                scene.ball.y = scene.state.enemy.y + 16;
                 scene.state.enemy.setVelocityX(-160);
                 scene.ball.setVelocityX(-160);
                 
@@ -133,6 +134,7 @@ export default function Enemy_Control(scene,time,delta){
         && scene.ball.y < 295
         && scene.ball.body.velocity.x ===0
         && scene.state.turn !== 'us' 
+        && !scene.ball.state.isPass 
     ){
         scene.state.enemy = scene.enemy4;
         if(!scene.enemy4.state.haveBall && scene.state.turn === '' ){
@@ -348,10 +350,16 @@ export default function Enemy_Control(scene,time,delta){
     }
 
 
-    if(scene.ball.state.ballFrom==='enemy' && !scene.ball.state.isPass && scene.state.turn ==='enemy'){
-        if(scene.state.dy!==0 && scene.ball.y > scene.state.dy){
+    if(scene.ball.state.ballFrom==='enemy' && !scene.ball.state.isPass && scene.state.turn ==='enemy' 
+        && scene.ball.state.isJumpThrow ){
+        if(scene.state.dy>=0){
+            scene.state.dy--
+            console.log(scene.state.dx)
+        }
+        if((scene.state.dy<0)
+            || scene.state.dx<0){
             scene.ball.setVelocityX(-60);
-            scene.ball.setVelocityY(-80);
+            scene.ball.setVelocityY(-100);
             scene.ball.setAccelerationY(200);
             scene.ball.anims.play('normal-ball');
             
@@ -359,7 +367,7 @@ export default function Enemy_Control(scene,time,delta){
             scene.state.dy =0;
             scene.tweens.add({
                 targets: scene.ball,
-                y: { value: scene.ball.y , duration:1000, ease: 'Bounce.easeOut'},
+                y: { value: scene.ball.y+10 , duration:1000, ease: 'Bounce.easeOut'},
                 duration: 2000,
                 ease: 'Bounce.Out',
                 delay: 200,
@@ -370,7 +378,7 @@ export default function Enemy_Control(scene,time,delta){
                 onComplete: ()=>{
                     scene.ball.setDamping(true);
                     scene.ball.setAccelerationY(0);
-                    
+                    scene.jumpBallTween = null;
                 }
             });
         }

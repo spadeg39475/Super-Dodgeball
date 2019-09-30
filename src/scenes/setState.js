@@ -15,7 +15,8 @@ export default function setState(scene){
         ballTo: 'right',
         damage: 10,
         hit: 'true',
-        isPass: false
+        isPass: false,
+        isJumpThrow:false,
     }
 
 

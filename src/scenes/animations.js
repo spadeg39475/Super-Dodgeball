@@ -1555,7 +1555,7 @@ export default function makeAnimations(scene) {
     scene.anims.create({
         key: 'enemy6-throw',
         frames: scene.anims.generateFrameNumbers('enemy6', { start: 171, end: 174 }),
-        frameRate: 8,
+        frameRate: 5,
         // duration: 1000,
         repeat: 0
     })
