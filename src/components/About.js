@@ -17,8 +17,8 @@ const About = () => {
             
             <div className='main'>
                 <div className='about-title'>
-                    {/* <p className='p1'>永遠的童年回憶</p> */}
-                    {/* <p className='p2'>Memory</p> */}
+                    <p className='p1'>永遠的童年回憶</p>
+                    <p className='p2'>Memory</p>
                     
                     {/* <div className='start'><Link to='/game' id='nav-game'>PLAY</Link></div> */}
                     <a href='#story' id='down'>

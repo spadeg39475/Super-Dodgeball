@@ -46,7 +46,7 @@ const Nav = (props) => {
 
     return (
         <header>
-            <nav>
+            <nav id='nav'>
                 {/* <img className='ball' src={ball}  style={props.ballPos} /> */}
                 <div><Link to='/'  id='nav-home'>HOME</Link></div>
                 <div><Link to='/about'  id='nav-about'>ABOUT</Link></div>

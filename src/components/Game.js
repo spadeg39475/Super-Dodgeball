@@ -57,35 +57,43 @@ const Game = () => {
             <div className='main'>
                 <div id='game'></div>
                 <div className='keys'>
-                    <div className='key-item '>
-                        <div className='key' id='direction'>
-                            <img src={KeyDirection}></img>
+                    <div className='container'>
+                        <div className='key-item '>
+                            <div className='key' id='direction'>
+                                <img src={KeyDirection}></img>
+                            </div>
+                            <div className='text' id='direction-text'>Move</div>
                         </div>
-                        <div className='text' id='direction-text'>Move</div>
-                    </div>
-                    <div className='key-item'>
-                        <div className='key'>
-                            <img src={KeyZ}></img>
+                        <div className='key-item'>
+                            <div className='key'>
+                                <img src={KeyZ}></img>
+                            </div>
+                            <div className='text'>Throw / Catch</div>
                         </div>
-                        <div className='text'>Throw/Catch</div>
-                    </div>
 
-                    <div className='key-item'>
-                        <div className='key'>
-                            <img src={KeyX}></img>
+                        <div className='key-item'>
+                            <div className='key'>
+                                <img src={KeyX}></img>
+                            </div>
+                            <div className='text'> Pass / Dodge</div>
                         </div>
-                        <div className='text'> Pass/Dodge</div>
-                    </div>
 
-                    <div className='key-item'>
-                        <div className='key'>
-                            <img src={KeyZ}></img>
-                        </div>
-                        <div className='key'>
-                            <img src={KeyX}></img>
-                        </div>
-                        <div className='text'>Jump</div>
-                    </div>   
+                        <div className='key-item'>
+                            <div className='key'>
+                                <img src={KeyZ}></img>
+                            </div>
+                            <div className='key'>
+                                <img src={KeyX}></img>
+                            </div>
+                            <div className='text'>Jump</div>
+                        </div>   
+                    </div>
+                    
+                    <div className='description'>
+                        <span className='p1'>This version can only play on Web!</span> 
+                        <span className='p2'>Developed by Josh Yang.</span>
+                     </div>
+
                 </div>
             </div>
             

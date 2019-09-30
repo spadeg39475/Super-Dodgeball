@@ -22,7 +22,7 @@ const Home = () => {
     return (
         <React.Fragment>
             
-            <div className='main'>
+            <div className='main' id='main'>
                 {/* <div className="kunio"></div> */}
                 <div className='title'>
                     <p className='p1'>Super Dodge Ball</p>
@@ -51,10 +51,16 @@ const Home = () => {
                     </div>
                     
                    <div className="img"></div>
+                   
+                   
                 </div>
-               
+                <a href='#gameSetting' id='down'>
+                    <img className='down-arrow'src='./materials/img/down-arrow.svg'></img>
+                </a>
+                
+                
             </div>
-            <div className='gameSetting'>
+            <div className='gameSetting' id='gameSetting'>
                 <div className='container'>
                     {/* <div className='title'>遊戲簡介</div> */}
                     <div className='block bl1'>
@@ -90,6 +96,9 @@ const Home = () => {
                 </div>
                 
                 <div className="kunio"></div>
+                <a href='#nav' id='down'>
+                    <img className='down-arrow'src='./materials/img/down-arrow.svg'></img>
+                </a>
             </div>
             <Footer /> 
             

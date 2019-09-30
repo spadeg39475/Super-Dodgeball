@@ -10,9 +10,10 @@
 
 .main >.about-title>.p1{
     text-align:right;
-    font-size: 4em;
+    font-size: 6em;
     margin: 0 auto;
     position: absolute;
+    top:120px;
     right:0;
     width: 80%;
     text-align: center;
@@ -22,39 +23,46 @@
     color:#f3f3f3;
     letter-spacing: 10px;
     font-weight: 700;
-    /* top:250px; */
+    font-style: italic;
     animation-name: move-in;
     animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
-    animation-delay: 1.5s;
+    animation-delay: .5s;
 
-    
     text-shadow: rgb(0, 0, 0) 7px 7px 1px;
 }
 .main .about-title .p2{
     text-align: center;
     width: 80%;
     opacity: 0;
-    font-size: 6em;
+    font-size: 4em;
     position: absolute;
     font-style: italic;
     font-family: 'Press Start 2P', cursive;
     color:#f3f3f3;  
     font-weight: 1000;
-    padding-top: 40px;
-    top:100px;
-    right: -50%;
+    top:150px;
+    /* right: -50%; */
     
-    animation-name: move-in;
+    animation-name: show;
     animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
     animation-delay: .5s;
     
     text-shadow: rgb(0, 0, 0) 10px 7px 1px;
+    display: none;
 }
 
+@keyframes show {
+    from {
+     opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
 
 
@@ -160,9 +168,31 @@
     .author .content{
         width:80%;
     }
+    .main .about-title .p1{
+        display:none;
+        /* font-size: 4em; */
+        
+    }
+    .main .about-title .p2{
+        
+        display: block;
+    }
 }
 
 @media screen and (max-width: 600px){
+    .main > .about-title{
+        padding-top: 50px;
+        height:300px;
+    }
+    .main .about-title .p2{
+        font-size: 3em;
+        position: absolute;
+        top:100px;
+    }
+    .about-body{
+        top:300px;
+    }
+
     .intro .container{
         width: 90%;
     }

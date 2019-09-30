@@ -20,6 +20,7 @@ nav div{
     padding: 12px 16px ;
     letter-spacing: 2px;
     text-shadow: gray 2px 2px 1px;
+    transition: 0.3s;
 }
 nav div:hover{
   padding-top: 1px;
