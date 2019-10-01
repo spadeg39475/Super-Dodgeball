@@ -24,6 +24,7 @@ nav div{
 }
 nav div:hover{
   padding-top: 1px;
+  
 }
 .ball{
     width:36px;
@@ -37,6 +38,7 @@ nav a{
     color: #303030;
     cursor: pointer;
 }
+
 @media screen and (max-width: 900px){
     nav{
         width:80%;

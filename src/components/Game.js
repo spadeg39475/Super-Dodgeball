@@ -8,7 +8,7 @@ import GameScene from '../scenes/GameScene';
 import GameOver from '../scenes/GameOver';
 import '../css/game.css'
 
-import KeyDirection from '../../materials/img/Keys/direction.png';
+import KeyDirection from '../../materials/img/Keys/direction.jpg';
 import KeyZ from '../../materials/img/Keys/Z.png';
 import KeyX from '../../materials/img/Keys/X.png';
 
@@ -58,7 +58,7 @@ const Game = () => {
                 <div id='game'></div>
                 <div className='keys'>
                     <div className='container'>
-                        <div className='key-item '>
+                        <div className='key-item' id='key-direction'>
                             <div className='key' id='direction'>
                                 <img src={KeyDirection}></img>
                             </div>
