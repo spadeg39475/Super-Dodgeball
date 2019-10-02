@@ -103,20 +103,28 @@ export default function Player2_Control(scene,input){
                 }else if(!scene.player2.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player2.state.haveBall && scene.player2.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player2.anims.play(`${scene.player2.name}-pick`);
-                    if(!scene.player2.body.touching.none){
-                        scene.pickBall()
-                    }
+                    
+                    if(!scene.player2.state.isThrow){
+                        scene.player2.anims.play(`${scene.player2.name}-pick`);
+                        if(!scene.player2.body.touching.none){
+                            scene.pickBall()
+                        }
+                    }   
+                    
                 }
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player2.state.haveBall && scene.player2.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player2.state.isThrow = true;
-                    scene.pass();
+                    if(!scene.player2.state.isThrow){
+                        scene.player2.state.isThrow = true;
+                        scene.pass();
+                    }
                 }else if(!scene.player2.state.haveBall  && scene.player2.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player2.anims.play(`${scene.player2.name}-pick`);
-                    if(!scene.player2.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player1.state.isThrow){
+                        scene.player2.anims.play(`${scene.player2.name}-pick`);
+                        if(!scene.player2.body.touching.none){
+                            scene.pickBall()
+                        }
                     }
                 }
             }

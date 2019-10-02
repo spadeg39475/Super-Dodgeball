@@ -11,10 +11,11 @@ export default function setState(scene){
     
     scene.ball.state = {
         type: 'normal',
-        ballFrom: 'us',
-        ballTo: 'right',
+        ballFrom: '',
+        ballTo: '',
         damage: 10,
         hit: 'true',
+        isThrow: false,
         isPass: false,
         isJumpThrow:false,
     }

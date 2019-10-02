@@ -8,7 +8,7 @@ import GameScene from '../scenes/GameScene';
 import GameOver from '../scenes/GameOver';
 import '../css/game.css'
 
-import KeyDirection from '../../materials/img/Keys/direction.jpg';
+import KeyDirection from '../../materials/img/Keys/direction.png';
 import KeyZ from '../../materials/img/Keys/Z.png';
 import KeyX from '../../materials/img/Keys/X.png';
 

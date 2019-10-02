@@ -12,7 +12,10 @@ export default function Player6_Control(scene,input){
                         }
                         scene.player6.setVelocityX(160);
                     }
-                    scene.player6.anims.play(`${scene.player6.name}-run`, true);
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.anims.play(`${scene.player6.name}-run`, true);
+                    }
+                    
                     scene.player6.flipX = false;
                 }else{
                     if(scene.player6.x < 930){
@@ -23,7 +26,10 @@ export default function Player6_Control(scene,input){
                         }
                         scene.player6.setVelocityX(100);
                     }
-                    scene.player6.anims.play(`${scene.player6.name}-walk`, true);
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.anims.play(`${scene.player6.name}-walk`, true);
+                    }
+                    
                     scene.player6.flipX = false;
                 }
             }
@@ -38,8 +44,10 @@ export default function Player6_Control(scene,input){
                         }
                         scene.player6.setVelocityX(-160);
                     }
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.anims.play(`${scene.player6.name}-run`,true);
+                    }
                    
-                    scene.player6.anims.play(`${scene.player6.name}-run`,true);
                     scene.player6.flipX = true;
                 }else{
                     if(scene.player6.x > 560 ){
@@ -50,8 +58,10 @@ export default function Player6_Control(scene,input){
                         }
                         scene.player6.setVelocityX(-100);
                     }
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.anims.play(`${scene.player6.name}-walk`,true);
+                    }
                     
-                    scene.player6.anims.play(`${scene.player6.name}-walk`,true);
                     scene.player6.flipX = true;
                 }
             }
@@ -97,21 +107,30 @@ export default function Player6_Control(scene,input){
                 }else if(!scene.player6.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player6.state.haveBall  && scene.player6.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player6.anims.play(`${scene.player6.name}-pick`);
-                    if(!scene.player6.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.anims.play(`${scene.player6.name}-pick`);
+                        if(!scene.player6.body.touching.none){
+                            scene.pickBall()
+                        }
                     }
+                   
                 }
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player6.state.haveBall && scene.player6.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player6.state.isThrow = true;
-                    scene.pass();
-                }else if(!scene.player6.state.haveBall  && scene.player6.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player6.anims.play(`${scene.player6.name}-pick`);
-                    if(!scene.player6.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.state.isThrow = true;
+                        scene.pass();
                     }
+                    
+                }else if(!scene.player6.state.haveBall  && scene.player6.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    if(!scene.player6.state.isThrow){
+                        scene.player6.anims.play(`${scene.player6.name}-pick`);
+                        if(!scene.player6.body.touching.none){
+                            scene.pickBall()
+                        }
+                    }
+                   
                 }
             }
             else if(scene.state.turn === 'enemy' && input.x){

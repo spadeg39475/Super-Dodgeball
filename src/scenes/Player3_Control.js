@@ -103,21 +103,29 @@ export default function Player3_Control(scene,input){
                 }else if(!scene.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player3.state.haveBall  && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player3.anims.play(`${scene.player3.name}-pick`);
-                    if(!scene.player3.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player3.state.isThrow){
+                        scene.player3.anims.play(`${scene.player3.name}-pick`);
+                        if(!scene.player3.body.touching.none){
+                            scene.pickBall()
+                        }
                     }
+                    
                 }
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player3.state.haveBall && scene.player3.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player3.state.isThrow = true;
-                    scene.pass();
-                }else if(!scene.player3.state.haveBall  && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player3.anims.play(`${scene.player3.name}-pick`);
-                    if(!scene.player3.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player3.state.isThrow){
+                        scene.player3.state.isThrow = true;
+                        scene.pass();
                     }
+                }else if(!scene.player3.state.haveBall  && scene.player3.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    if(!scene.player3.state.isThrow){
+                        scene.player3.anims.play(`${scene.player3.name}-pick`);
+                        if(!scene.player3.body.touching.none){
+                            scene.pickBall()
+                        }
+                    }
+                    
                 }
             }
             else if(scene.state.turn === 'enemy' && input.x){

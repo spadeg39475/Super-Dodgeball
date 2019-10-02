@@ -520,6 +520,16 @@
     opacity: 0.5;
 }
 
+@media screen and (max-width: 600px){
+    .demo{
+        min-height: 600px;
+    }
+    .demo .kunio{
+        transform: scale(3);
+    }
+}
+
+
 .gameSetting {
     width:100%;
     margin: 0 auto;

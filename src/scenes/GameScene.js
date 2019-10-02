@@ -256,6 +256,7 @@ class GameScene extends Phaser.Scene{
             this.ball.setDamping(true);
             this.ball.setAccelerationY(0);
             this.ball.state.ballFrom = '';
+            this.ball.state.isThrow = false;
             this.ball.state.isJumpThrow = false;
             this.state.turn='';
             this.inactiveCollides(this.teamA);
@@ -539,6 +540,7 @@ class GameScene extends Phaser.Scene{
 
             if(this.ball.body.velocity.x ===0){
                 this.ball.anims.play('normal-ball');
+                this.ball.state.isThrow = false;
                 this.inactiveCollides(this.teamA);
                 this.inactiveCollides(this.teamB);  
             }
@@ -701,7 +703,7 @@ class GameScene extends Phaser.Scene{
 
     pickBall(){
         
-        if(this.state.turn !=='enemy'){
+        if(this.state.turn !=='enemy' && !this.ball.state.isThrow){
             if(this.tween){
                 this.tween.stop();
             };
@@ -773,6 +775,7 @@ class GameScene extends Phaser.Scene{
 
     throw(direct){
         this.ball.body.stop();
+        this.ball.state.isThrow = true;
         this.state.current.state.haveBall = false;
         this.ball.setCollideWorldBounds(false);
         let speedX,speedY;
@@ -909,6 +912,7 @@ class GameScene extends Phaser.Scene{
                         repeat: 0
                     })
                     this.ball.anims.play('normal-ball');
+                    this.ball.state.isThrow = false;
                     this.ball.body.stop();
                     this[`hit_${this.state.current.name}`].active = false;
                     this.ball.state.ballFrom = '';
@@ -934,6 +938,7 @@ class GameScene extends Phaser.Scene{
                         repeat: 0
                     })
                     this.ball.anims.play('normal-ball');
+                    this.ball.state.isThrow = false;
                     this.ball.body.stop();
                     this.state.turn = 'enemy';
                     this.ball.state.ballFrom ='';
@@ -976,6 +981,7 @@ class GameScene extends Phaser.Scene{
                     // this.state.turn = 'enemy';
                     
                     this[`hit_${this.state.enemy.name}`].active = false;
+                    this.ball.state.isThrow = false;
                     this.ball.setDamping(true);
                     this.ball.body.setDrag(0.9,0.5);
                     this.ball.state.isJumpThrow=false;
@@ -1005,7 +1011,7 @@ class GameScene extends Phaser.Scene{
                     // this.state.turn = 'enemy';
                     this.ball.state.ballFrom ='';
                     this[`hit_${this.state.current.name}`].active = false;
-                    
+                    this.ball.state.isThrow = false;
                     this.ball.setDamping(true);
                     this.ball.body.setDrag(0.9,0.5);
                     this.ball.setFriction(1,100);
@@ -1322,6 +1328,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.ball.state.isThrow = false;
                         if(this.teamA.getChildren().length>4){
                             this.state.current = this.teamA.getChildren().filter(el=>el!==e)[0]
                         }
@@ -1376,6 +1383,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.ball.state.isThrow = false;
                         if(this.teamA.getChildren().length>4){
                             this.state.current = this.teamA.getChildren().filter(el=>el!==e)[0]
                         }
@@ -1441,6 +1449,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.ball.state.isThrow = false;
                         if(this.teamB.getChildren().length>4){
                             this.state.enemy = this.teamB.getChildren().filter(el=>el!==e)[0]
                         }
@@ -1489,6 +1498,7 @@ class GameScene extends Phaser.Scene{
                         this.ball.setVelocityX(-60);
                         this.ball.setVelocityY(-80);
                         this.ball.setAccelerationY(200);
+                        this.ball.state.isThrow = false;
                         if(this.teamB.getChildren().length>4){
                             this.state.enemy = this.teamB.getChildren().filter(el=>el!==e)[0]
                         }

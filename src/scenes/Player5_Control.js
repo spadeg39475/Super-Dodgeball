@@ -11,7 +11,10 @@ export default function Player5_Control(scene,input){
                     //     }
                     //     scene.player5.setVelocityX(160);
                     // }
-                    scene.player5.anims.play(`${scene.player5.name}-run`, true);
+                    if(!scene.player5.state.isThrow){
+                        scene.player5.anims.play(`${scene.player5.name}-run`, true);
+                    }
+                    
                     // scene.player5.flipX = false;
                 }else{
                     // if(scene.player5.x < 480){
@@ -21,7 +24,10 @@ export default function Player5_Control(scene,input){
                     //     }
                     //     scene.player5.setVelocityX(100);
                     // }
-                    scene.player5.anims.play(`${scene.player5.name}-walk`, true);
+                    if(!scene.player5.state.isThrow){
+                        scene.player5.anims.play(`${scene.player5.name}-walk`, true);
+                    }
+                    
                     // scene.player5.flipX = false;
                 }
             }
@@ -47,8 +53,10 @@ export default function Player5_Control(scene,input){
                         }
                     //     scene.player5.setVelocityX(-100);
                     // }
-                    
-                    scene.player5.anims.play(`${scene.player5.name}-walk`,true);
+                    if(!scene.player5.state.isThrow){
+                        scene.player5.anims.play(`${scene.player5.name}-walk`,true);
+                    }
+                   
                     scene.player5.flipX = true;
                 }
             }
@@ -99,21 +107,30 @@ export default function Player5_Control(scene,input){
                 }else if(!scene.player5.state.haveBall && scene.state.turn ==='enemy'){
                     scene.catchBall()
                 }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.z)){
-                    scene.player5.anims.play(`${scene.player5.name}-pick`);
-                    if(!scene.player5.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player5.state.isThrow){
+                        scene.player5.anims.play(`${scene.player5.name}-pick`);
+                        if(!scene.player5.body.touching.none){
+                            scene.pickBall()
+                        }                        
                     }
+                    
                 } 
             }
             else if (scene.input.keyboard.checkDown(scene.keys.x, 500)){
                 if(scene.player5.state.haveBall && scene.player5.state.canThrow && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player5.state.isThrow = true;
-                    scene.pass();
-                }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
-                    scene.player5.anims.play(`${scene.player5.name}-pick`);
-                    if(!scene.player5.body.touching.none){
-                        scene.pickBall()
+                    if(!scene.player5.state.isThrow){
+                        scene.player5.state.isThrow = true;
+                        scene.pass();
                     }
+                    
+                }else if(!scene.player5.state.haveBall  && scene.player5.state.onFloor && Phaser.Input.Keyboard.JustDown(scene.keys.x)){
+                    if(!scene.player5.state.isThrow){
+                        scene.player5.anims.play(`${scene.player5.name}-pick`);
+                        if(!scene.player5.body.touching.none){
+                            scene.pickBall()
+                        }
+                    }
+                    
                 }
             }
             else if(scene.state.turn === 'enemy' && input.x){
