@@ -18,7 +18,7 @@ const Nav = (props) => {
             setGame(null);
         } 
     }
-    console.log(props)
+    // console.log(props)
 
     // const changeBallPos=(e)=>{
 

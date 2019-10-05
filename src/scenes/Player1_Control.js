@@ -2,7 +2,7 @@ export default function Player1_Control(scene,input){
     if(scene.state.current === scene.player1 && scene.player1.state.alive){
         if(scene.player1.state.isActive){
             //direction control
-            if(input.right){
+            if(input.right ){
                 if(scene.player1.state.isRun){
                     if(scene.player1.x < 470){
                         if(scene.player1.state.haveBall){
@@ -75,7 +75,7 @@ export default function Player1_Control(scene,input){
                     ? scene.player1.anims.play(`${scene.player1.name}-run`,true) 
                     : scene.player1.anims.play(`${scene.player1.name}-walk`,true);
             }
-            if (input.down && scene.player1.state.onFloor){
+            if ( input.down  && scene.player1.state.onFloor){
                 if(scene.player1.y < 452 && scene.player1.y > 265){
                     if(scene.player1.state.haveBall){
                         scene.ball.setVelocityY(100);

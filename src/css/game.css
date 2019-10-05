@@ -1,8 +1,23 @@
 #game{
     position: absolute;
-    top:10%;
+    margin:0 auto;
+    top: calc(50% - 300px);
     left: calc(50% - 400px);
     z-index: 100;
+    max-width:800px;
+    max-height:600px;
+}
+
+@media screen and (max-width: 900px){
+    #game{
+        padding-top: 100px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    #game{
+        padding-top: 0px;
+    }
 }
 .keys{
     width:80%;
@@ -18,24 +33,31 @@
     justify-content: start;
     width: 100%;
     height: calc(100%);
-
-    background-color: rgba(77, 75, 75, 0.74);
+    z-index: 10;
+    /* background-color: rgba(77, 75, 75, 0.74); */
     text-shadow: rgb(0, 0, 0) 5px 5px 1px;
 }
 .keys .container{
     width:100%;
     display:flex;
     align-items: center;
+    justify-content: flex-end;
     position: absolute;
-    top:650px;
+    /* top: calc(50% + 300px); */
+    bottom:0;
+    right:0;
+    height:100px;
+    z-index: 10;
+    
 }
 
 .keys .key-item {
     display: flex;
     align-items: center;
     padding-right: 20px;
-    margin: 0px auto;
-    margin-top: 40px;
+    margin-left: 30px;
+    margin-right: 20px;
+    /* margin: 0px auto; */
 }
 
 .keys .key-item .key{
@@ -51,7 +73,7 @@
 .keys .key-item .text{
     max-width:250px;
     
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Press Start 2P', cursive;
 }
 #key-direction{
@@ -61,6 +83,10 @@
     width:120px;
     height:80px;  
 }
+#direction img{
+    padding-top: 15px;
+    transform: scale(0.9);  
+}
 #direction-text{
     padding-top: 40px;
 }
@@ -68,16 +94,44 @@
 .description{
     position: absolute;
     font-size: 1.1em;
-    top:20px;
+    top: calc(50% - 360px);
     left: calc(50% - 408px);
     letter-spacing: 4px;
     font-family: 'Noto Sans TC', sans-serif;
     font-style: italic;
-    color: #cac9c9;
-    text-shadow: rgb(0, 0, 0) 3px 3px 1px;
+    color: #ffffff;
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;
 }
 .description .p1{
     font-size: 1.3em;
     margin-right: 20px;
-    color: white;
+    font-weight: 500px;
+    color: rgb(255, 0, 0);
+    text-shadow: rgb(15, 15, 15) 2px 2px 1px;
+}
+.back{
+    width:10%;
+    height:60px;
+    position: absolute;
+    bottom:0;
+    left:0;
+    /* background: linear-gradient(to right, rgb(255, 255, 255) ,  rgba(0, 0, 0, 0.418) 90%); */
+    color:rgb(255, 255, 255);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    text-shadow: none;
+    padding-left: 10px;
+    /* line-height: 60px; */
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 100;
+}
+.back img{
+    width:30px;
+    margin-right: 10px;
+}
+.back span{
+    padding-top: 2px;
 }

@@ -27,16 +27,21 @@ class Demo extends React.Component {
     //   https://youtu.be/Gs7M6LuePgU
     
   componentDidMount() {
-    this.updateDimensions();
+    this._isMounted = true;
+
+    if (this._isMounted) {
+      this.updateDimensions();
+    }
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
+    
     window.removeEventListener("resize", this.updateDimensions.bind(this));
   }
 
   render() {
-    console.log(this.state)
     const opts = {
       fitToBackground: true,
       height: `${this.state.height}`,

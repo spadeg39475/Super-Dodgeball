@@ -1,6 +1,8 @@
 import React, { useState, useEffect , useContext} from "react";
 import { GameContext } from '../contexts/context'
+import { Link } from "react-router-dom";
 import Footer from './Footer';
+import Backdrop from "./Backdrop";
 
 import 'phaser';
 import TitleScene from '../scenes/TitleScene';
@@ -25,6 +27,11 @@ const Game = () => {
             width: 800,
             height: 600,
             parent: 'game',
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+            autoRound: false,
             physics: {
                 default: 'arcade',
                 arcade: {
@@ -54,6 +61,7 @@ const Game = () => {
 
     return (
         <React.Fragment>
+            <Backdrop />
             <div className='main'>
                 <div id='game'></div>
                 <div className='keys'>
@@ -82,6 +90,7 @@ const Game = () => {
                             <div className='key'>
                                 <img src={KeyZ}></img>
                             </div>
+                            <div className='text'>+</div>
                             <div className='key'>
                                 <img src={KeyX}></img>
                             </div>
@@ -92,12 +101,16 @@ const Game = () => {
                     <div className='description'>
                         <span className='p1'>This version can only play on Web!</span> 
                         <span className='p2'>Developed by Josh Yang.</span>
-                     </div>
+                    </div>
+                    
 
+                    
+                    <Link to='/' className='back'>
+                        <img src='./materials/img/left-arrow.svg'></img>
+                        <span>Back</span>
+                    </Link>
                 </div>
             </div>
-            
-            <Footer />    
             
         </React.Fragment>
     )

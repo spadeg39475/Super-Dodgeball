@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Demo from './youtube';
 import Footer from './Footer';
 import '../css/home.css';
+import Board from "./Board";
+import Backdrop from "./Backdrop";
 
 
 
@@ -17,25 +19,34 @@ const Home = () => {
         state.game.destroy(true,false)
         setGame(null);
     } 
+
+    const [show, setShow] = useState('story');
     
+    const changeBoard = (e)=>{
+        setShow(`${e.target.className}`);
+    }
     
     return (
         <React.Fragment>
-            
+            <Backdrop/>
             <div className='main' id='main'>
-                {/* <div className="kunio"></div> */}
                 <div className='title'>
-                    <p className='p1'>Super Dodge Ball</p>
-                    <p className='p2'>熱血高校</p>
+                    <p className='p1'>熱血高校</p>
+                    <p className='p2'>Super Dodge Ball</p>
                     
-                    <Link to='/game' id='nav-game' className='start'>PLAY</Link>
-                    <a href='#story' id='down'>
-                        <img className='down-arrow'src='./materials/img/down-arrow.svg'></img>
-                    </a>
+                    <div className='menu'>
+                        {/* <img src='./materials/img/avg1.png'></img> */}
+                        <Link to='/game' className='play'>Play</Link>
+                        <div className='story' onClick={changeBoard}>Story</div>
+                        <div className='video' onClick={changeBoard}>Video</div>
+                        <div className='about' onClick={changeBoard}>About</div>
+                    </div>
+                   <Board type={show}/>
+                        
                 </div>
                 
             </div>
-            <div className='background'></div>
+            {/* <div className='background'></div>
             <div className='about-background'></div>
             <div className='about-background2'></div>
             <div className='story' id='story'>
@@ -62,7 +73,7 @@ const Home = () => {
             </div>
             <div className='gameSetting' id='gameSetting'>
                 <div className='container'>
-                    {/* <div className='title'>遊戲簡介</div> */}
+                    
                     <div className='block bl1'>
                         <div className='picture'></div>
                         <div className='content'>
@@ -79,11 +90,7 @@ const Home = () => {
                             <div className='subtitle'>用全力擊倒對手</div>  
                             <div className='subtitle'>丟出強力的魔球</div>    
                         </div>
-                        <div className='picture'>
-                            {/* <div className="kunio"></div>
-                            <div className="ball"></div>
-                            <div className="mochizuki"></div> */}
-                        </div>
+                        <div className='picture'></div>
                     </div>
                     
                 </div>
@@ -100,7 +107,7 @@ const Home = () => {
                     <img className='down-arrow'src='./materials/img/down-arrow.svg'></img>
                 </a>
             </div>
-            <Footer /> 
+            <Footer />  */}
             
         </React.Fragment>
        

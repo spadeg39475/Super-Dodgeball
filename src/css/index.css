@@ -33,5 +33,8 @@ body{
     color:#3f3a3a;
 }
 
-
+#root{
+    min-height:100%;
+    width:100%;
+}
 
