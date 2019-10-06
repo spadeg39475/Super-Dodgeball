@@ -10,6 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* padding-left: 150px; */
+    /* padding-right: 300px; */
     /* margin-right: 100px; */
     /* box-shadow: 0 0 5px 10px #314250; */  
 }
@@ -73,7 +75,7 @@
     position: absolute;
     
     bottom: 50px;
-    right:0;
+    right:0px;
     width: 64px;
     height:64px;
     

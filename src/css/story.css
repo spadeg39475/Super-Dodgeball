@@ -1,19 +1,22 @@
 .board .story{
-    width:90%;
+    width:100%;
     height:90%;    
     display: flex;
     margin-top: -20px;
     align-items: center;
-    justify-content: center;
-    transition: 0.3
+    justify-content: space-evenly;
+    transition: 0.3;
+    flex-wrap: wrap;
 }
 
 .board .story .block{
     width:50%;
+    min-width: 520px;
     height:80%;
     color: rgb(255, 255, 255);
-    text-shadow: black 3px 3px 10px;
+    text-shadow: rgb(0, 0, 0) 3px 3px 1px;
     font-family: jackeyfont;
+    padding-left: 3%;
     
 }
 .board .story .block>.subtitle{
@@ -23,6 +26,8 @@
     font-weight: bold;
     margin-bottom: 20px;
     padding-bottom: 20px;
+    
+    
 }
 
 .board .story .text{
@@ -88,9 +93,9 @@
 }
 
 .board .story .img{
-    height:50%;
-    margin-left: 20px;
-    margin-top: -20px;
+    height:60%;
+    
+    margin-top: -100px;
     opacity: 0;
     animation: showPicture 1s;
     animation-delay: 6s ;
@@ -111,3 +116,16 @@
 }
 
 
+@media screen and (max-width: 1400px){
+    .board .story .block{
+        width:90%;
+        text-align: center;
+    }
+    .board .story .block .text{
+        align-items: center;
+    }
+    .board .story .img{
+        height:200px;
+        margin-top: -150px;
+    }
+}

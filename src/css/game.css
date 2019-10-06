@@ -34,7 +34,7 @@
     width: 100%;
     height: calc(100%);
     z-index: 10;
-    /* background-color: rgba(77, 75, 75, 0.74); */
+    background-color: rgba(0, 0, 0, 0.8);
     text-shadow: rgb(0, 0, 0) 5px 5px 1px;
 }
 .keys .container{
@@ -127,6 +127,9 @@
     align-items: center;
     cursor: pointer;
     z-index: 100;
+}
+.back:hover{
+    opacity: 0.5;
 }
 .back img{
     width:30px;

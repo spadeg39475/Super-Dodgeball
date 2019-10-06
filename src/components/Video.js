@@ -13,7 +13,7 @@ const Video = () => {
     }
     return (
         <div className='video' id='video'>
-            <Demo />
+            <Demo videoId='chcHJm7G4p8'/>
                 
             <div className="kunio"></div>
         </div>

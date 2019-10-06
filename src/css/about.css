@@ -8,39 +8,6 @@
     
 }
 
-.about-body .intro {
-    width:100%;
-    padding: 5px;
-    font-family: 'Noto Sans TC', sans-serif;
-    color: #f3f3f3;
-    /* background-color: rgb(44, 44, 43); */
-    
-    /* height:600px; */
-    letter-spacing: 2px;
-    text-align: center;
-} 
-.intro > .container{
-    width:90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    flex-wrap: wrap;
-}
-
-.intro .title{
-    width:100%;
-    font-size: 2em;
-    font-weight: bold;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #f3f3f3;
-    margin-bottom: 20px;
-}
-.intro .content{
-    width:80%;
-    text-align: left;
-}
-
 .author {
     width:100%;
     margin: 0 auto;
@@ -89,56 +56,3 @@
     font-family: 'Press Start 2P', cursive;
 }
 
-@media screen and (max-width: 900px){
-    .intro .container{
-        width: 90%;
-    }
-    .intro .content{
-        width:80%;
-    }
-    .author .container{
-        width: 90%;
-    }
-    .author .content{
-        width:80%;
-    }
-    .main .about-title .p1{
-        display:none;
-        /* font-size: 4em; */
-        
-    }
-    .main .about-title .p2{
-        
-        display: block;
-    }
-}
-
-@media screen and (max-width: 600px){
-    .main > .about-title{
-        padding-top: 50px;
-        height:300px;
-    }
-    .main .about-title .p2{
-        font-size: 3em;
-        position: absolute;
-        top:100px;
-    }
-    .about-body{
-        top:300px;
-    }
-
-    .intro .container{
-        width: 90%;
-    }
-    .intro .content{
-        width:100%;
-        line-height: 1.5;
-    }
-    .author .container{
-        width: 90%;
-    }
-    .author .content{
-        width:100%;
-        line-height: 1.5;
-    }    
-}

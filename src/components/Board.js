@@ -8,8 +8,13 @@ import Story from './Story';
 import Video from './Video';
 
 const Board = (props) => {
-    const [show, setShow] = useState('about');
-    console.log(props)
+    
+    useEffect(()=>{
+        if(window.innerWidth < 800) {
+            props.setShowClose(true);
+        }
+    },[props.showClose])
+
     const showBlog = ()=>{
         switch(props.type){
             case 'video':
@@ -23,11 +28,14 @@ const Board = (props) => {
                 break;
         }
     }
+    const close = ()=>{
+        props.setShowBoard(false);
+    }
     
     return (
-        <div className='board'>
-            
-            {showBlog()}                    
+        <div className='board' style={{display: props.showBoard ? 'block' : 'none'}}>
+            {showBlog()}   
+            <div className='close' onClick={close} style={{display: props.showClose ? 'block' : 'none'}}>X</div>                 
         </div>
     )
 }

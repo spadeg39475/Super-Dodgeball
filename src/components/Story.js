@@ -29,7 +29,7 @@ const Story = () => {
             </div>
             
             <div className="img">
-                <img src='./materials/img/story-pic.png'></img>
+                <img src='./materials/img/story-pic.PNG'></img>
             </div>
         </div>
     )
