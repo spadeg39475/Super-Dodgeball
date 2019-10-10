@@ -5,14 +5,16 @@ import YouTube from 'react-youtube';
 class Demo extends React.Component {
     
   state ={
-    width:640,
-    height:480
+    width:0,
+    height:0
   }
   
   updateDimensions() {
     if(window.innerWidth < 650) {
       this.setState({ width: 320, height: 240 });
-    } else {
+    }else if(window.innerWidth < 1000){
+      this.setState({ width: 480, height: 360 });  
+    }else {
       this.setState({ width: 640, height: 480 });
     }
   }

@@ -2,6 +2,7 @@
     width:95%;
     margin: 0 auto;
     padding: 20px;
+    height:480px;
     font-family: 'Noto Sans TC', sans-serif;
     color: #f3f3f3;
     /* background-color: #314250; */
@@ -10,10 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding-left: 150px; */
-    /* padding-right: 300px; */
-    /* margin-right: 100px; */
-    /* box-shadow: 0 0 5px 10px #314250; */  
+    
 }
 
 
@@ -58,7 +56,7 @@
     text-align: center;
     position: relative;
     color: white;
-    /* text-shadow: rgb(3, 3, 3) 3px 3px 1px; */
+    
 }
 .board .video  >.block >.content>.subtitle>div{
     display: inline-block;
@@ -73,12 +71,30 @@
 
 .board .video .kunio{
     position: absolute;
-    
     bottom: 50px;
     right:0px;
     width: 64px;
     height:64px;
-    
     transform: scale(4);
-    background: url("../../materials/img/character/Kunio/watch.gif")
+    background: url("../../materials/img/character/Kunio/watch.gif");
+}
+
+@media screen and (max-width: 1500px){
+    .board .video .kunio{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px){
+    .board .video{
+        margin-top: 20px;
+        height: 360px;
+    }
+
+    .board .video .kunio{
+        display: block;
+        transform: scale(2.5);
+        bottom: -100px;
+        display: block;
+    }
 }

@@ -26,8 +26,6 @@
     font-weight: bold;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    
-    
 }
 
 .board .story .text{
@@ -127,5 +125,18 @@
     .board .story .img{
         height:200px;
         margin-top: -150px;
+    }
+}
+@media screen and (max-width: 600px){
+    .board .story{
+        margin-top: 0;
+    }
+    .board .story .block>.subtitle{
+        font-size: 2em;
+    }
+
+    .board .story .text{
+        font-size: 1em;
+        letter-spacing: normal;
     }
 }

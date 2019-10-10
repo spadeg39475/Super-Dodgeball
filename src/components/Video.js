@@ -7,15 +7,16 @@ import '../css/video.css'
 const Video = () => {
 
     const {state, setGame} = useContext(GameContext);
+    
     if(state.game){
         state.game.destroy(true,false)
         setGame(null);
     }
     return (
         <div className='video' id='video'>
-            <Demo videoId='chcHJm7G4p8'/>
+            <Demo videoId='chcHJm7G4p8' />
                 
-            <div className="kunio"></div>
+            <div className="kunio" ></div>
         </div>
     )
 }
