@@ -23,4 +23,3 @@ The background story of this game.
 ![gamestart](https://github.com/spadeg39475/Super-Dodgeball/blob/master/screenshot/GameStart.png)
 
 
-![gamescene](https://github.com/spadeg39475/Super-Dodgeball/blob/master/screenshot/GameScene.png)
