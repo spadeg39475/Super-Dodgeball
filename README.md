@@ -1,25 +1,45 @@
 # Super Dodge Ball
-Web Link: https://super-dodge-ball.web.app
 
 ## Intro
-A website of a nostalgic game from the '90s.
+A nostalgic game from the '90s, invoking childhood memories.
 
+Go play: https://super-dodge-ball.web.app
+
+ 
 ## Technologies
-* Phaser.js
-* React
-* Router
-* Webpack
-* Babel
-* Unit test: Jest
+- React / Hooks / Context
+- Router
+- Phaser.js
+- Webpack
+- Babel
+- SPA
+- Unit test: Jest
 
-## Explore
-### Story
-The background story of this game.
 
-![story](https://github.com/spadeg39475/Super-Dodgeball/blob/master/screenshot/story.png) 
 
-### Ready to start a dodge ball game!!
+##  Game
+- The background story 
+<p align="center">
+ <img src="https://i.imgur.com/poPvOSY.png" width="800">
+</p>
 
-![gamestart](https://github.com/spadeg39475/Super-Dodgeball/blob/master/screenshot/GameStart.png)
+- Throw ball to knock down the enemy !
+ 
+<p align="center">
+ <img src="https://media.giphy.com/media/XbCi0uxGdoSYOIwx5S/giphy.gif" width="400">
+</p>
+
+- You might alse be hit !
+
+<p align="center">
+ <img src="https://media.giphy.com/media/KZAgqdEP2KjVJhNGfm/giphy.gif" width="400">
+</p>
+
+- Ready to play ! 
+
+<p align="center">
+ <img src="https://i.imgur.com/cjn64R0.png" width="400">
+</p>
+
 
 
