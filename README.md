@@ -23,7 +23,7 @@ Go play: https://super-dodge-ball.web.app
  <img src="https://i.imgur.com/poPvOSY.png" width="800">
 </p>
 
-- Throw ball to knock down the enemy !
+- Throw ball to knock down opponents !
  
 <p align="center">
  <img src="https://media.giphy.com/media/XbCi0uxGdoSYOIwx5S/giphy.gif" width="400">

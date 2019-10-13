@@ -25,10 +25,6 @@ const GameContextProvider = (props) => {
     }
     
     const [state, setState ] = useState(initState)
-    
-    
-
-    
      
     return (
         <GameContext.Provider value={{state, setGame:state.setGame, setBallPos:state.setBallPos}}>
