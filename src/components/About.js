@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext} from "react";
 import { GameContext } from '../contexts/context'
-import Footer from './Footer';
+
 
 import '../css/about.css'
 
@@ -24,9 +24,6 @@ const About = () => {
                         
                 </div> 
             </div>
-            
-            
-       
     )
 }
 
