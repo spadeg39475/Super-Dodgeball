@@ -25,19 +25,19 @@ Go play: https://super-dodge-ball.web.app
 
 - Throw magic ball to knock down opponents !
  
-<p align="center">
+<p >
  <img src="https://media.giphy.com/media/S8wobnp0GDWJqc6jh7/giphy.gif" width="400">
 </p>
 
 - You might alse be hit !
 
-<p align="center">
+<p >
  <img src="https://media.giphy.com/media/KZAgqdEP2KjVJhNGfm/giphy.gif" width="400">
 </p>
 
 - Ready to play ! 
 
-<p align="center">
+<p >
  <img src="https://i.imgur.com/cjn64R0.png" width="400">
 </p>
 
