@@ -354,7 +354,7 @@ export default function Enemy_Control(scene,time,delta){
         && scene.ball.state.isJumpThrow ){
         if(scene.state.dy>=0){
             scene.state.dy--
-            console.log(scene.state.dx)
+            
         }
         if((scene.state.dy<0)
             || scene.state.dx<0){

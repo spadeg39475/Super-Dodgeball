@@ -1,7 +1,7 @@
 import React, { useState, useEffect , useContext} from "react";
 import { GameContext } from '../contexts/context'
 import { Link } from "react-router-dom";
-import Footer from './Footer';
+
 import Backdrop from "./Backdrop";
 
 import 'phaser';

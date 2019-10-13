@@ -2,9 +2,8 @@ import React, { useState,useEffect } from "react";
 
 import { BrowserRouter , Route } from 'react-router-dom';
 import Home from './Home'
-import About from './About'
 import Game from './Game'
-import Main from './Board'
+
 
 
 

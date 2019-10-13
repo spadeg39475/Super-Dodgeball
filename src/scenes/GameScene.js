@@ -79,9 +79,7 @@ class GameScene extends Phaser.Scene{
             {name: 'pick', start: 41.43, duration: 1.18, config: {volume: 0.5} }
         ]
 
-        //joystick
-        // var url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/plugins/dist/rexvirtualjoystickplugin.min.js';
-        // this.load.plugin('rexvirtualjoystickplugin', url, true);
+       
 
 
         this.load.on('complete', () => {
@@ -146,7 +144,7 @@ class GameScene extends Phaser.Scene{
             this.enemyPos.push(court.findObject('object', obj => obj.name === `enemy${i}`))
         }
        
-        // this.player = this.physics.add.sprite(point1.x, point1.y, 'player1')
+        
 
         //group team
         this.teamA = this.physics.add.group();
@@ -244,18 +242,7 @@ class GameScene extends Phaser.Scene{
         addBackgroundCollide(this.teamA);
         addBackgroundCollide(this.teamB);
 
-        // this.teamA.getChildren().forEach(el=>{
-        //     this.physics.add.collider(el,block);
-        //     this.physics.add.collider(el, background);
-        //     this.physics.add.overlap(el, this.ball);
-        // })
-        // this.teamB.getChildren().forEach(el=>{
-        //     this.physics.add.collider(el,block);
-        //     this.physics.add.collider(el, background);
-        //     this.physics.add.overlap(el, this.ball);
-        // })
-
-        // this.both = this.physics.add.group();
+      
         
 
         //init camera
@@ -266,7 +253,7 @@ class GameScene extends Phaser.Scene{
         
         //worldbounds collide
         this.physics.world.on('worldbounds', ()=>{
-            console.log('123123')
+            
             this.ball.setDamping(true);
             this.ball.setAccelerationY(0);
             this.ball.state.ballFrom = '';
@@ -381,11 +368,7 @@ class GameScene extends Phaser.Scene{
 
         
        
-        // this.input.keyboard.on('keydown-' + 'X', ()=>{ 
-        //         console.log('resume')
-        //         this.scene.resume('GameScene');
-        //     } ,this);
-        // this.input.keyboard.on('keydown-' + 'Z', ()=>{this.scene.pause('GameScene')},this );
+        
         
       
         
@@ -452,7 +435,7 @@ class GameScene extends Phaser.Scene{
        
 
 
-        console.log(this)
+       
         
 
         this.checkRun = () => {
@@ -472,38 +455,15 @@ class GameScene extends Phaser.Scene{
         
     
     
-        // this.player1.anims.play('player1-pass');
+        
         
         this.timedEvent1 = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
-        // this.timedEvent1 = this.time.addEvent({delay: 1000, callback: ()=>{this.count=0}, callbackScope:this, loop: true});
-        // this.timedEvent2 = this.time.addEvent({delay: 3000, callback: ()=>{
-        //     if(this.state.turn !== 'over' ){
-        //         this.state.current.state.isActive = true;
-        //         // this.state.enemy.state.canThrow = true;
-        //     }
-        // }, callbackScope:this, loop: true});
+       
         
         this.depthInit();
 
 
 
-        //joystick
-        // if(window.innerWidth<600){
-        //     this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
-        //         x: 60,
-        //         y: 550,
-        //         radius: 50,
-        //         base: this.add.circle(0, 0, 50, 0x888888),
-        //         thumb: this.add.circle(0, 0, 25, 0xcccccc),
-        //         dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
-        //         forceMin: 16,
-        //         enable: true
-        //     })
-        //     .on('update', this.dumpJoyStickState, this);
-    
-        //     this.text = this.add.text(0, 0);
-        //     this.dumpJoyStickState();
-        // }
 
        
         
@@ -610,18 +570,13 @@ class GameScene extends Phaser.Scene{
         
 
         //for testing
-        if(input.x ){
+        // if(input.x ){
            
             
-        }
-        if(input.enter){
-            console.log('state:', this.state)
-            console.log('ballstate:', this.ball.state)
-            console.log('enemy',this.state.enemy)
-            console.log('player',this.state.current)
-            
-            
-        }
+        // }
+        // if(input.enter){
+
+        // }
 
     }
 
@@ -764,10 +719,7 @@ class GameScene extends Phaser.Scene{
                 duration: 0,
                 repeat: 0
             })
-            // this.ball.setDamping(true);
-            // this.ball.body.setDrag(0.9,0.5);
             
-            // this.ball.state.isJumpThrow = false;
         }
         
     }
@@ -938,15 +890,7 @@ class GameScene extends Phaser.Scene{
                     })
 
                     this.resetBall();
-                    // this.ball.anims.play('normal-ball');
-                    // this.ball.state.isThrow = false;
-                    // this.ball.body.stop();
-                    // this[`hit_${this.state.current.name}`].active = false;
-                    // this.ball.state.ballFrom = '';
-                    // this.ball.setDamping(true);
-                    // this.ball.body.setDrag(0.9,0.5);
-                    // this.ball.state.isJumpThrow = false;
-                    // this.ball.setCollideWorldBounds(false);
+                    
                 }
 
             //從左邊來的球
@@ -964,17 +908,10 @@ class GameScene extends Phaser.Scene{
                         duration: 0,
                         repeat: 0
                     })
-                    // this.ball.anims.play('normal-ball');
-                    // this.ball.state.isThrow = false;
-                    // this.ball.body.stop();
+                    
                     this.resetBall();
                     this.state.turn = 'enemy';
-                    // this.ball.state.ballFrom ='';
-                    // this[`hit_${this.state.enemy.name}`].active = false;
-                    // this.ball.setDamping(true);
-                    // this.ball.body.setDrag(0.9,0.5);
-                    // this.ball.state.isJumpThrow = false;
-                    // this.ball.setCollideWorldBounds(false);
+                   
                 }
             }
             
@@ -1006,16 +943,7 @@ class GameScene extends Phaser.Scene{
                     })
 
                     this.resetBall();
-                    // this.state.enemy.state.haveBall = true;
-                    
-                    // this.state.turn = 'enemy';
-                    
-                    // this[`hit_${this.state.enemy.name}`].active = false;
-                    // this.ball.state.isThrow = false;
-                    // this.ball.setDamping(true);
-                    // this.ball.body.setDrag(0.9,0.5);
-                    // this.ball.state.isJumpThrow=false;
-                    // this.ball.setCollideWorldBounds(false);
+                   
                     
                 }
 
@@ -1039,18 +967,7 @@ class GameScene extends Phaser.Scene{
                     this.resetBall();
                     this.state.turn = 'enemy';
 
-                    // this.state.enemy.state.haveBall = true;
-                    // this.ball.anims.play('normal-ball');
-                    // this.ball.body.stop();
-                    
-                    // this.ball.state.ballFrom ='';
-                    // this[`hit_${this.state.current.name}`].active = false;
-                    // this.ball.state.isThrow = false;
-                    // this.ball.setDamping(true);
-                    // this.ball.body.setDrag(0.9,0.5);
-                    // this.ball.setFriction(1,100);
-                    // this.ball.state.isJumpThrow=false;
-                    // this.ball.setCollideWorldBounds(false);
+                   
                 }
             }
             
@@ -1143,9 +1060,7 @@ class GameScene extends Phaser.Scene{
                  else if (this.state.current.y > 410 && this.state.current!==this.player6){passObj = this.player6}
                  else{ passObj = this.checkNearObj(this.teamA, 3)}
             }
-            // this.ball.body.stop();
-            // this.ball.setFriction(0);
-            // this.ball.setDamping(false);
+           
             let offsetX, offsetY;
             if(passObj===this.player1){
                 if(passObj.flipX){
@@ -1583,23 +1498,7 @@ class GameScene extends Phaser.Scene{
                     }
                     
                 }
-                // this.tween = this.tweens.add({
-                //     targets: this.ball,
-                //     // x: { value: this.ball.x - 60, duration:1000, ease:'Linear'},
-                //     y: { value: this.ball.y + 20, duration:1000, ease: 'Bounce.easeOut'},
-                //     duration: 2000,
-                //     ease: 'Bounce.Out',
-                //     delay: 500,
-                //     onStart: ()=>{
-                //         this.ball.state.ballFrom = '';
-                //         this.state.turn='';
-                //     },
-                //     onComplete: ()=>{
-                //         this.ball.setDamping(true);
-                //         this.ball.setAccelerationY(0);
-                //         this.ball.state.isJumpThrow=false;
-                //     }
-                // });
+                
                 
                 this.ball.anims.play('normal-ball')
                 // this[`hit_${e.name}`].active = false;
