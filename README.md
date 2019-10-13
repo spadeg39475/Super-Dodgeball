@@ -19,7 +19,7 @@ Go play: https://super-dodge-ball.web.app
 
 ##  Game
 - The background story 
-<p align="center">
+<p>
  <img src="https://i.imgur.com/poPvOSY.png" width="800">
 </p>
 
