@@ -16,13 +16,12 @@ const Board = (props) => {
         switch(props.type){
             case 'video':
                 return <Video />
-                break;
+                
             case 'story':
                 return <Story />
-                break;
+                
             case 'about':
-                return <About/>
-                break;
+                return <About />
         }
     }
     const close = ()=>{

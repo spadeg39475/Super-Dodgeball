@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 
 
 export const GameContext = createContext({
@@ -7,6 +7,7 @@ export const GameContext = createContext({
     ballPos: {},
     setBallPos: ()=>{}
 });
+
 
 const GameContextProvider = (props) => {
     

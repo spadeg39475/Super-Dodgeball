@@ -8,6 +8,7 @@ import Player5_Control from './Player5_Control';
 import Player6_Control from './Player6_Control';
 import Enemy_Control from './Enemy_Control';
 // import GameOver from './GameOver';
+import Phaser from 'phaser';
 
 class GameScene extends Phaser.Scene{
 
@@ -37,10 +38,8 @@ class GameScene extends Phaser.Scene{
 
         this.load.image('tiles', './materials/img/court4.png')
         this.load.tilemapTiledJSON('court', './materials/img/court3.json');
-        // this.load.audio('matchStart',[
-        //     './materials/audio/06 - Match Start.ogg',
-        //     './materials/audio/06 - Match Start.mp3'
-        // ]);
+       
+
         this.load.audio('gamePlay', [
             './materials/audio/Track9.ogg',
             './materials/audio/Track9.mp3'
@@ -452,21 +451,10 @@ class GameScene extends Phaser.Scene{
         }
         
         
-        
-    
-    
-        
-        
         this.timedEvent1 = this.time.addEvent({delay: 1000, callback: this.changeCurrent, callbackScope:this, loop: true});
        
         
         this.depthInit();
-
-
-
-
-       
-        
 
     }
 
@@ -608,7 +596,7 @@ class GameScene extends Phaser.Scene{
         this.state.enemy.setDepth(1);
         this.ball.setDepth(100);
     }
-
+    
 
     changeCurrent(){
         if(this.state.turn!=='over' && this.teamA.getChildren().length>3  ){

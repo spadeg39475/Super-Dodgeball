@@ -5,13 +5,7 @@ import { GameContext } from '../contexts/context'
 import '../css/about.css'
 
 const About = () => {
-
-    const {state, setGame} = useContext(GameContext);
-    if(state.game){
-        state.game.destroy(true,false)
-        setGame(null);
-    } 
-
+    
     return (
             <div className='about-body'>
                 <div className='author'>

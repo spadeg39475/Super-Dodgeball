@@ -19,13 +19,9 @@ const Nav = (props) => {
         destroyGame();
     }
     
-    
-
-
     return (
         <header>
             <nav id='nav'>
-                
                 <div><Link to='/'  id='nav-home'>HOME</Link></div>
                 <div><Link to='/about'  id='nav-about'>ABOUT</Link></div>
                 <div><Link to='/game'  id='nav-game'>GAME</Link></div>

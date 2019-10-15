@@ -14,7 +14,7 @@ const Video = () => {
     }
     return (
         <div className='video' id='video'>
-            <Demo videoId='chcHJm7G4p8' />
+            <Demo videoId='s826q9gkBSA' />
                 
             <div className="kunio" ></div>
         </div>

@@ -44,8 +44,7 @@ phaser3-project-template/
 !dist/materials/
 
 
-app.test.js
-styleMock.js
+public/
 index2.js
 index.html
 
