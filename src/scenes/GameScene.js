@@ -10,6 +10,7 @@ import Enemy_Control from './Enemy_Control';
 // import GameOver from './GameOver';
 import Phaser from 'phaser';
 
+
 class GameScene extends Phaser.Scene{
 
     constructor(test){
@@ -519,7 +520,7 @@ class GameScene extends Phaser.Scene{
                 }else{
                     this.state.current.flipX ? this.state.current.setOffset(22,23)  : this.state.current.setOffset(24,23) ;
                 }
-                this.state.current.setDepth(1);
+                
             }
            
             Enemy_Control(this,time,delta);
@@ -592,11 +593,16 @@ class GameScene extends Phaser.Scene{
         this.player6.setDepth(10);
         this.enemy6.setDepth(10);
         
-        this.state.current.setDepth(1);
-        this.state.enemy.setDepth(1);
         this.ball.setDepth(100);
     }
-    
+    depthUpdate(){
+       this.player1.setDepth(0);
+       this.player2.setDepth(0);
+       this.player3.setDepth(0);
+       
+
+        
+    }
 
     changeCurrent(){
         if(this.state.turn!=='over' && this.teamA.getChildren().length>3  ){
@@ -1067,7 +1073,7 @@ class GameScene extends Phaser.Scene{
                     offsetY = 16 ;
                 }
             }
-            // this.state.current.anims.play(`${this.state.current.name}-pass`);   
+            
             this.passTween = this.tweens.timeline();
             this.passTween.add({
                 targets: this.ball,
@@ -1249,10 +1255,6 @@ class GameScene extends Phaser.Scene{
     }
 
 
-    dodge(){
-        this.state.current.anims.play(`${this.state.current.name}-dodge`)
-    }
-
     createCollideToTeamA(obj,cName){
         this[cName] = this.physics.add.overlap(obj, this.ball, null,(e)=>{
             if(this.ball.state.ballFrom=== 'enemy' ){
@@ -1372,9 +1374,7 @@ class GameScene extends Phaser.Scene{
                 }
                 
                 this.ball.anims.play('normal-ball');
-                
             }
-           
         });
     }
 
@@ -1489,8 +1489,6 @@ class GameScene extends Phaser.Scene{
                 
                 
                 this.ball.anims.play('normal-ball')
-                // this[`hit_${e.name}`].active = false;
-                 
             }
         });
     }
