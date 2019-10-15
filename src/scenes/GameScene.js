@@ -513,6 +513,8 @@ class GameScene extends Phaser.Scene{
             this.updateText();
             this.checkRun();
             this.checkFace();
+            this.depthUpdate();
+            this.enemyDepthUpdate();
 
             if(this.state.current.state.alive){
                 if(this.state.current===this.player1){
@@ -595,13 +597,32 @@ class GameScene extends Phaser.Scene{
         
         this.ball.setDepth(100);
     }
-    depthUpdate(){
-       this.player1.setDepth(0);
-       this.player2.setDepth(0);
-       this.player3.setDepth(0);
-       
+    depthUpdate(){       
+        let a=0, b=0, c=0;
+        if(this.player1.y > this.player2.y){a++};
+        if(this.player1.y > this.player3.y){a++};
+        if(this.player2.y > this.player1.y){b++};
+        if(this.player2.y > this.player3.y){b++};
+        if(this.player3.y > this.player1.y){c++};
+        if(this.player3.y > this.player2.y){c++};
 
-        
+        if(this.player1.state.alive){this.player1.setDepth(a);}
+        if(this.player2.state.alive){this.player2.setDepth(b);}
+        if(this.player3.state.alive){this.player3.setDepth(c);}
+    }
+
+    enemyDepthUpdate(){
+        let a=0, b=0, c=0;
+        if(this.enemy1.y > this.enemy2.y){a++};
+        if(this.enemy1.y > this.enemy3.y){a++};
+        if(this.enemy2.y > this.enemy1.y){b++};
+        if(this.enemy2.y > this.enemy3.y){b++};
+        if(this.enemy3.y > this.enemy1.y){c++};
+        if(this.enemy3.y > this.enemy2.y){c++};
+
+        if(this.enemy1.state.alive){this.enemy1.setDepth(a);}
+        if(this.enemy2.state.alive){this.enemy2.setDepth(b);}
+        if(this.enemy3.state.alive){this.enemy3.setDepth(c);}
     }
 
     changeCurrent(){

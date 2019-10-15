@@ -47,7 +47,7 @@ class TitleScene extends Phaser.Scene {
             this.scene.sleep();
             music.stop();
         });
-        console.log(this)
+        
         
 
         var pointer = this.input.activePointer;
