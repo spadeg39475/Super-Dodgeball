@@ -54,7 +54,11 @@ const Game = () => {
         if(state.game===null){
             setGame(new Phaser.Game(config));
         }
-        
+
+        gtag('config', 'UA-149007121-1', {
+            'page_title': 'play',
+            'page_path': '/game'
+        });
     })
   
    

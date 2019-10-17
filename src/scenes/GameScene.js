@@ -558,17 +558,7 @@ class GameScene extends Phaser.Scene{
             }
         }
         
-        
-
-        //for testing
-        // if(input.x ){
-           
-            
-        // }
-        // if(input.enter){
-
-        // }
-
+      
     }
 
     playerInit(player, team, flipX){

@@ -15,10 +15,6 @@ class TitleScene extends Phaser.Scene {
             './materials/audio/Track 1.mp3'
         ]);
 
-       
-
-        // this.load.spritesheet('ball', './materials/img/ball.png', {frameWidth: 50, frameHeight: 50});
-        // this.load.spritesheet('kunio', './materials/img/character/Kunio/kunio.png', {frameWidth:64, frameHeight: 64});
     }
     create() {
         
